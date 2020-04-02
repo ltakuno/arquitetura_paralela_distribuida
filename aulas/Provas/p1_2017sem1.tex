@@ -1,0 +1,255 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Time-stamp: <Monday 25 Sep 2006 09:59:41am BRT yoshi@erdos.ime.usp.br>   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,reqno]{amsart}
+
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc}
+%----------------------------
+
+%\usepackage{refcheck}
+\usepackage{srcltx}
+\usepackage{fullpage}
+%\usepackage{doublespace}
+\usepackage{setspace}
+
+\let\:=\colon
+\let\epsilon=\varepsilon
+\def\e{{\rm e}}
+\def\dist{\mathop{\rm dist}\nolimits}
+\def\supp{\mathop{\rm supp}\nolimits}
+\def\ex{\mathop{\rm ex}\nolimits}
+\def\bsigma{\bar\sigma}
+\def\RR{\mathbb R}
+\def\NN{\mathbb N}
+\def\ZZ{\mathbb Z}
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+\def\({\left(}
+\def\){\right)}  
+\def\<{\langle}
+\def\>{\rangle}
+%\let\sim=\thicksim
+
+\newcommand{\tdots}{\,.\,.\,} % in place of \ldots
+\newcommand{\larr}{\leftarrow}
+
+\newcommand{\phentao}{\phantom{então}} 
+\newcommand{\phsenao}{\phantom{senão}} 
+\newcommand{\x}{\hspace*{3ex}} % era 4ex
+\newcommand{\xx}{\hspace*{6ex}}
+\newcommand{\xxx}{\hspace*{9ex}}
+\newcommand{\xxxx}{\hspace*{12ex}}
+\newcommand{\xxxxx}{\hspace*{15ex}}
+\newcommand{\xxxxxx}{\hspace*{18ex}}
+\newlength{\tsts}
+\settowidth{\tsts}{9}
+\newcommand{\ts}{\hspace{\tsts}}
+\newcommand{\RM}{\textrm}
+\newenvironment{pseudoc}
+         {\begin{list}%
+                {}%
+                {%
+                 \sffamily%
+                 \setlength{\partopsep}{1ex}%
+                 \setlength{\topsep}{1ex}%
+                 \setlength{\leftmargin}{\parindent}%
+                 \setlength{\parsep}{0.5ex}%
+                }%
+          \item}%
+         {\end{list}%
+         }
+\newenvironment{pseudocode}%
+         {\begin{pseudoc}%
+          \textbf{\textrm{Algoritmo}}\hspace{0.7ex}\ignorespaces%
+         }%
+         {\end{pseudoc}}
+
+\def\inR{\mathrel{\in_{\text R}}} 
+
+\def\cA{\mathcal A}
+\def\cB{\mathcal B}
+\def\cC{\mathcal C}
+\def\cD{\mathcal D}
+\def\cF{\mathcal F}
+\def\cG{\mathcal G}
+\def\cH{\mathcal H}
+\def\cI{\mathcal I}
+\def\cL{\mathcal L}
+\def\cP{\mathcal P}
+\def\cR{\mathcal R}
+\def\cS{\mathcal S}
+
+\def\barp{{\bar p}}
+
+\def\Bi{\mathop{{\rm Bi}}\nolimits}
+\def\Var{\mathop{{\rm Var}}\nolimits}
+\def\Cov{\mathop{{\rm Cov}}\nolimits}
+\def\dev{\mathop{{\rm dev}}\nolimits}
+\def\og{\mathop{{\rm og}}\nolimits}
+
+\def\EE{\mathop{\hbox{\hbox{${\mathbb E}$}}}\nolimits}
+\def\PP{\mathop{\hbox{\raise.03ex\hbox{${\mathbb P}$}}}\nolimits}
+\def\FF{\mathop{\hbox{\raise.03ex\hbox{${\mathbb F}$}}}\nolimits}
+
+\def\RP{\mathbf{RP}}
+\def\BPP{\mathbf{BPP}}
+
+\def\bfx{\textbf{x}}
+\def\bfy{\textbf{y}}
+
+\makeatletter
+\renewcommand{\labelenumi}{\theenumi.}
+\makeatother
+
+\def\datedue#1{$\{$\textsl{Data de entrega}: #1$\}$}
+\def\sugestao#1{[\textit{Sugestão.} #1]}
+\def\observacao#1{[\textit{Observação.} #1]}
+
+\begin{document}\onehalfspace 
+\title{Primeira Prova de Arquitetura Paralela e Distribuída\\ 1{\tiny o.} semestre de 2017} %\date{Versão de \today}
+\maketitle
+
+\bigskip
+
+\textbf{Nome :}  \makebox[4in]{\hrulefill}
+\footskip=20pt
+
+ 
+\bigskip
+
+%\rule[1ex]{\textwidth}{.1pt}
+\noindent
+\rule[1ex]{\textwidth}{.1pt}
+{\bf Instruções:}
+\begin{enumerate}\small
+\item A prova pode ser feita a lápis.  Cuidado com a legibilidade.
+\item Não é permitido o uso de folhas avulsas para rascunho.
+\item A compreensão dos exercícios faz parte da avaliação.
+\item Não é necessário apagar rascunhos no caderno de soluções.
+\item Não será permitido nenhum tipo de dispositivo eletrônico: notebook, tablet, celular, etc.
+\end{enumerate}
+\rule[1ex]{\textwidth}{.1pt}
+ 
+
+\begin{enumerate}
+%\thispagestyle{empty}  
+\item{}[3 pontos] Dado um vetor A de $n$ elementos e uma variável C, deseja-se um algoritmo paralelo eficiente para determinar a variável M que é o valor do último elemento de A que é menor que C.  
+
+$$M = A[k], \textrm{ tal que } A[k] < C \textrm{ e } k \textrm{ é máximo.} $$
+  \begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+\end{enumerate}
+
+Exemplo:
+N = 8
+
+C = 15
+
+\begin{table*}[htbp]
+	\centering
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = &18 & 11 & 20 & 19 & 14 & 17 & 13 & 22 \\ \cline{2-9}
+		\end{tabular}
+\end{table*}
+
+M = 13
+
+  \medskip  
+\item{}[3 pontos] Deseja-se um algoritmo paralelo eficiente para realizar a multiplicação de uma matriz $M$ (de $n \times n$ elementos) por um vetor $V$ (de $n$ elementos), obtendo um vetor $R$ (de $n$ elementos).
+
+\[  \left[\begin{array}{cccc}
+m_{0,0} & m_{0,1} & \cdots & m_{0,n-1} \\
+m_{1,0} & m_{1,1} & \cdots & m_{1,n-1} \\
+\vdots & \vdots & \ddots & \vdots \\
+m_{n-1,0} & m_{n-1,1} & \cdots & m_{n-1,n-1} \end{array} \right] \times
+\left[\begin{array}{c}v_0 \\ v_1 \\ \vdots \\ v_{n-1}\end{array} \right]
+=
+\left[\begin{array}{c}
+m_{0,0} \cdot v_0 + m_{0,1} \cdot v_1  + \cdots + m_{0,n-1}  \cdot v_{n-1} \\
+m_{1,0} \cdot v_0 + m_{1,1} \cdot v_1  + \cdots + m_{1,n-1}  \cdot v_{n-1}\\
+\vdots   \\
+m_{n-1,0} \cdot v_0  + m_{n-1,1}  \cdot v_1 + \cdots + m_{n-1,n-1} \cdot v_{n-1}  \end{array} \right]\]
+
+Escreva este algoritmo e apresente suas complexidades e o submodelo PRAM utilizado. Suponha que $n$ é uma potência de 2.
+  \medskip 
+  
+ \item{}[2 pontos] Dado um vetor A com $n$ elementos, deseja-se um algoritmo paralelo eficiente para obter o vetor S de $n$ posições, tal que S contém as somas dos sufixos de $A$. Isto é:
+ 
+ $$S[i] = A[i] + A[i+1]+A[i+2]+ \cdots + A[n-1], 0 \leq i \leq n - 1.$$ 
+ 
+ Escreva este algoritmo e apresente suas complexidades e o submodelo PRAM utilizado. Suponha que $n$ é uma potência de 2.
+ 
+ n = 8 
+ 
+ 
+\begin{table*}[htbp]
+\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = & 3 & 4 & 9 & 5 & 2 & 6 & 1 & 8 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{1cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		S = & 38 & 35 & 31 & 22 & 17 & 15 & 9 & 8 \\ \cline{2-9}
+		\end{tabular}
+
+\end{table*}
+
+\medskip  
+\item{}[2 pontos] O algoritmo paralelo a seguir determina o número $M$ de elementos do vetor $A$ (de $n$ elementos) que são menores que a variável C, supondo que $n$ é uma potência de 2.
+  
+{\singlespace
+\begin{pseudocode} 
+
+
+\ts1. \textbf{para} $0 \leq i \leq n-1$ \textbf{faça em paralelo}
+
+\ts2. \x \textbf{se} $A[i] < C$ \textbf{então}
+
+\ts3. \xx $B[n + i] := 1$
+
+\ts4. \x \textbf{senão}
+
+\ts5. \xx $B[n + i] := 0$
+
+\ts6. \textbf{para} $j := (\log_2 n) - 1$ até $0$ \textbf{faça}
+
+\ts7. \x \textbf{para} $2^j \leq i \leq 2^{j+1}-1$ \textbf{faça em paralelo}
+
+\ts8. \xx $B[i] := B[2 \times i] + B[2 \times i + 1]$
+
+\ts9. $M = B[1]$ 
+\end{pseudocode}
+}
+ Deseja-se um algoritmo paralelo eficiente que realize esta mesma tarefa, mas que seja ótimo. Escreva este algoritmo e apresente suas complexidades para o submodelo PRAM CREW.
+ 
+ Exemplo:
+ 
+ n = 8
+ 
+ C = 15
+ 
+ \begin{table*}[htbp]
+	\centering
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = &18 & 11 & 20 & 19 & 14 & 17 & 13 & 22 \\ \cline{2-9}
+		\end{tabular}
+\end{table*}
+
+M = 3
+
+\end{enumerate}  
+ 
+\end{document}
+
+% Local Variables: 
+% mode: latex
+% eval: (Portug-mode)
+% TeX-master: t
+% End: 
+

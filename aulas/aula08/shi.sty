@@ -1,0 +1,137 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{aszfolie}[]
+
+\newif\if@head@foot@lines\@head@foot@linestrue
+\newif\if@class@slides\@class@slidestrue
+\newif\if@logo\@logotrue
+\newif\if@title\@titlefalse
+
+\DeclareOption*{\PackageWarning{aszfolie}{`Unknown option: \CurrentOption.'}}
+\ProcessOptions\relax
+
+\RequirePackage{graphicx}
+\RequirePackage{color}
+\RequirePackage{calc}
+\RequirePackage{ifthen}
+
+%\RequirePackage{helvetic}
+
+\@ifclassloaded{slides}{%
+  \@class@slidestrue
+}{%
+  \@class@slidesfalse
+}
+
+\newsavebox{\asz@logo}
+
+\AtBeginDocument{%
+  %\sbox{\asz@logo}{\includegraphics{aszlogo}}%
+}
+
+%%%\newcommand{\lecturer}[1]{\def\@lecturer{#1}}
+\newcommand{\slidesubhead}[1]{\def\@slidesubheadtext{#1}}
+\newcommand{\recdate}[1]{\def\@recdate{#1}}
+
+\newlength\slidetitleskip
+\setlength\slidetitleskip{13\p@ \@plus 0\p@ \@minus 13\p@}
+
+
+\newcommand{\slidetitle}[2][]{{\centering\large{#2}%
+    \ifthenelse{\equal{#1}{}}{\par}{%
+      \\[1ex]\normalsize#1\large\par}
+    \vspace{\slidetitleskip}}}
+
+
+\def\ASZ@head@slide{%
+  \bgroup
+  \parbox[b]{\textwidth}{%
+      \fontsize{17}{16}\selectfont
+      Arquitetura paralela e distribuída
+      \hfill
+      \ifx\@slidesubheadtext\@empty\else
+      \@slidesubheadtext \fi
+\hspace*{2ex}\\[-1ex]%
+%
+    \if@head@foot@lines\vspace{2mm}%
+    \hbox to \hsize
+    {\hrulefill\hspace*{2ex}}\hbox{\fontsize{10}{10}\selectfont\ 
+\theslide\hss}\fi
+%
+      }%
+  \egroup
+}
+\def\ASZ@foot@slide{%
+%%  \bgroup
+%%  \parbox[t]{\textwidth}{%
+%%    \if@head@foot@lines\hrule\vspace{2mm}\fi%
+%%    \fontsize{14}{16}\selectfont
+%%    \parbox[t]{\textwidth-5em}{%
+%%      \ifx\@lecturer\@empty\else\@lecturer \fi
+%%      \if@title\\\@title\fi}%
+%%    \hfill
+%%    \parbox[t]{3em}{\theslide\hss}%
+%%  }%
+%%  \egroup
+  }
+
+\def\ASZ@foot@over{%
+  \bgroup
+  \parbox[t]{\textwidth}{%
+    \if@head@foot@lines\hrule\vspace{2mm}\fi%
+    \fontsize{14}{16}\selectfont
+    \mbox{}\hfill\parbox[t]{3em}{\theoverlay\hss}%
+  }%
+  \egroup
+}
+
+\@ifclassloaded{slides}{%
+\def\ps@aszpage{%
+  \def\ps@slide{%
+    \def\@oddhead{\ASZ@head@slide}%
+    \def\@oddfoot{\ASZ@foot@slide}%
+    \def\@evenhead{\ASZ@head@slide}%
+    \def\@evenfoot{\ASZ@foot@slide}%
+  }%
+  \def\ps@overlay{%
+    \def\@oddfoot{\ASZ@foot@over}%
+    \def\@oddhead{}%
+    \def\@evenfoot{\ASZ@foot@over}%
+    \def\@evenhead{}%
+  }%
+  \def\ps@note{%
+    \def\@oddfoot{%
+      \@mainsize
+      \if@clock
+        \fbox{\large\@arabic\c@minutes\space min}%
+      \else
+        \null
+      \fi
+      \hfil\thenote
+    }%
+    \def\@oddhead{}%
+    \def\@evenfoot{%
+      \@mainsize
+      \if@clock
+        \fbox{\large\@arabic\c@minutes\space min}%
+      \else
+        \null
+      \fi
+      \hfil\thenote
+    }%
+    \def\@evenhead{}%
+  }%
+}
+}{%
+  \newpagestyle{aszpage}{\ASZ@head@slide}{\ASZ@foot@slide}
+}
+
+%%%\lecturer{Please use \texttt{\string\lecturer} to set your name!}
+\recdate{\today}
+\slidesubhead{}
+
+\addtolength{\headheight}{2\baselineskip}
+\addtolength{\voffset}{-2\baselineskip}
+\pagestyle{aszpage}
+
+
+\endinput

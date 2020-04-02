@@ -1,0 +1,783 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+ 
+\begin{slide}
+  \stitle{OpenMP}
+\end{slide}
+ 
+\begin{slide}
+  \stitle{OpenMP}
+  
+  Open specifications for Multi-Processing via collaborative work between interested parties from hardware and software industry, government and academia.
+  
+  \textbf{\blue http:$\backslash\backslash$www.openmp.org}
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{OpenMP}
+  
+OpenMP é uma interface de programação (API - \textit{Application Program Interface}), portável, baseada no modelo de programação paralela de memória compartilhada para arquitetura de múltiplos processadores.
+\end{slide}
+
+\begin{slide}
+  \stitle{OpenMP}
+   Portável
+     
+       \vspace{-1cm}   \hspace{1cm}  \itemtrig\ A API é definida para C/C$++$ e Fortran
+       
+       \vspace{-1cm}  \hspace{1cm} \itemtrig\ Implementadas em várias plataformas incluindo Unix/Linux e Windows.
+\end{slide}
+
+\begin{slide}
+  \stitle{OpenMP}
+Componentes:
+
+	\vspace{-1cm}  \hspace{1cm} \itemtrig\ Bibliotecas de funções
+	    
+	\vspace{-1cm}  \hspace{1cm} \itemtrig\ Diretivas de compilação
+	       
+	\vspace{-1cm}  \hspace{1cm} \itemtrig\ Variáveis de ambiente      
+       
+\end{slide}
+
+\begin{slide}
+  \stitle{OpenMP}
+
+  Paralelismo baseado em Threads, com memória compartilhada
+  
+  Carga de trabalho dividida em várias threads
+  
+       \vspace{-1cm}  \hspace{1cm} \itemtrig\ Variáveis podem ser compartilhadas (\textbf{shared}) ou privadas (\textbf{private})
+       
+       
+       \vspace{-1cm}  \hspace{1cm} \itemtrig\ Comunicação é feita através das variáveis compartilhadas
+\end{slide}
+
+
+
+\begin{slide}
+  \stitle{Modelo de execução} 
+Modelo Fork-Join     
+\begin{center}
+\includegraphics[height=11.3cm]{fig01}
+\end{center}    
+\end{slide}
+
+\begin{slide}
+  \stitle{Região Paralela} 
+
+Uma região paralela é um bloco de código que será executado por múltiplas threads
+
+        \vspace{-1cm}  \hspace{1cm} \itemtrig\ Cada thread executa o mesmo código
+        
+\begin{verbatim}
+código sequencial
+
+#pragma omp parallel [clause[,] ...]
+{
+
+} /* fim da região paralela*/
+
+código sequencial
+
+\end{verbatim}        
+\end{slide}
+
+\begin{slide}
+  \stitle{Hello world}
+\begin{verbatim}
+#include <omp.h>
+main(){
+   int nthreads, tid;
+   #pragma omp parallel private(nthreads, tid)
+   {	
+      tid = omp_get_thread_num();
+      printf("Hello world from thread = %d\n", tid);
+      
+      if (tid == 0) {
+         nthreads = omp_get_num_threads();
+         printf("Number of threads = %d\n", nthreads);
+      }     
+   } /* fim da região paralela*/
+}
+\end{verbatim}        
+\end{slide}
+
+\begin{slide}
+  \stitle{Hello world}
+Compilando com gcc no linux e OS X:
+\begin{verbatim}
+> gcc -fopenmp hello.c -o hello
+> ./hello
+\end{verbatim}        
+\end{slide}
+\begin{slide}
+  \stitle{Variáveis}
+\end{slide}
+\begin{slide}
+  \stitle{Variáveis}
+  Private 
+
+      \vspace{-1cm}  \hspace{1cm} \itemtrig\ Variáveis locais em cada thread
+
+
+\begin{verbatim}
+   int nthreads, tid;
+   #pragma omp parallel private(nthreads, tid)
+   {	
+      tid = omp_get_thread_num();
+      ...  
+   }   
+\end{verbatim}
+      
+\end{slide}
+
+\begin{slide}
+  \stitle{Variáveis}
+  Shared 
+
+      \vspace{-1cm}  \hspace{1cm} \itemtrig\ Variáveis compartilhada entre as threads
+
+\begin{verbatim}
+   int nthreads, tid, a, b;
+   a = 10; b = 20;
+   
+   #pragma omp parallel private(nthreads, tid) shared(a,b)
+   {	
+      tid = omp_get_thread_num();
+      ...  
+   }   
+\end{verbatim}
+\end{slide}
+      
+\begin{slide}
+  \stitle{Variáveis compartilhadas} 
+Sincronização de processos
+
+       \vspace{-1cm}  \hspace{1cm} \itemtrig\ Acesso concorrente aos dados podem resultar em inconsistência (race condition);
+       
+        \vspace{-1cm}  \hspace{1cm} \itemtrig\ Os processos concorrentes necessitarão de mecanismos de sincronização de processos. 
+\end{slide}
+      
+\begin{slide}
+  \stitle{Variáveis} 
+First private
+
+      \vspace{-1cm}  \hspace{1cm} \itemtrig\ Define uma lista de variáveis com o atributo PRIVATE, mas sendo inicializadas automaticamente, de acordo com o valor que possuíam no thread master antes de uma região paralela.
+      
+  \begin{verbatim}
+   int nthreads, tid;
+   float pi = 3.1415;
+   
+   #pragma omp parallel private(nthreads, tid) firstprivate(pi)
+   {	
+      tid = omp_get_thread_num();
+      ...  
+   }   
+\end{verbatim}    
+\end{slide}
+
+\begin{slide}
+  \stitle{For paralelo}
+  \vspace{-1cm}  \itemtrig\ O for paralelo é um loop independente para cada thread
+
+  \vspace{-1cm}  \itemtrig\ O paralelismo ocorre na distribuição das iterações do loop para cada thread
+  
+    \vspace{-1cm}  \itemtrig\  Loops infinitos e do while não são paralelizáveis no OpenMP
+  
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{For paralelo}
+Estrutura básica
+
+\begin{verbatim}
+   #pragma omp parallel 
+   {
+      #pragma omp for
+      // for (...) {}
+   }
+\end{verbatim}
+
+  
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{For paralelo}
+  
+\begin{verbatim}
+#include<omp.h>
+#include<stdio.h>
+int main(int argc, char *argv[]){
+   int i, id;
+   #pragma omp parallel private(id) 
+   {
+      id = omp_get_thread_num(); 
+      #pragma omp for
+      for(i = 0; i < 8; i++)
+         printf("%d - %d \n",id, i);  
+   }
+   return 0;
+}
+  
+\end{verbatim}  	  
+\end{slide}
+
+\begin{slide}
+  \stitle{For paralelo}
+  
+\begin{verbatim}
+> gcc ex02.c -o ex02 -fopenmp
+> ./ex02
+0 - 0
+0 - 1
+3 - 6
+3 - 7
+2 - 4 
+2 - 5
+1 - 2
+1 - 3 
+\end{verbatim}  
+\end{slide}
+      
+\begin{slide}
+  \stitle{Cláusula Schedule}
+O escalonamento das threads podem ser:
+
+      \vspace{-1cm} \hspace{1cm}  \itemtrig\  static, dynamic, guided e runtime
+  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Cláusula Schedule}
+      \vspace{-1cm} \hspace{1cm}  \itemtrig\  static: as iterações são agrupadas (chunks), estaticamente distribuídos às threads
+       
+      \vspace{-1cm} \hspace{1cm}  \itemtrig\  dynamic: as iterações são agrupados em chunks, dinamicamente distribuídos, quando uma thread finaliza, recebe automaticamente o outro chunk.
+ \end{slide}
+
+\begin{slide}
+  \stitle{Cláusula Schedule}     
+      \vspace{-1cm} \hspace{1cm}  \itemtrig\  guided: semelhante ao dynamic, mas os chunks iniciam-se grandes e se tornam pequenos ao longo da execução
+      
+      \vspace{-1cm} \hspace{1cm}  \itemtrig\  runtime: a decisão é tomada em tempo de execução a partir da variável \verb|OMP_SCHEDULE|
+\end{slide}
+
+\begin{slide}
+\begin{verbatim}
+#include <omp.h>
+#define CHUNKSIZE 100
+#define N 1000
+main() {
+   int i, chunk;
+   float a[N], b[N], c[N];
+   for (i=0; i < N; i++)
+      a[i] = b[i] = i * 1.0;
+   chunk = CHUNKSIZE;
+   #pragma omp parallel shared(a,b,c,chunk) private(i) {
+      #pragma omp for schedule(dynamic,chunk) nowait
+      for (i=0; i < N; i++)
+         c[i] = a[i] + b[i];
+   } // fim da região paralela
+}
+\end{verbatim}  	  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Diretivas Sections}
+  
+        \vspace{-1cm} \hspace{1cm}  \itemtrig\  Cria seções paralelas
+
+        \vspace{-1cm} \hspace{1cm}  \itemtrig\  Cada seção será executada em uma thread diferente
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Diretivas Sections}    
+\begin{verbatim}
+#include<omp.h>
+
+main(){
+   int x;
+   #pragma omp sections {
+   
+       #pragma omp section 
+       { foo(x); }   
+
+       #pragma omp section 
+       { bar(x); }   
+   }
+
+}
+\end{verbatim}  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Exercício: Integração numérica}
+  
+  Matematicamente, sabemos que 
+  
+ \vspace{-1cm} $$\int_{0}^{1} \displaystyle \frac{4.0}{(1+x^2)} dx = \Pi$$
+  
+ \vspace{-1cm} Podemos aproximar a integral como a soma de retângulos
+  
+ \vspace{-1cm} $$ \displaystyle \sum_{i=0}^{N} F(x_i) \Delta x \approx \Pi$$
+ 
+  \vspace{-1cm} Onde cada retangulo tem largura $\Delta x$ e altura $F(x_i)$ no meio do intervalo $i$.
+\end{slide}
+
+\begin{slide}
+
+\begin{center}
+\includegraphics[height=10.3cm]{fig02}
+\end{center}    
+
+ $$ \displaystyle \sum_{i=0}^{N} F(x_i) \Delta x \approx \Pi$$
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Exercício: Integração numérica}
+Programa serial Pi
+
+\begin{verbatim}
+static long num_steps = 100000;
+double step;
+void main ()
+{  int i; double x, pi, sum = 0.0;
+   step = 1.0 / (double) num_steps;
+   for (i = 0; i < num_steps; i++){
+      x = (i + 0.5) * step;
+      sum = sum + 4.0 / (1.0 + x * x);
+   }
+   pi = step * sum;
+}
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Exercício: Integração numérica}
+  
+  Escreva uma versão paralela para o problema da integração numérica
+\end{slide}
+
+\begin{slide}
+  \stitle{Constructs de Sincronização}
+\end{slide}
+
+\begin{slide}
+  \stitle{Constructs de Sincronização}
+
+A sincronização é usado para impor restrição de ordem e proteger acesso aos dados compartilhados  
+
+Tipos de Sincronização:
+
+      \vspace{-1cm} \hspace{1cm}  \itemtrig\ critical, atomic, barrier, ordered   
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização: critical}
+  
+  Exclusão mútua: apenas uma thread por vez pode entrar na região crítica
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização: critical}
+\begin{verbatim}
+   int cnt = 0;
+   int f = 7;
+   #pragma omp parallel
+   {
+      #pragma omp for
+      for (i = 0; i < 20; i++)
+      {
+         if (b[i] == 0) {
+            #pragma omp critical
+            cnt ++;
+         } 
+         a[i] = b[i] + f * (i + 1);
+      } 
+   }
+\end{verbatim}    
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização: atomic}
+  
+  Exclusão mútua: apenas aplicada para atualizar dado em memória
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização: atomic}
+\begin{verbatim}
+   int cnt = 0;
+   int f = 7;
+   #pragma omp parallel
+   {
+      #pragma omp for
+      for (i = 0; i < 20; i++)
+      {
+         if (b[i] == 0) {
+            #pragma omp atomic
+            cnt ++;
+         } 
+         a[i] = b[i] + f * (i + 1);
+      } 
+   }
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização: Barrier}
+  
+  Quando esta diretiva é alcançada por uma thread, este espera até os restantes cheguem ao mesmo ponto.
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Exercícios}
+  
+  1) Escreva um programa que compute a multiplicação entre matrizes e vetores $b = Ax$. Utilize as diretivas do OpenMP para execução paralela.
+  
+  2) Escreva um programa com OpenMP que some os elementos de um vetor de números inteiros. Utilize um for paralelo.
+
+
+  3) Escreva um programa com OpenMP que some os elementos de um vetor de números inteiros. Utilize um a diretiva reduction.
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Exercícios}
+  
+  4) Escreva um programa com OpenMP que encontre o maior elemento de um vetor de números inteiros. Utilize um a diretiva reduction.
+
+  5) Escreva um programa com OpenMP que encontre o maior elemento de um vetor de números inteiros. Neste exercício não é permitido usar reduction e nem for paralelo, utilize apenas a região paralela.
+ \end{slide}
+
+\begin{slide}
+  \stitle{Exercícios} 
+  6) Suponha que você tenha o seguinte código serial:
+  
+  \begin{verbatim}
+   for (i = 0; i < N; i++)  
+      a[i] = b[i] + c[i];
+   for (i = 0; i < N; i++)  
+      d[i] = a[i] + b[i];
+  \end{verbatim}      
+  
+  Escreva a versão paralela deste trecho utilizando as diretivas do OpenMP
+\end{slide}
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

@@ -1,0 +1,518 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={MAC122 Princípios de Desenvolvimento de Algoritmos},
+  pdfsubject={Projeto de Algoritmos}, 
+  pdfauthor={Yoshiharu Kohayakawa, University of São Paulo, 
+  <yoshi@ime.usp.br>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head font
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{MAC328 Algoritmos em grafos} 
+\author{{\blue Y.~Kohayakawa} (U.~de S\~ao Paulo)}
+\date{{\dgreen 1o. Semestre 2004}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item Sedgewick, Algorithms in C, 3rd edition, Parts 1--4
+    \begin{itemize}
+    \itemT Estruturas de dados, ordenação e busca
+    \end{itemize}
+  \item Feofiloff: Projeto de Algoritmos\\
+    \verb|http://www.ime.usp.br/~pf/algoritmos/| 
+  \end{enumerate}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Códigos}
+
+\begin{verbatim}
+  This code is from "Algorithms in C, Third Edition,"
+  by Robert Sedgewick, Addison Wesley Longman, 1998.
+\end{verbatim}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da conexidade}
+{\small
+\begin{verbatim}
+yoshi@erdos:~/Main/www/2006ii/mac122a/exx$ cat prog1.1.in
+3 4
+4 9
+8 0
+2 3
+5 6
+2 9
+5 9
+7 3
+4 8
+5 6
+0 2
+6 1
+yoshi@erdos:~/Main/www/2006ii/mac122a/exx$ 
+\end{verbatim}
+}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da conexidade}
+{\small
+\begin{verbatim}
+yoshi@erdos:~/Main/www/2006ii/mac122a/exx$ prog1.1 < prog1.1.in
+ 3 4
+ 4 9
+ 8 0
+ 2 3
+ 5 6
+ 5 9
+ 7 3
+ 4 8
+ 6 1
+yoshi@erdos:~/Main/www/2006ii/mac122a/exx$ 
+\end{verbatim}
+}
+\end{slide}
+
+\begin{slide}
+  \stitle{Programas para o problema da conexidade}
+\begin{verbatim}
+/* prog1.1.c - Quick find */
+#include <stdio.h>
+#define N 10000
+main()
+  { int i, p, q, t, id[N];
+    for (i = 0; i < N; i++) id[i] = i;
+    while (scanf("%d %d\n", &p, &q) == 2)
+      { 
+        if (id[p] == id[q]) continue;
+        for (t = id[p], i = 0; i < N; i++)
+          if (id[i] == t) id[i] = id[q];
+        printf(" %d %d\n", p, q);
+      }
+ }
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Quick find}
+
+  \begin{propriedade}
+    Suponha que executamos o algoritmo quick find em uma instância com~$M$
+    pares e~$N$ objetos, e que a saída tem~$S$ pares.  Então o algoritmo
+    executou pelo menos~$NS$ instruções (por exemplo, ele executou o teste
+    \verb|id[i] == t| pelo menos este número de vezes).
+  \end{propriedade}
+  
+  \itemtrig Note que~$S$ pode chegar a ser~$N-1$.  Assim, quick find pode ter
+  tempo de execução tão grande quanto~$N(N-1)$ unidades.
+
+\end{slide}
+
+\begin{slide}
+\begin{verbatim}
+/* prog1.2.c - Quick union */
+#include <stdio.h>
+#define N 10000
+main()
+  { int i, p, q, t, id[N];
+    for (i = 0; i < N; i++) id[i] = i;
+    while (scanf("%d %d\n", &p, &q) == 2) { 
+      for (i = p; i != id[i]; i = id[i]) ;
+      for (j = q; j != id[j]; j = id[j]) ;
+      if (i == j) continue;
+      id[i] = j;
+      printf(" %d %d\n", p, q);
+    }
+  }
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Quick union}
+
+  \begin{propriedade}
+    O algoritmo quick union pode chegar a executar $(N-1)(N-2)/2$ instruções
+    para resolver o problema da conexidade com~$N-1$ pares e~$N$ objetos.
+  \end{propriedade}
+  
+  \itemtrig\ Para verificar a propriedade acima, considere a entrada cujos
+  pares são~$(0,1),(0,2),\dots,(0,N-1)$.  Conte o número de vezes que a
+  instrução \verb|i = id[i]| (no \verb|for|) é executada.
+
+\end{slide}
+
+\begin{slide}
+\begin{verbatim}
+/* prog1.3.c - Weighted quick union */
+#include <stdio.h>
+#define N 10000
+main()
+  { int i, j, p, q, id[N], sz[N];
+    for (i = 0; i < N; i++) 
+      { id[i] = i; sz[i] = 1; }
+    while (scanf("%d %d\n", &p, &q) == 2)
+      { for (i = p; i != id[i]; i = id[i]) ;
+        for (j = q; j != id[j]; j = id[j]) ;
+        if (i == j) continue;
+        if (sz[i] < sz[j]) { id[i] = j; sz[j] += sz[i]; }
+        else { id[j] = i; sz[i] += sz[j]; }
+        printf(" %d %d\n", p, q);
+      }
+  }
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Quick union com pesos}
+
+  \begin{propriedade}[Custo do find]
+    O algoritmo quick union com pesos segue~$\leq\log_2N$ ponteiros para
+    chegar à raiz da árvore que contém o elemento de partida.
+  \end{propriedade}
+  \begin{proof}
+    Basta provar o seguinte fato sobre as árvores que ocorrem em nossa
+    estrutura de dados: se uma árvore tem~$k$ elementos, então ela tem altura
+    no máximo~$\log_2k$.  Suponha o fato verdadeiro em um dado momento.
+    Suponha que unimos duas árvores por uma operação de \textit{union}.
+    Suponha que as árvores tinham~$i$ e~$i'$ elementos, com~$i\leq i'$, e
+    alturas~$h$ e~$h'$.  Se~$h<h'$, então a nova árvore tem altura~$h'$.
+    Se~$h=h'$, então a nova árvore tem
+    altura~$h+1\leq\log_2i+1=\log_2(i+i)\leq\log_2(i+i')$.
+  \end{proof}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Quick union com pesos}
+
+  \begin{corolario}
+    O algoritmo quick union com pesos demora tempo não mais que proporcional
+    a~$M\log N$ para resolver o problema da conexidade com $M$ pares e~$N$
+    objetos.
+  \end{corolario}
+
+  \begin{enumerate}
+    \itemT\textbf{\red Dizemos:}  a complexidade de tempo do quick union com
+    pesos é $O(M\log N)$.
+  \end{enumerate}
+
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Quick union com compressão de caminhos}
+
+  É possível melhorar o quick union com pesos, usando \textit{compressão de
+  caminhos}, como no programa a seguir.  [Não chegamos lá na aula.]
+
+\end{slide}
+
+\begin{slide}
+\begin{verbatim}
+/* prog1.4.c - Weighted quick union with path compression */
+#include <stdio.h>
+#define N 10000
+main()
+  { int i, j, p, q, id[N], sz[N];
+    for (i = 0; i < N; i++) { id[i] = i; sz[i] = 1; }
+    while (scanf("%d %d\n", &p, &q) == 2)
+      { for (i = p; i != id[i]; ) 
+          { int t = i; i = id[id[t]]; id[t] = i; } 
+        for (j = q; j != id[j]; ) 
+          { int t = j; j = id[id[t]]; id[t] = j; } 
+        if (i == j) continue;
+        if (sz[i] < sz[j]) { id[i] = j; sz[j] += sz[i]; }
+        else { id[j] = i; sz[i] += sz[j]; }
+        printf(" %d %d\n", p, q);
+      }
+  }
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Exercício}
+  \itemtrig\ \textbf{\blue Instância conexa:} dizemos que uma instância é
+  conexa quando a saída tem $N-1$ pares.
+
+  Para contar o número de pares na saída, basta fazer
+\begin{verbatim}
+yoshi@RANDOM ~/Main/www/2006ii/mac122a/exx
+$ prog1.1 < prog1.1.in | wc -l
+9
+yoshi@RANDOM ~/Main/www/2006ii/mac122a/exx
+$ 
+\end{verbatim}
+
+Verifique experimentalmente a \textit{probabilidade de uma instância aleatória
+ser conexa} para valores grandes de~$N$ e~$M$ por volta de~$N(\log N)/2$.
+(Você tem de escrever um pequeno programa para gerar as instâncias
+aleatórias.) 
+
+\end{slide}
+
+\end{document}
+
+% Local Variables: 
+% mode: latex
+% eval: (Portug-mode)
+% TeX-master: t
+% End: 

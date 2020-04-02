@@ -1,0 +1,877 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{tabularx}
+ 
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+\newtheorem{definicao}  [theorem] {Definição}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item E. Cáceres, H. Mongeli, S. Song: Algoritmos paralelos u\-san\-do CGM/PVM/MPI: uma introdução\\
+    \verb|http://www.ime.usp.br/~song/papers/jai01.pdf| 
+  \end{enumerate}
+\end{slide}
+
+ 
+ 
+\begin{slide}
+  \stitle{Modelos Realísticos}
+\end{slide}
+\begin{slide}
+  \stitle{Modelos Realísticos}
+  Anos 80: crise na área de computação paralela
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Vários resultados teóricos para máquinas específicas (Ma\-lhas e hipercubos).
+  
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Resultados desapontadores, quando implementados em máquinas reais.  
+\end{slide}
+\begin{slide}
+  \stitle{Modelos Realísticos}
+  Anos 90: Surgem os modelos computação de granularidade grossa
+  
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ BSP - Bulk Synchronous Parallel Model.
+  
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ CGM - Coarse Grained Multicomputers.
+\end{slide}
+
+\begin{slide}
+  \stitle{Modelo BSP}
+\end{slide}
+
+\begin{slide}
+  \stitle{Modelo BSP}
+  
+  O modelo BSP (Bulk Synchronous Parallel) foi proposto por Valiant em 1990
+  
+   \vspace{-1cm} \hspace{1cm} \itemtrig\ Foi um dos primeiros modelos a considerar custo de comunicação.
+   
+   \vspace{-1cm} \hspace{1cm} \itemtrig\ O modelo BSP consiste de um conjunto de p processadores com memória local.
+  
+   \vspace{-1cm} \hspace{1cm} \itemtrig\ A comunicação é feita por meio de rede de interconexão, gerenciados por roteador e com facilidades de  sincronização global.  
+   \end{slide}
+
+
+\begin{slide}
+  \stitle{Modelo BSP}
+  Um algoritmo BSP consiste de:
+  
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Uma sequência de superpassos separados por barreiras de comunicação.
+ 
+ \vspace{-1cm} \hspace{1cm} \itemtrig\  Em cada superpasso cada processador executa uma combinação de:
+ 
+ \vspace{-1cm} \hspace{2cm} \itemcirc\  passos de computação (computações locais), e;
+ 
+ \vspace{-1cm} \hspace{2cm} \itemcirc\  passos de comunicação (através da transmissão e recebimentos de mensagens).
+\end{slide}
+
+\begin{slide}
+  \stitle{Modelo BSP}
+\begin{center}
+\includegraphics[height=9cm]{fig01}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Modelo BSP}
+  O modelo possui os seguintes parâmetros:
+    
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ $n:$ tamanho do problema;
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ $p:$ número de processadores disponíveis, cada um com sua memória local;
+ 
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $L:$ tempo mínimo de um superpasso (latência);
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $g:$ taxa de eficiência da computação/comunicação.
+
+Custo (superpasso $i$): $w_i + gh_i + L$, $w_i = \{L,t_1,t_2,\cdots, t_p\}$ e $h_i\{L,c_1,c_2, \cdots, c_p\}$
+
+Custo Total: $W + gH + L$, $W = \displaystyle \sum_{i=0}^{T}w_i$ e $H = \displaystyle \sum_{i=0}^{T}h_i$, onde T é o número de superpassos
+\end{slide}
+
+\begin{slide}
+  \stitle{Modelo CGM}
+\end{slide}
+
+\begin{slide}
+  \stitle{Modelo CGM}
+  
+  O modelo CGM foi proposto por Frank Dehne e é derivado do BSP. O CGM é definido em apenas dois parâmetros:
+  
+  \vspace{-1cm} \hspace{1cm} 1. $n:$ tamanho do problema
+
+  \vspace{-1cm} \hspace{1cm} 2. $p:$ número de processadores $P_1, P_2, \cdots, P_p$, cada um com uma memória local de tamanho $O(n/p)$.
+\end{slide}
+
+\begin{slide}
+  \stitle{Modelo CGM}
+Um algoritmo CGM consiste de uma sequência alternada de \textbf{\darkgreen rodadas de computação} e \textbf{\darkgreen rodadas de comunicação} separadas por uma barreira de sincronização. 
+
+Na fase de comunicação quantidade de dados trocados por cada processador deve ser $O(n/p)$.
+\end{slide}
+
+\begin{slide}
+  \stitle{Modelo CGM}
+O objetivo de um algoritmo CGM é minimizar o número de superpassos e a quantidade de computação local.  
+\end{slide}
+
+\begin{slide}
+  \stitle{Modelo CGM}
+\begin{center}
+\includegraphics[height=9cm]{fig02}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de um vetor no Modelo BSP/CGM}
+\end{slide}
+\begin{slide}
+  \stitle{Soma de um vetor no Modelo BSP/CGM}
+  Seja A um vetor de ordem $n$, considere o problema de computar a soma $S = A(1)+ \cdots +A(n-1)$ no modelo com $p$ processadores, onde $p<<n$.
+  
+  Seja $r = n/p$. A é particionado como segue: $A = (A_1, A_2, \cdots, A_{p-1})$, onde cada $A_i$ tem tamanho r.
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de um vetor no Modelo BSP/CGM}
+
+Para determinar a soma S, cada processador $P_i$ computa a $i-$ésima soma parcial $s_i = A_i((i-1)r+1) + \cdots + A_i(ir)$, para $1 \leq i \leq p$, e envia $s_i$, através de uma mensagem, para o processador $P_1$, que  computa o total das somas parciais. 
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de um vetor no Modelo BSP/CGM}
+
+\vspace{-1cm}\textbf{\blue Entrada:}(1) O número do processador $i$; (2) O número $p$ de processadores; (3) O $i$-ésimo sub-vetor $B=A((i-1)r+1: ir)$ de tamanho r, onde $r=n/p$.
+
+\vspace{-1cm}\textbf{\blue Saída:} Processador $P_i$ calcula o valor $S=s_1 + \cdots + s_i$ e envia o resultado para $P_1$. Quando o algoritmo termina, $P_1$ terá a soma S.
+
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de um vetor no Modelo BSP/CGM}
+
+\textbf{\blue Algoritmo}
+
+\vspace{-1cm}  \begin{codebox}
+  \li  $z := B[1] + \cdots B[r]$ 
+  \zi
+  \li \If $i = 1$ \Then \hspace{4.3cm} $S := z$
+  \zi \Else \hspace{1cm} $envia(z, P_1)$
+  \zi \End
+  \li \If $i = 1$ \Then 
+  \zi \For $i:=2$ \To $p$ \DoSeq
+  \zi $recebe(z, P_i)$
+  \zi $S := S + z$
+  \zi \End
+  \zi \End
+\end{codebox}	
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de um vetor no Modelo BSP/CGM}
+Complexidade:
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 1: Cada $P_i$ efetua $r$ operações.
+ 
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 2: $P_1$ efetua uma operação e os demais processadores $P_{i}$ enviam uma mensagem.
+ 
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 3: $P_1$ recebe $p-1$ mensagens e efetua $p-1$ operações.
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de um vetor no Modelo BSP/CGM}
+Complexidade:
+
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Tempo de computação: $O(n/p)$
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $P_1$ recebe $p-1$ mensagens, todas no mesmo superpasso(BSP) ou rodada(CGM), logo o algoritmo utiliza $O(1)$ rodadas de comunicação.     
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de prefixos de um vetor no Modelo BSP/CGM}
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de prefixos de um vetor no Modelo BSP/CGM}
+A solução do problema de soma de prefixos no modelo BSP/CGM é semelhante ao da soma de $n$ números. 
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de prefixos de um vetor no Modelo BSP/CGM}
+A idéia é o de dividir a entrada em $p$ (número de processadores) subconjuntos, cada um com $n/p$ elementos e distribuir esses subconjuntos entre os processadores (um subconjunto para cada processador).
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de prefixos de um vetor no Modelo BSP/CGM}
+\vspace{-1cm}\textbf{\blue Entrada:} (1) O número do processador $i$; (2) O número $p$ de processadores; (3) O $i$-ésimo sub-vetor $B=A((i-1)r+1: ir)$ de tamanho r, onde $r=n/p$.
+
+\vspace{-1cm}\textbf{\blue Saída:} Cada processador $P_i$ contém o valor das somas de prefixos $S[(i-1)*r + j]$, $1 \leq j \leq n/p$
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de prefixos de um vetor no Modelo BSP/CGM}
+\textbf{\blue Algoritmo}
+
+\vspace{-1cm}  \begin{codebox}
+  \li  $s_i := B[1] + \cdots B[r]$ 
+  \li  $broadcast(s_i, p_j \neq i)$  
+  \li  $S[(i-1)*r] := s_1 + \cdots + s_{i-1}$
+  \li \For $k:=1$ \To $r$ \DoSeq
+  \zi  $S[(i-1)*r+k] := S[(i-1)*r+k-1] + B[k]$
+  \zi \End
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de prefixos de um vetor no Modelo BSP/CGM}
+Complexidade:
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 1: Cada $P_i$ efetua $r$ operações.
+ 
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 2: Os processadores executam um \textit{broadcast} de $s_i$ para os demais processadores. Essa comunicação pode ser feita em uma única rodada de comunicação.
+ 
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 3: Cada processador calcula o valor da soma dos $A(1:(i-1)r)$ elementos do vetor.
+ 
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 4: Utiliza o valor computado no passo 3 para calcular as somas dos prefixos dos $A((i-1)r+1: ir)$ elementos do vetor $A$.
+
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de prefixos de um vetor no Modelo BSP/CGM}
+Complexidade:
+
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Tempo de computação: $O(n/p)$
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Cada processador $P_i$ tem que receber $p-1$ mensagens, todas no mesmo superpasso(BSP) ou rodada(CGM), logo o algoritmo utiliza $O(1)$ rodadas de comunicação.   
+  \end{slide}
+
+\begin{slide}
+\stitle{Algoritmo de ordenação no BSP/CGM}  
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo de ordenação split sort no BSP/CGM}  
+O algoritmo \textit{\darkgreen split sort}, ou ordenação por divisão, consiste em dividir um conjunto de números em cestos, e distribuir os cestos de forma adequada, para que se possa ordenar $n$ números divididos em $p$ processadores, utilizando $O(1)$ rodadas de comunicação para $\frac{n}{p} \geq p^2$
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo de ordenação split sort no BSP/CGM}  
+Na divisão dos cestos, utilizamos a idéia de calcular um conjunto de separadores (\textit{splitters}), denominados de $p-quartis$, baseado no cálculo de medianas de um conjunto de elementos.
+\end{slide}
+
+
+\begin{slide}
+\stitle{Algoritmo de ordenação split sort no BSP/CGM}  
+
+\vspace{-1cm}\textbf{\blue Entrada:} (1) Um vetor $A$ com $n$ elementos. (2) $p$ processadores $p_0, p_1, p_2 \cdots, p_{p-1}.$ (3) Os elementos do vetor A são distribuídos entre os $p$ processadores ($n/p$ elementos por processador).
+
+
+\vspace{-1cm}\textbf{\blue Saída:} Todos os elementos ordenados dentro de cada processador e por processador, ou seja, se $i < j$, temos que os elementos em $p_i$ são menores que os elementos pertencentes a $p_j$.
+\end{slide}
+
+\begin{slide}
+\stitle{Split sort no BSP/CGM} 
+\textbf{\blue Algoritmo}
+
+\vspace{-1cm}  \begin{codebox}
+  \li  Compute um conjunto divisor $S = \{s_1, s_2, \cdots, s_{p-1}\}$
+  \li  $broadcast(S, p_i)$   \Comment $p_0$ envia $S$ para todos os processadores
+  \li  Particionar os elementos de $p_i$ em buckets $B^i_j$ de acordo com S
+  \li  $envia(B^i_j, p_j)$ \Comment cada processador $P_i$ envia $B^i_j$ para $p_j$, $1 \leq i,j \leq p$
+  \li  Ordene $B^k_i = B^0_i \cup  B^1_i \cup \cdots \cup B^{p-1}_i$
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+\stitle{Split sort no BSP/CGM} 
+É fácil veriricar que este algoritmo ordena qualquer entrada, visto que não foi efetuado nenhuma restrição ao tamanho dos buckets. 
+
+Como no modelo CGM temos que cada processador tem $O(n/p)$ memória local, devemos escolher cuidadosamento o conjunto $S$, pois isso influenciará no tamanho dos buckets.
+\end{slide}
+
+\begin{slide}
+\stitle{Split sort no BSP/CGM} 
+Vamos apresentar um algoritmo CGM para computar o conjunto S (conjunto splitter), que utiliza apenas $O(p)$ espaço de memória por processador. 
+
+O método divide a entrada em $p$ subconjuntos de mesmo tamanho como segue.
+\end{slide}
+
+\begin{slide}
+\stitle{Split sort no BSP/CGM} 
+\begin{definicao}
+A \textbf{\darkgreen mediana} de um conjunto ordenado de $n$ números é o $(n+1)/2$-ésimo elemento de $n$ para $n$ ímpar ou a média do $n/2$-ésimo com $(n+1)/2$-ésimo elemento para $n$ par. 
+\end{definicao}
+
+\end{slide}
+\begin{slide}
+\stitle{Split sort no BSP/CGM} 
+\begin{definicao}
+Os \textbf{\darkgreen p-quartis} de um conjunto ordenado $A$ de tamanho $n$ são os $p-1$ elementos, de índice $\frac{n}{p},\frac{2n}{p}, \cdots, \frac{(p-1)n}{p}$, que dividem $A$ em $p$ partes de igual tamanho.
+\end{definicao}
+Os p-quartis podem ser facilmente computados de forma sequencial usando um algoritmo recursivo em tempo $O(n \log p)$
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo p-quartis sequencial}
+\vspace{-1cm}\textbf{\blue Entrada:} (1) Um vetor $A$ com $n$ elementos. (2) $p$ o número de quartis
+
+ \vspace{-1cm}\textbf{\blue Saída:} O conjunto A dividido em p-quartis 
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo p-quartis sequencial}
+\textbf{\blue Algoritmo}
+
+\vspace{-1cm}  \begin{codebox}
+  \li  Compute a mediana de $A$
+  \li  Usando a mediana, divida $A$ em dois subconjuntos $A_1$ e $A_2$
+  \li  Aplique o algoritmo recursivamente, até que $p-1$ splitter 
+  \zi  sejam encontrados
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo p-quartis no BSP/CGM}
+
+\vspace{-1cm}\textbf{\blue Entrada:} (1) Um vetor $A$ com $n$ elementos. (2) $p$ processadores $p_0, p_1, \cdots, p_{p-1}$ (3) Os elementos do vetor $A$ são distribuídos entre os $p$ processadores ($n/p$ elementos por processador)
+
+ \vspace{-1cm}\textbf{\blue Saída:} O conjunto A dividido em p-quartis 
+\end{slide}
+
+
+\begin{slide}
+\stitle{Algoritmo p-quartis no BSP/CGM}
+\textbf{\blue Algoritmo}
+
+\vspace{-1cm}  \begin{codebox}
+  \li  $Q_i := p-quartis(A_i)$ \Comment Cada processador $p_i$ calcula 
+  \zi  \hspace{7.6cm}\Comment sequencialmente seus $p-quartis$
+  \li  $envia(Q_i, p_0)$ \Comment Todos os processador $p_i$ enviam $Q_i$ para $p_0$
+  \li  \If $i = 0$ \Then \hspace{4.5cm}$S := Ordena(Q_0 \cup Q_1 \cup \cdots \cup Q_{p-1})$ \End
+  \li  $broadcast(S, p_i)$
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo p-quartis no BSP/CGM}
+\begin{center}
+\includegraphics[height=12cm]{fig03}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo split-sort no Modelo BSP/CGM}
+\begin{center}
+\includegraphics[height=12cm]{fig04}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo p-quartis no BSP/CGM}
+Complexidade:
+
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Tempo de computação local: $O(\frac{n \log p}{p})$, onde $\frac{n}{p} \geq p^2$
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Rodadas de comunicação: $O(1)$
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo p-quartis no BSP/CGM}
+Complexidade:
+
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Tempo de computação local: $O(\frac{n \log p}{p})$, onde $\frac{n}{p} \geq p^2$
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Rodadas de comunicação: $O(1)$
+  
+  Este tempo de computação local pode ser melhorado de tal forma que $\frac{n}{p} \geq p$
+  \end{slide}
+
+\begin{slide}
+\stitle{List Ranking no Modelo BSP/CGM}
+\end{slide}
+
+\begin{slide}
+\stitle{List Ranking}
+
+Seja $L$ uma lista representada por um vetor $s$ tal que $s[i]$ é o nó sucessor de $i$ na lista $L$, para $u$, o último elemento da lista $L$, $s[u] = u$. Denominamos $i$ e $s[i]$ por vizinhos.
+
+A \textbf{\darkgreen distância} entre $i$ e $j$,  $d_L(i,j)$, é o número de nós entre $i$ e $j$ mais 1.
+\end{slide}
+
+\begin{slide}
+\stitle{List Ranking}
+O problema do \textbf{\darkgreen list ranking} consiste em computar para cada $i \in L$, a distância entre $i$ e o último elemento $j$, denotado por $dist_L(i) = d_L(i,j)$.
+\end{slide}
+
+\begin{slide}
+\stitle{List Ranking}
+O número de nós da lista cujos sucessores não estão armazenados no mesmo processador pode variar de $0$ a $n/p$.
+
+Mesmo se todos os sucessores estiverem em um dado processador, após a aplicação da duplicação recursiva (\textit{pointer jumping}), não há garantia que isto ocorra nos passos seguintes.
+\end{slide}
+
+\begin{slide}
+\stitle{List Ranking}
+\begin{center}
+\includegraphics[height=12cm]{fig05}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{List Ranking}
+O número de rodadas de comunicação pode chegar a $O(\log n)$, uma vez que pode ser necessária a comunicação para obter o sucessor de um dos seus elementos.
+
+A simples aplicação da duplicação recursiva não leva a um algoritmo CGM eficiente.
+
+\end{slide}
+
+\begin{slide}
+\stitle{List Ranking}
+
+Para diminuir o número de rodadas de comunicação, a idéia é a de selecionar um conjunto de elementos $i^* \in L$ bem distribuido em L, de tal forma que a distância de qualquer $i \in L$ a $i^*$ possa ser computada em $O(\log^k p)$ aplicações de pointer jumping.
+\end{slide}
+
+\begin{slide}
+\stitle{r-ruling set}
+Um \textbf{\darkgreen r-ruling set} de L é um subconjunto de elementos selecionados da lista $L$ com as seguintes propriedades:
+
+  \vspace{-1cm} \hspace{1cm} (1) Dois vizinhos nunca são selecionados.
+  
+  \vspace{-1cm} \hspace{1cm} (2) A distância entre qualquer elemento não selecionado ao próximo elemento não selecionado é no máximo $r$.  
+\end{slide}
+
+\begin{slide}
+\stitle{r-ruling set}
+Uma lista L e um 3-ruling set.
+\begin{center}
+\includegraphics[height=4cm]{fig06}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo List Ranking determinístico}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo List Ranking determinístico}
+{\blue Entrada}: Uma lista ligada L de comprimento $n$ onde cada processador armazena $n/p$ elemento $i \in L$ e seus respectivos ponteiros $s_L[i]$.
+
+{\blue Saída}: Para cada elemento $i$ seu \textit{rank} $dist(i)$ em L. 
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo List Ranking determinístico}
+\begin{enumerate}
+\item Calcular $O(p^2)$-\textit{ruling set} R com $|R| = O(n/p)$.
+\item Fazer um \textit{broadcast} de R para todos os processadores. O subconjunto R é uma lista ligada onde cada elemento $i$ é atribuído um ponteiro para o próximo elemento $j$ em R com respeito à ordem induzida por L.
+\item Calcular sequencialmente em cada processador o \textit{List Ran\-king} de R, isto é, calcular para cada $j \in R$ seu $dist_L(j)$ em L
+
+\item Obter para cada elemento $i \in L - R$ sua distância $d_L(i,s_R[i])$ ao próximo elemento $s_R[i]$ em $R$ através da duplicação recursiva.
+
+\item Calcular em cada processador os \textit{ranks} dos seus elementos $i \in L - R$ com: $$dist_L[i] = d_L(i, s_R[i]) + dist_L(s_R[i])$$ 
+\end{enumerate}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo List Ranking determinístico}
+\begin{center}
+\includegraphics[height=12cm]{fig07}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Compressão determinística de listas}
+Para computar um $O(p^2)$-\textit{ruling set} em $O(\log p)$ rodadas de comunicação, usaremos uma técnica chamada \textbf{\darkgreen compressão determinística de lista}.
+\end{slide}
+
+\begin{slide}
+\stitle{Compressão determinística de listas}
+Na compressão determinística da lista aplica-se uma sequência alternada de fases de \textbf{\darkgreen compressão} e de \textbf{\darkgreen concatenação}.
+\end{slide}
+
+\begin{slide}
+\stitle{Compressão determinística de listas}
+Na fase de compressão, seleciona-se um subconjunto de elementos da lista L, utilizando um esquema de rotulação (\textit{deterministic coin tossing}).
+
+A fase de concatenação consiste da construção de uma lista ligada, através da duplicação recursiva, com os elementos selecionados na fase de compressão.
+\end{slide}
+
+\begin{slide}
+\stitle{Compressão determinística de listas}
+Um intervalo-s de comprimento $k$ é uma sequencia $I = (i_1, i_2, \cdots, i_k)$ de elementos da lista tal que $s[i_j] = i_{j+1}$, $1 \leq j \leq k-1$.
+
+Os dois vizinhos $n_1$ e $n_2$ do intervalo-s $I$ são tais que $s[n_1] = i_1$ e $s[i_k] = n_2$.
+\end{slide}
+
+\begin{slide}
+\stitle{Compressão determinística de listas}
+
+Um intervalo-s maximal $I$ de elementos da lista cujos elementos estão todos no mesmo processador é dito intervalo-s local.
+
+Um intervalo-s maximal $I$ de elementos da lista tal que quaisquer dois elementos consecutivos não estão no mesmo processador é dito intervalo-s não-local.
+\end{slide}
+
+\begin{slide}
+\stitle{Compressão determinística de listas}
+O rótulo $l(i)$,  $\forall i \in L$, na fase de compressão é o número do processador $p$ que armazena o nó $i$.
+
+Neste esquema, cada elemento de L tem no máximo $p$ rótulos distintos.
+
+Seja $M =\{i, i+1, \cdots, i+k\} \subseteq L$, tal que $l(i) \neq l(s[i])$, $\forall i \in L$, onde o $s[i]$ é o máximo local se $l(i) < l(s[i]) > l(s[s[i]])$.
+\end{slide}
+
+\begin{slide}
+\stitle{Compressão determinística de listas}
+Selecionando apenas máximos locais não há garantia de distância menor que $O(p)$.
+
+Pode haver $L' = \{j, j+1, \cdots, j+k\} \subseteq L$, onde $l(s[i]) = l(j), \forall j \in L'$ e $k > p$
+
+Selecionamos todos os segundos elementos.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo $p^2$-\textit{ruling set}}
+\textbf{\blue Entrada:} $L$ representada pelo vetor s.
+
+\textbf{\blue Saída:} $R \subset L$ de nós selecionados.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo $p^2$-\textit{ruling set}}
+\begin{enumerate}
+\item[(1)] Cada processador localmente marca todos seus elementos como \textbf{não-selecionado}
+\item[(2)] Cada processador executa para cada um dos elementos armazenados:
+\begin{enumerate}
+\item[(2.1)] se $l(i) < l(s[i]) > l(s[s[i]])$ então $s[i]$ é \textbf{selecionado}.
+\end{enumerate}
+\item[(3)] Cada processador localmente determina seus intervalos-s locais. Para cada intervalo-s de comprimento maior que dois, todo segundo elemento é marcado como \textbf{selecionado}. Se algum intervalo-s tem comprimento menor que dois e nenhum de seus vizinhos tem um rótulo menor, então ambos elementos são marcados como \textbf{não-selecionados}.
+\item[(4)] para $k=1$ até $\log p$ faça
+\begin{enumerate}
+\item[(4.1)] Cada processador localmente executa para cada elemento $i$ da lista:
+
+se $s[i]$ é \textbf{não-selecionado} então $s[i] = s[s[i]]$.
+\item[(4.2)] Cada processador localmente executa para cada elemento $i$ da lista
+
+se ($i$, $s[i]$ e $s[s[i]]$ estão \textbf{selecionados}) E ($l(i) < l(s[i]) > l(s[s[i]])$) E ($l(i) \neq l(s[i])$) E ($l(s[i]) \neq l(s[s[i]])$) então marcar $s[i]$ como \textbf{não-selecionado}.
+\item[(4.3)] Cada processador examina seus intervalos-s locais. Para cada intervalo-s de comprimento maior que dois, todo segundo elemento é marcado como \textbf{não-selecionado}. Se um intervalo-s tem comprimento dois e nenhum de seus vizinhos tem um rótulo menor, então ambos elementos são marcados como \textbf{não-selecionado}.
+\end{enumerate}
+ \item[(5)] O processador que armazena o último elemento de L é marcado como \textbf{selecionado}.
+\end{enumerate}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo $p^2$-\textit{ruling set}}
+O algoritmo computa um $p^2$-\textit{ruling set} $R$ onde $|R| = O(n/p)$ usando $O(\log^2 p)$ rodadas de comunicação e $O(n/p)$ computação local por rodada.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo List Ranking determinístico}
+O problema do list ranking para uma lista L com $n$ vértices pode ser resolvido no modelo CGM com $p$ processadores e $O(n/p)$ memória local por processador usando $O(\log p)$ rodadas de comunicação e $O(n/p)$ computação local por rodada.
+\end{slide}
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

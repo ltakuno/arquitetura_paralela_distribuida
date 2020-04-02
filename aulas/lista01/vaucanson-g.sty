@@ -1,0 +1,15 @@
+\ProvidesPackage{vaucanson-G}[2003/05/09 package wrapper for Vaucanson-G]
+\DeclareOption{slides}{\AtEndOfPackage{\input VCPref-slides.tex}}
+\ProcessOptions
+\RequirePackage{ifthen}
+\RequirePackage[usenames]{pstcol}
+\RequirePackage{pst-node}
+\RequirePackage{pst-plot}
+\RequirePackage{pst-coil}
+\RequirePackage{multido}
+\RequirePackage{pst-3d}
+\RequirePackage{color}
+\RequirePackage{calc}
+\input Vaucanson-G.tex
+\input VCPref-main.tex
+\endinput

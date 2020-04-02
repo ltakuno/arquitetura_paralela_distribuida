@@ -1,0 +1,182 @@
+This is e-TeX, Version 3.141592-2.2 (MiKTeX 2.4) (preloaded format=latex 2005.7.21)  3 FEB 2008 04:30
+entering extended mode
+**vaucanson.sty
+(vaucanson.sty
+LaTeX2e <2003/12/01>
+Babel <v3.8g> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, french, loaded.
+
+LaTeX Warning: You have requested package `',
+               but the package provides `vaucanson-g'.
+
+Package: vaucanson-g 2003/05/09 package wrapper for Vaucanson-G
+vaucanson.sty is an obsolete name for vaucanson-g.sty. A file is kept under tha
+t name in order to ensure upward compatibility.
+(C:\Arquivos de programas\MiKTeX\tex\latex\base\ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(C:\Arquivos de programas\MiKTeX\tex\latex\pstricks\pst-node.sty
+(C:\Arquivos de programas\MiKTeX\tex\latex\pstricks\pstricks.sty
+Package: pstricks 2004/05/12 v0.2l LaTeX wrapper for `PSTricks' (RN,HV)
+
+(C:\Arquivos de programas\MiKTeX\tex\generic\pstricks\pstricks.tex
+`PSTricks' v1.07  <2005/05/06> (tvz)
+\pst@dima=\dimen102
+\pst@dimb=\dimen103
+\pst@dimc=\dimen104
+\pst@dimd=\dimen105
+\pst@dimg=\dimen106
+\pst@dimh=\dimen107
+\pst@hbox=\box26
+\pst@boxg=\box27
+\pst@cnta=\count79
+\pst@cntb=\count80
+\pst@cntc=\count81
+\pst@cntd=\count82
+\pst@cntg=\count83
+\pst@cnth=\count84
+\pst@toks=\toks14
+(C:\Arquivos de programas\MiKTeX\tex\generic\pstricks\pstricks.con)
+\psunit=\dimen108
+\psxunit=\dimen109
+\psyunit=\dimen110
+\pslinewidth=\dimen111
+\pst@customdefs=\toks15
+\pslinearc=\dimen112
+\everypsbox=\toks16
+\psframesep=\dimen113
+\pslabelsep=\dimen114
+\theoverlaybox=\box28
+)
+File: pstricks.tex 2005/05/06 v1.07 `PSTricks' (tvz)
+
+(C:\Arquivos de programas\MiKTeX\tex\latex\xcolor\xcolor.sty
+Package: xcolor 2005/06/06 v2.03 LaTeX color extensions (UK)
+
+(C:\Arquivos de programas\MiKTeX\tex\latex\00miktex\color.cfg
+File: color.cfg 2003/03/08 v1.0 MiKTeX 'color' configuration
+)
+Package xcolor Info: Package option `override' ignored on input line 157.
+Package xcolor Info: Driver file: dvips.def on input line 166.
+
+(C:\Arquivos de programas\MiKTeX\tex\latex\graphics\dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)
+Package xcolor Info: Color model `cmy' added on input line 1117.
+Package xcolor Info: Color model `RGB' extended on input line 1140.
+Package xcolor Info: Color model `HTML' added on input line 1151.
+Package xcolor Info: Color model `HSB' added on input line 1157.
+Package xcolor Info: Color model `Gray' added on input line 1163.
+))
+Package: pst-node 2004/07/15 package wrapper for pst-node.tex
+
+(C:\Arquivos de programas\MiKTeX\tex\generic\pstricks\pst-node.tex
+ v97 patch 11, 2000/11/09
+\psrow=\count85
+\pscol=\count86
+\psmatrixcnt=\count87
+\psrowsep=\skip41
+\pscolsep=\skip42
+)
+File: pst-node.tex 2000/11/09 97 patch 11 `pst-node' (tvz)
+)
+(C:\Arquivos de programas\MiKTeX\tex\latex\pstricks\pst-plot.sty
+Package: pst-plot 2004/07/15 package wrapper for pst-plot.tex
+
+(C:\Arquivos de programas\MiKTeX\tex\generic\pstricks\pst-plot.tex
+ v97 patch 2, 1999/12/12
+(C:\Arquivos de programas\MiKTeX\tex\generic\multido\multido.tex
+ v1.41, 2004/05/18 <tvz>
+\multido@count=\count88
+\multidocount=\count89
+\multido@stuff=\toks17
+))
+File: pst-plot.tex 2004/05/18 1.41 `pst-plot' (tvz)
+)
+(C:\Arquivos de programas\MiKTeX\tex\latex\pstricks\pst-coil.sty
+Package: pst-coil 2004/07/15 package wrapper for pst-coil.tex
+
+(C:\Arquivos de programas\MiKTeX\tex\generic\pstricks\pst-coil.tex
+ v97 patch 2, 1998/03/19)
+File: pst-coil.tex 1998/03/19 v97 patch 2 `pst-coil' (tvz)
+)
+(C:\Arquivos de programas\MiKTeX\tex\latex\multido\multido.sty
+Package: multido 2004/05/17 package wrapper for PSTricks `multido.tex', (HV/RN)
+
+)
+(C:\Arquivos de programas\MiKTeX\tex\latex\pstricks\pst-3d.sty
+Package: pst-3d 2004/07/15 package wrapper for pst-3d.tex
+
+(C:\Arquivos de programas\MiKTeX\tex\generic\pstricks\pst-3d.tex
+ v97, patch2, 2005/02/19)
+File: pst-3d.tex 2005/02/19 97, patch2 `pst-3d' (tvz)
+)
+(C:\Arquivos de programas\MiKTeX\tex\latex\tools\calc.sty
+Package: calc 1998/07/07 v4.1b Infix arithmetic (KKT,FJ)
+\calc@Acount=\count90
+\calc@Bcount=\count91
+\calc@Adimen=\dimen115
+\calc@Bdimen=\dimen116
+\calc@Askip=\skip43
+\calc@Bskip=\skip44
+LaTeX Info: Redefining \setlength on input line 59.
+LaTeX Info: Redefining \addtolength on input line 60.
+\calc@denominator=\count92
+) (Vaucanson-G.tex
+\MediumStateDiameter=\skip45
+\SmallStateDiameter=\skip46
+\LargeStateDiameter=\skip47
+\VerySmallStateDiameter=\skip48
+\StateLineWidth=\skip49
+\EdgeLineWidth=\skip50
+\EdgeArrowWidth=\skip51
+\EdgeDblArrowWidth=\skip52
+\ZZSize=\skip53
+\EdgeOffset=\skip54
+\VaucArcOffset=\skip55
+\LoopOffset=\skip56
+\LoopVarOffset=\skip57
+\TransLabelSep=\skip58
+\VertShiftH=\skip59
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 187.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 187.
+\VertShiftD=\skip60
+\VertShift=\skip61
+\StateLineWid=\skip62
+\StateDiam=\skip63
+\VaucAOS=\skip64
+\VaucAOSdiag=\skip65
+\VariableStateIntDiam=\skip66
+\VariableStateWidth=\skip67
+\VariableStateITPos=\skip68
+\ExtraSpace=\skip69
+\EdgeLineWid=\skip70
+\EdgeArrowSZDim=\skip71
+\EdgeLineBord=\skip72
+\ZZSiZ=\skip73
+\EdgeOff=\skip74
+\VaucArcOff=\skip75
+\LoopOff=\skip76
+\LoopVarOff=\skip77
+\TransLabelSP=\skip78
+\c@anglea=\count93
+\c@angleb=\count94
+)
+(VCPref-main.tex))
+! Emergency stop.
+<*> vaucanson.sty
+                 
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 2633 strings out of 95901
+ 29376 string characters out of 1194685
+ 96282 words of memory out of 1100066
+ 5652 multiletter control sequences out of 60000
+ 3640 words of font info for 14 fonts, out of 1000000 for 2000
+ 14 hyphenation exceptions out of 4999
+ 36i,1n,41p,249b,61s stack positions out of 5000i,500n,10000p,200000b,32768s
+No pages of output.

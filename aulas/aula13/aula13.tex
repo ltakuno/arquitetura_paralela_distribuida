@@ -1,0 +1,639 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{tabularx}
+ 
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+\newtheorem{definicao}  [theorem] {Definição}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2017}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item E. Cáceres, H. Mongeli, S. Song: Algoritmos paralelos u\-san\-do CGM/PVM/MPI: uma introdução\\
+    \verb|http://www.ime.usp.br/~song/papers/jai01.pdf| 
+     \item N. A. Lynch: Distributed Algorithms, Morgan Kaufmann Publishers, Inc., 96
+   \begin{itemize}
+    \itemT Algoritmos distribuídos
+    \end{itemize}
+  \end{enumerate}
+\end{slide}
+
+ 
+ 
+\begin{slide}
+  \stitle{Sistemas distribuídos}
+\end{slide}
+
+\begin{slide}
+  \stitle{Sistemas distribuídos}
+
+Coleção de entidades independentes (nós) que cooperam entre si, através de comunicação, para resolver um problema que não pode ser resolvido individualmente por cada nó.
+\end{slide}
+
+\begin{slide}
+  \stitle{Sistemas distribuídos}
+  Um sistema distribuído existe sempre que houver comunicação entre nós autônomos (agentes inteligentes) e geograficamente distribuídos
+  \begin{center}
+\includegraphics[height=8cm]{fig01}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Características de Sistemas distribuídos}
+  \begin{itemize}
+  \itemT Ausência de um relógio global;
+  \vspace{-1cm} \itemT Ausência de memória compartilhada;
+  \vspace{-1cm} \itemT Separação geográfica e incerteza em tempos de comunicação e processamento;
+  \vspace{-1cm} \itemT Possibilidade de falhas independentes de nós e da rede; e
+  \vspace{-1cm} \itemT Dificuldade (impossibilidade) de conhecer o estado global do sistema.
+  \end{itemize}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmos distribuídos}
+
+ \begin{itemize}
+  \itemT  Algoritmos distribuídos são programas que executam em nós de uma rede (com atrasos e confiabilidade não conhecidos). 
+  \itemT É composto por processos que conjuntamente e de forma coordenada, realizam uma tarefa e precisam manter a consistência.
+ \end{itemize}
+\end{slide}
+
+\begin{slide}
+  \stitle{Premissas desejáveis}
+  O que esperamos de um algoritmo?
+\begin{itemize}
+\itemT Estar correto
+\vspace{-1cm} \itemT Ter baixa complexidade
+\end{itemize}  
+
+   Em algoritmos distribuídos tudo depende do ambiente de execução
+   
+\begin{itemize}
+\itemT Grau de sincronismo
+\vspace{-1cm} \itemT Garantia de entrega de mensagens
+\vspace{-1cm} \itemT Possibilidade de falhas (nós e redes)
+\end{itemize} 
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Comunicação entre processos (interprocessos)} 
+  $P_i$ é um processo que:
+  \begin{itemize}
+\itemT Encapsula um estado (variáveis com valores)
+\vspace{-1cm} \itemT Reage a eventos externos
+\vspace{-1cm} \itemT Interage através de envio de mensagens
+\end{itemize}
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização de sistemas distribuídos}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização de sistemas distribuídos}  
+Tempo lógico
+
+\begin{itemize}
+\itemT Em um processo, os eventos são ordenados pelo tempo do relógio local
+\vspace{-1cm} \itemT Não é possível sincronizar os relógios físicos perfeitamente, logo não tem como utilizá-los para determinar a ordem de ocorrência de 2 eventos em um sistema distribuído.
+\end{itemize}
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização de sistemas distribuídos}  
+  Solução para o problema:
+  
+  \begin{itemize}
+\itemT  Utilizar um esquema baseado em \textbf{causalidade} (\textit{happened before} = ``aconteceu antes'')
+\vspace{-1cm} \itemT $a \rightarrow b$, se e somente se, $a$ ocorre antes de $b$
+\vspace{-1cm} \itemT Invés de sincronizar os relógios físicos ordenamos os eventos
+\end{itemize}
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização de sistemas distribuídos} 
+  \begin{center}
+\includegraphics[height=4cm]{fig02}
+\end{center}
+
+$a \rightarrow b$ (em $P_1$)\\
+$c \rightarrow d$ (em $P_2$)\\
+$b \rightarrow c$ por causa de $m_1$\\
+$d \rightarrow f$ por causa de $m_2$\\
+$a//e$ eventos concorrentes
+\end{slide}
+
+\begin{slide}
+  \stitle{Sincronização de sistemas distribuídos} 
+Duas situações:
+
+\begin{enumerate}
+\item[(1)] Se os eventos $e_1$ e $e_2$ acontecem no mesmo processo, então $e_1 \rightarrow e_2$ (ordem observada entre os processos);
+\item[(2)] Quando o processo envia uma mensagem $m$ para outro processo, o $envia()$ acontece antes do $recebe()$ ($envia(m) \rightarrow recebe(m)$.
+\end{enumerate}    
+Note que a relação $\rightarrow$ é transitiva.
+\end{slide}
+
+\begin{slide}
+  \stitle{O relógio lógico de Lamport (1978)}
+\begin{itemize}
+\item   Mecanismo numérico para capturar e representar a relação $\rightarrow$ (acontece antes);
+\item Cada processo $P_i$ tem um relógio lógico (contador) designado por $L_i$;
+\item Não está ligado a um relógio físico.
+\end{itemize} 
+\end{slide}
+
+\begin{slide}
+  \stitle{O relógio lógico de Lamport (1978)}
+  \textit{Timestamp} (marcas de tempo) são colocados nos eventos de acordo com as regras.
+\begin{itemize}
+\item Evento local: $L_i$ é incrementado antes de colocá-lo como timestamp em um evento
+\item $envia$: Quando $P_i$ envia $m$, ele copia em $m$ o valor do seu $L_i$
+\item $recebe$: Quando $P_i$ recebe uma mensagem $m$ com timestamp $t$, ele efetua o cálculo $L_j = max \{L_j, t\} + 1$ 
+\end{itemize}  
+\end{slide}
+
+\begin{slide}
+  \begin{center}
+\includegraphics[height=7cm]{fig03}
+\end{center}
+
+  \stitle{Exemplo}
+\begin{itemize}
+  \item $L_1, L_2$ e $L_3$ são inicializados com 0 (zero)
+ \vspace{-1cm} \item No envio de $m_1$, $P_1$ manda junto $L_1 = 2$
+  \vspace{-1cm} \item $P_2$ recebe $m_1$ e calcula $L_2 = max\{0,2\} + 1$
+\end{itemize}    
+\end{slide}
+
+\begin{slide}
+  \stitle{Exclusão mútua}
+Problema: recursos não podem ser usados simultaneamente por vários processos
+
+Solução: garantir exclusividade de acesso (exclusão mútua)
+\end{slide}
+
+\begin{slide}
+  \stitle{Exclusão mútua}
+
+ Regiões críticas
+\begin{itemize}
+\item Concorrência
+\vspace{-1cm}\item Consistência
+\end{itemize}
+  Semáforos: Sistemas monoprocessados ou com multiprocessados com memória compartilhada.
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Exclusão mútua}
+  \begin{itemize}
+\vspace{-1cm}\item Sistemas distribuídos?
+
+Resposta: semáforos distribuídos
+
+\begin{itemize}
+\item Centralizado
+\vspace{-1cm}\item Descentralizado (Não veremos) - pouco eficiente
+\vspace{-1cm}\item Distribuído
+\vspace{-1cm}\item Anel
+\end{itemize}
+
+\end{itemize}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo centralizado}
+  
+  Similar a um sistema monoprocessado
+  
+  Um dos processos é eleito coordenador
+  
+  O coordenador garante a exclusão mútua
+  
+  Três tipos de mensagem 
+  
+  \begin{itemize}
+  \vspace{-1cm}  \item Request (requisição)
+  
+  \vspace{-1cm} \item Reply (conceder)
+  
+  \vspace{-1cm} \item Release (Liberação)
+  \end{itemize}
+  
+  \end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo centralizado}
+  \begin{center}
+\includegraphics[height=12cm]{fig04}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo distribuído}
+  Não existe coordenador e decisões são tomadas em grupo
+  
+  Proposta de Ricarte Agrawala é uma melhoria de idéias de Lamport
+  
+  
+  Tal solução exige ordenação global dos eventos do sistema (\textit{timestamp})  
+\end{slide}
+
+\begin{slide}
+  \stitle{Procedimento}
+  Se um processo $i$ deseja entrar em uma Região Crítica x ($RCx$) ele gera um \textit{Timestamp} (TS) e envia $Request(i, RCx, TS)$.
+  
+  O processo $i$ saberá que $RCx$ está livre se receber \textit{Reply} de todos os outros processos.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo distribuído}
+  Quando um processo recebe \textit{Request}
+  \begin{itemize}
+  \item Se não estiver acessando a $RCx$ e não quiser acessá-la devolve OK (Reply)
+  \item Se ele estiver acessando a $RCx$ não responde e coloca o Request em uma fila de espera
+  \item Se ele também deseja acessar a $RCx$, mantém uma fila de espera e envia o Reply (OK) para o Request com menor $TS$
+  \end{itemize}
+  \end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo distribuído}
+  Exemplo:
+    \begin{center}
+\includegraphics[height=8cm]{fig05}
+\end{center}
+  Processos 0 e 2 querem acessar um recurso ao mesmo ``tempo''
+  
+  8 e 12 são timestamps dos requests.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo distribuído}
+  Acessa o recurso (Região crítica)
+    \begin{center}
+\includegraphics[height=6cm]{fig06}
+\end{center}
+  Processos 1 não tem interesse no recurso e envia OK para 0 e 2
+  
+  0 e 2 percebem o conflito, mas vence quem tem o menor timestamp.
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo distribuído}
+ 
+\begin{center}
+\includegraphics[height=6cm]{fig07}
+\end{center}
+  Quando o processo 0 liberar o recurso ele envia OK para o processo 2 que estava na fila de espera.
+  \end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo em anel}
+  Conhecido como Token Ring
+  
+  Processos pertence a um anel lógico
+  
+  Quem possui o token (ficha) é o que tem direito a acessar a região crítica.
+  \end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo em anel}
+\begin{tabular}{l|l}
+
+Algoritmo & Problema \\ \hline
+Centralizado & Queda do coordenador \\
+Distribuído & Queda de qualquer processo \\
+Anel & Perda do token ou queda de um processo\\
+\end{tabular}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo em anel}
+  \begin{center}
+\includegraphics[height=6cm]{fig08}
+\end{center}
+Quando o anel é inicializado o processo 0 recebe o token
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de eleição}
+  Necessidade de um coordenador em ambiente distribuído
+  
+  A solução geral consiste em eleger o processo com maior ID
+  
+  Todos os processos precisam concordar com a eleição    
+\end{slide}
+
+
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

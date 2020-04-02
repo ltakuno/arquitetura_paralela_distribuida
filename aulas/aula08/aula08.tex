@@ -1,0 +1,1149 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item J. Jaja, An introduction to Parallel Algorithms, Addison Wesley, 92
+    \begin{itemize}
+    \itemT Algoritmos paralelos
+    \end{itemize}
+  \item E. Cáceres, H. Mongeli, S. Song: Algoritmos paralelos u\-san\-do CGM/PVM/MPI: uma introdução\\
+    \verb|http://www.ime.usp.br/~song/papers/jai01.pdf| 
+  \end{enumerate}
+\end{slide}
+ 
+ 
+\begin{slide}
+  \stitle{Modelo de Computação Paralela Distribuída}
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Modelo de Computação Paralela Distribuída}
+ 
+\itemtrig\ Modelo de arquitetura MIMD
+
+  \vspace{-1cm}  \itemtrig\ P processadores executam em paralelo e estão interligados através de canais de comunicação
+  
+  \vspace{-1cm}  \itemtrig\ Cada processador possui associado a ele uma memória (modelo de memória distribuída)
+  
+  \vspace{-1cm}  \itemtrig\ Cada processador possui sua unidade de controle. Em um determinado instante, cada processador está executando uma instrução possivelmente diferente dos demais sobre dados diferentes.
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Modelo de Computação Paralela Distribuída}
+    \vspace{-1cm}  \itemtrig\  Cada processador possui seu relógio local. 
+    
+      \vspace{-1cm}  \itemtrig\ Processadores se comunicam através dos canais de comunicação usando troca de mensagens
+      
+      \vspace{-1cm}  \itemtrig\ Os tempos de transmissão das mensagens são indeterminados, porém finitos.
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Modelo de Computação Paralela Distribuída}
+
+	Sincronização no envio de mensagens 
+
+	 \vspace{-1cm} \hspace{1cm} \itemtrig\ sistema síncrono (lock step) 
+
+	 \vspace{-1cm} \hspace{2cm} \itemcirc\ regular: array, anel, hipercubo 
+
+	 \vspace{-1cm} \hspace{2cm} \itemcirc\ irregular
+		
+		 \vspace{-1cm} \hspace{1cm} \itemtrig\ sistema assíncrono 
+	
+\end{slide}
+
+
+ \begin{slide}
+\stitle{Modelo de Computação Paralela e Distribuída}
+
+Uma rede pode ser vista como um grafo $G=(V,E)$, onde cada vértice $i \in V$ representa um processador, e cada aresta $(i,j) \in E$ representa uma ligação de comunicação nos dois sentidos entre $i$ e $j$. 
+\end{slide}
+
+\begin{slide}
+\stitle{Topologia}
+O modelo de rede incorpora a topologia de interconexão entre os processadores no próprio modelo.
+
+Parâmetros usados para avaliar a topologia de uma rede
+
+\itemtrig\ Diâmetro: distância máxima entre qualquer par de vértices
+
+\vspace{-1cm} \itemtrig\  Grau máximo: Grau máximo de um vértice qualquer de G
+
+\vspace{-1cm} \itemtrig\ Conectividade: vértice/aresta
+
+\end{slide}
+
+\begin{slide}
+\stitle{Topologia}
+\begin{center}
+\includegraphics[height=12cm]{fig01}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Array Linear}
+Um \textbf{\green array linear} consiste de P processadores $P_1, P_2, \cdots P_p$ organizados de tal maneira que o processador $P_i$ está conectado ao $P_{i-1}$ e $P_{i+1}$ desde que eles existam.
+\begin{center}
+\includegraphics[height=2cm]{fig02}
+\end{center}
+\itemtrig\  Diâmetro = $p - 1$
+
+\vspace{-1cm} \itemtrig\ Grau máximo = 2
+ \end{slide}
+
+\begin{slide}
+\stitle{Anel}
+
+Um \textbf{\green anel} é um array linear com conexão entre o início e fim, isto é, os processadores $P_1$ e $P_p$ estão conectados.
+
+\begin{center}
+\includegraphics[height=3cm]{fig03}
+\end{center}
+ \end{slide}
+
+\begin{slide}
+\stitle{Soma de um vetor no Anel}
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de um vetor no Anel}
+\textbf{\blue Entrada:} O número do processador $i$; O número $p$ de processadores; O i-ésimo sub-vetor $b = a((i-1)r + 1: ir)$ de tamanho $r$, onde $r = n/p$.
+
+\textbf{\blue Saída:} Processador $P_i$ calcula $s = s_1 + s_2 +  \cdots s_i$ e passa o resultado para a direita. Quando o algoritmo termina, $P_1$ terá a soma S.
+ \end{slide}
+
+\begin{slide}
+\underline{\blue Algoritmo:} Soma de um vetor no Anel
+
+ \begin{codebox}
+  \zi $z = b[1] + \cdots + b[r]$
+	\zi \If {$i = 1$} \Then
+	\zi  $s := 0$
+	\zi \Else
+	\zi  $recebe(s, esquerda)$
+	\zi \End
+  \zi $s := s + z$
+  \zi $envia(s, direita)$
+  \zi \If {$i = 1$} \Then
+  \zi $recebe(s, esquerda)$
+  \zi \End   
+\end{codebox}
+ \end{slide}
+
+\begin{slide}
+ \stitle{Complexidade}
+
+\vspace{-1cm} \itemtrig\ $Com(n)$: Custo de transmitir n números entre processadores adjacentes
+
+$$Com(n) = \sigma + n \tau$$
+
+Onde 
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  $\sigma$ é o tempo de inicialização
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  $\tau$ é o tempo no qual a mensagem é transferida
+ \end{slide}
+
+\begin{slide}
+ \stitle{Complexidade}
+Complexidade de tempo do algoritmo distribuído: Tempo de computação mais tempo de comunicação
+
+$$T = T_{comp} + T_{comm}$$
+
+
+
+\end{slide}
+
+\begin{slide}
+\stitle{Soma de um vetor no Anel}
+
+ Complexidade:
+	
+	\vspace{-1cm} \hspace{1cm} \itemtrig\ Tempo de execução local: $O(n/p)$, 
+	
+	digamos $T_{comp} = \alpha(n/p)$, onde $\alpha$ é uma constante
+	
+ \hspace{1cm} \itemtrig\ Tempo total da execução: 
+		
+		$$T = T_{comp} + T_{comm} = \alpha(n/p) + p(\sigma + n \tau)$$
+		
+	onde $p$ é o número de processadores.
+\end{slide}
+
+\begin{slide}
+\stitle{Medidas de eficiência de Algoritmos distribuídos}
+	\vspace{-1cm} \itemtrig\ Complexidade de mensagens:  número de mensagens enviadas (ao todo)
+	
+   \vspace{-1cm} \itemtrig\ Tamanho das Mensagens
+
+   \vspace{-1cm} \itemtrig\ Complexidade de espaço: espaço de memória necessário para um processo.
+\end{slide}
+
+\begin{slide}
+\stitle{Medidas de eficiência de Algoritmos distribuídos}
+   
+   \vspace{-1cm} \itemtrig\ Complexidade tempo local: número de passos do algoritmo sequencial de um processo (supor que comunicação leva um passo)
+   
+   
+ \vspace{-1cm} \itemtrig\ Complexidade tempo assíncrono: comprimento da maior cadeia causal
+\end{slide}
+
+\begin{slide}
+\stitle{Medidas de eficiência de Algoritmos distribuídos}
+
+ \vspace{-1cm} \itemtrig\ Causalidade: ao receber uma mensagem, um processo pode executar algo e enviar outras mensagens, em consequência deste recebimentos.
+
+ \vspace{-1cm} \itemtrig\ Speed Up: medida experimental
+\end{slide}
+
+\begin{slide}
+\stitle{Medidas de eficiência de Algoritmos distribuídos}
+
+$$\textrm{Speed Up} = \frac{\textrm{tempo gasto pelo melhor algoritmo sequencial}}{\textrm{tempo gasto pelo algoritmo distribuído}}$$
+
+$$\textrm{Speed Up} = \textrm{número de processadores utilizados}$$
+
+\end{slide}
+
+
+
+\begin{slide}
+\stitle{Soma de um vetor no Anel}
+Complexidade de mensagens:  $O(p)$
+ 
+Tamanho das mensagens: $O(1)$
+
+Complexidade de tempo local: $O(\frac{n}{p})$
+
+Complexidade de tempo assíncrono: $O(p)$
+\end{slide}
+
+\begin{slide}
+\stitle{Produto entre matriz e vetor no Anel}
+\end{slide}
+
+\begin{slide}
+\stitle{Produto entre matriz e vetor no Anel}
+
+\textbf{\blue Entrada:} O número do processador $i$; O número $p$ de processadores; A i-ésima sub-matriz $B = A(1:n,(i-1)r + 1: ir)$ de tamanho $n \times r$, onde $r = n/p$; O i-ésimo subvetor $w = x((i-1)r+1:ir)$ de tamanho r.
+
+\textbf{\blue Saída:} Processador $P_i$ computa o vetor $y = A_1 x_1 + \cdots A_i x_i$ e passa o resultado para a direita. Quando o algoritmo termina, $P_1$ terá o produto $Ax$.
+\end{slide}
+
+\begin{slide}
+\underline{\blue Algoritmo:} Produto entre matriz e vetor no Anel
+ \begin{codebox}
+  \zi \Comment Compute o produto entre a submatriz B e o subvetor w
+	\zi $z := Bw$ 
+	\zi \If {$i = 1$} \Then
+	\zi  $y := 0$
+	\zi \Else
+	\zi  $recebe(y, esquerda)$
+	\zi \End
+  \zi $y := y + z$
+  \zi $envia(y, direita)$
+  \zi \If {$i = 1$} \Then
+  \zi $recebe(y, esquerda)$
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação: Insertion sort distribuído}
+\end{slide}
+ 
+\begin{slide}
+\stitle{Ordenação: Insertion sort distribuído}
+\begin{center}
+\includegraphics[height=12cm]{fig12}
+\end{center}
+\end{slide}
+ 
+\begin{slide}
+\underline{\blue Algoritmo:} Insertion sort distribuído
+ \begin{codebox}
+	\zi \If {$i = 1$} \Then
+	\zi \For $k := 0$ \To $n$ \DoSeq \hspace{0.2cm}  $envia(v[k], direita)$
+    \End
+	\zi \Else
+	\zi  $numProcs := n - i - 1$ 
+	\zi  $recebe(x, esquerda)$
+	\zi \For $k := 0$ \To $numProcs$ \DoSeq 
+	\zi  $recebe(numero, esquerda)$
+	\zi \If $numero > x$ \Then
+	\zi $envia(x, direita)$
+	\zi $x := numero$
+	\zi \Else \hspace{2cm}$envia(numero, direita)$
+    \End
+    \End
+	\End
+\end{codebox}
+
+
+\end{slide}
+ 
+\begin{slide}
+\stitle{Ordenação: Insertion sort distribuído}
+A ordenação por inserção é um exemplo de computação sistólica ou pipeline
+
+Computação prossegue em frente de ondas
+
+Tem a vantagem de exigir comunicação com poucos vizinhos
+\end{slide}
+
+ 
+\begin{slide}
+\stitle{Mesh}
+\end{slide}
+
+ 
+\begin{slide}
+\stitle{Mesh}
+
+\itemtrig\  O {\green mesh} é uma versão bidimensional do array linear, que consiste de $p=m^2$ processadores arranjados em uma matriz $m \times m$,  dado que o processador $P_{ij}$ é conectado aos processadores $P_{i \pm 1j}$ e $P_{ij \pm 1}$ sempre que eles existirem. 
+\begin{center}
+\includegraphics[height=7cm]{fig04}
+\end{center}
+
+\itemtrig\ O diâmetro é $\sqrt{p}$ e o grau máximo: 4
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo Sistólico}
+
+Multiplicação de matrizes
+
+\begin{center}
+\includegraphics[height=11cm]{fig05}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+\stitle{Algoritmo Sistólico}
+
+Multiplicação de matrizes por vetor
+
+\begin{center}
+\includegraphics[height=11cm]{fig13}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+\stitle{Hipercubo}
+\end{slide}
+
+\begin{slide}
+\stitle{Hipercubo}
+
+Um hipercubo consiste de $p=2^d$ processadores interconectados em um cubo $d$-dimensional que pode ser definido como segue.
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\ Seja a representação binária de $i$ sendo $i_{d-1}i_{d-2} \cdots i_{0}$, onde $0 \leq i \leq p-1$. 
+ Então o processador $P_i$ está conectado ao processador $P_{i^{(j)}}$, onde $i^{(j)} = i_{d-1} \cdots \overline{i_j} \cdots i_0$, e $\overline{i_j} = 1 - i_j$, para $0 \leq j \leq d-1$ 
+\end{slide}
+
+\begin{slide}
+\stitle{Hipercubo}
+Dois processadores estão conectados se, e somente se, a representação binária de seus índices diferem apenas na posição de um bit.
+
+\begin{center}
+\includegraphics[height=9cm]{fig06}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Hipercubo}
+O hipercubo possui uma estrutura recursiva. Podemos estender um cubo $d$-dimensional a um cubo $(d+1)$-dimensional através da conexão dos processadores dos dois cubos $d$-dimensional.
+
+\begin{center}
+\includegraphics[height=9cm]{fig07}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Hipercubo}
+O diâmetro de um hipercubo $d$-dimensional é $d = \log p$. O grau máximo $d = \log p$.
+\end{slide}
+
+\begin{slide}
+\stitle{Soma no Hipercubo}
+Cada entrada $A[i]$ de uma array A de tamanho $n$ é armazenado inicialmente na memória local de um processador $P_i$ de um hipercubo de $(n = 2^d)$ processadores síncronos. O objetivo é computar a soma 
+
+$$ s = \displaystyle \sum_{i=0}^{n-1} A[i]$$
+
+e armazená-la no processador $P_0$. 
+\end{slide}
+
+\begin{slide}
+\stitle{Soma no Hipercubo}
+O algoritmo consiste de iterações
+
+
+A primeira computa a soma dos pares de elementos entre processadores cujos índices diferem na posição do bit mais significativo. As somas são armazenadas no subcubo $(d-1)$-dimensional cujo endereço do bit mais significativo é zero. 
+
+O restante do algoritmo funciona de forma análoga $i^{(l)}$ denota o índice que foi complementado.
+\end{slide}
+
+\begin{slide}
+\stitle{Soma no Hipercubo}
+\textbf{\blue Entrada:}  Um vetor $A$ de $n = 2^d$ elementos tal que $A(i)$ é armazenado na memória local do processador $P_i$, $0 \leq i \leq n-1$, de um hipercubo de $n$-processadores síncronos.
+
+
+
+\textbf{\blue Saída:}  A soma $\sum_{i=0}^{n-1} A(i)$ aramazenada em $P_0$
+ 
+\underline{\blue Algoritmo}
+\vspace{-1cm} \begin{codebox}
+	\zi \For $l=d-1$ \To $0$ \DoSeq 
+	\zi \If $0 \leq i \leq 2^l-1$ \Then
+	\zi  $A[i] := A[i] + A[i^{(l)}]$
+	\zi \End
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma no Hipercubo}
+	Exemplo: $n = 8$, então $d = 3$
+	
+\begin{center}
+\includegraphics[height=9cm]{fig08}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma no Hipercubo}
+Dimensão do cubo	$d = 3$
+
+Para $l = d - 1 = 2$, executar a soma $A(i) = A(i) + A(i^{(l)})$, para $0 \leq i \leq 3$
+
+$A(0)    = A(0) + A(0^{(2)}) = A(0) + A(4) = 4 + (-1) = 3$
+
+\vspace{-1cm} $A(1)    = A(1) + A(1^{(2)}) = A(1) + A(5) = 2 + (-3) = -1$
+
+\vspace{-1cm} $A(2)    = A(2) + A(2^{(2)}) = A(2) + A(6) = 3 + 7 = 10$
+
+\vspace{-1cm} $A(3)    = A(3) + A(3^{(2)}) = A(3) + A(7) = 6 + 5 = 11$
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma no Hipercubo}
+	Exemplo: $n = 8$, então $d = 3$
+	
+\begin{center}
+\includegraphics[height=10cm]{fig09}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma no Hipercubo}
+Iteração 
+
+Para $l = 1$, executar a soma $A(i) = A(i) + A(i^{(l)})$, para $0 \leq i \leq 1$
+
+$A(0)    = A(0) + A(0^{(1)}) = A(0) + A(2) = 3 + 10 = 13$
+
+\vspace{-1cm} $A(1)    = A(1) + A(1^{(1)}) = A(1) + A(3) = -1 + 11 = 10$
+
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Soma no Hipercubo}
+\begin{center}
+\includegraphics[height=10cm]{fig10}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Soma no Hipercubo}
+Iteração 
+
+Para $l = 0$, executar a soma $A(i) = A(i) + A(i^{(l)})$, para $0 \leq i \leq 0$
+
+$A(0)    = A(0) + A(0^{(0)}) = A(0) + A(1) = 13 + 10 = 23$
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma no Hipercubo}
+\begin{center}
+\includegraphics[height=11cm]{fig11}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Broadcast de um processador no Hipercubo}
+\end{slide}
+
+\begin{slide}
+  \stitle{Broadcast de um processador no Hipercubo}
+  Considere o problema de broadcast de um item X contido no registrador $D[0]$ de $P_0$ para todos os processadores $P_i$ de um hipercubo de $p$-processdores, onde $p = 2^d$
+\end{slide}
+
+\begin{slide}
+  \stitle{Broadcast de um processador no Hipercubo}
+  $P_0$ envia uma cópia de X para $P_1$
+  
+  
+  $P_0$ e $P_1$ enviam uma cópia para $P_2$ e $P_3$, e assim por diante.
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Broadcast de um processador no Hipercubo}
+  
+  $D[i]$ é enviado do processador $Pi$ ao processador $P_i^{(l)}$ através do link existente entre os dois processadores. 
+
+    No segundo subpasso, $P_i^{(l)}$ recebe a cópia e armazena no registrador D.
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Broadcast de um processador no Hipercubo}
+  Algoritmo para o processador $P_i$
+ \begin{codebox}
+  \zi \For $l := 0$ \To $d - 1$ \DoSeq
+	\zi \If {$0 \leq i \leq 2^l-1$} \Then
+	\zi	 $D[i^ {(l)}] = D[i]$
+	\zi \End
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Exercícios}
+  1) Dados dois vetores $A$ e $B$ de $n$ elementos, escreva um algoritmo distribuído na topologia em anel para calcular o produto escalar em $A$ e $B$. O produto escalar é dado por $A[0] \cdot B[0] + A[1] \cdot B[1] + \cdots + A[n-1] \cdot B[n-1]$.
+  
+  
+  2) Projete um algoritmo para computar a multiplicação de duas matrizes $A$ e $B$ de $n \times n$ em um hipercubo.
+\end{slide}
+
+\begin{slide}
+  \stitle{Propriedades de Algoritmos Distribuídos}
+  
+  \textbf{Topologia}: O algoritmo utiliza alguma topologia específica ou é genérico?
+  
+  \textbf{Capacidade de comunicação}: o algoritmo precisa que exista bufferização na comunicação? Quanto? 
+  
+  Comunicação \textbf{direta} ou \textbf{indireta}?
+\end{slide}
+
+\begin{slide}
+  \stitle{Propriedades de Algoritmos Distribuídos}
+\textbf{Preservação da ordem de envio das mensagens}: o algoritmo exige que os canais sejam FIFO em relação as mensagens?
+
+\textbf{Distribuição de Controle}: Todos os processos executam tarefas idênticas (simetria) ou existe algum processo que realiza alguma tarefa específica de maneira centralizada.
+\end{slide}
+
+\begin{slide}
+  \stitle{Propriedades de Algoritmos Distribuídos}
+\textbf{Estados Globais}: Em uma execução de um algoritmo distribuído um processo não tem conhecimento do estado global do sistema em um dado instante. Cada processo sabe apenas o seu estado local.
+
+\textbf{Terminação de um algoritmo distribuído:} A execução de um algoritmo distribuído termina quando todos os processos terminaram localmente e não há mais nenhuma mensagem em trânsito (mensagens enviadas e ainda não recebidas).
+\end{slide}
+
+\begin{slide}
+  \stitle{Propriedades de Algoritmos Distribuídos}
+Algoritmo para cálculo de produto escalar
+
+  \vspace{-1cm} \itemtrig\ Específico para o cálculo do produto escalar
+  
+  \vspace{-1cm} \itemtrig\ Não exige capacidade de comunicação
+  
+  \vspace{-1cm} \itemtrig\ Comunicação direta 
+    
+  \vspace{-1cm} \itemtrig\  Não exige canais FIFO
+  
+  \vspace{-1cm} \itemtrig\ Existe simetria
+  
+    \vspace{-1cm} \itemtrig\ Processo inicial é o único que sabe da terminação global      
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação}
+  
+  Um processo possui uma informação inicialmente e deseja difundí-la para todos os processos.
+  
+  Cada processo conhece apenas quais são os processos vizinhos a ele.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação}
+  Estrutura de dados de cada processo:
+  
+  \vspace{-1cm} \itemtrig\   $NVizinhos$: número de vizinhos
+  
+  \vspace{-1cm} \itemtrig\   $id$: id do processo
+  
+  \vspace{-1cm} \itemtrig\   $informacao$: a informação a ser transmitida
+  
+  \vspace{-1cm} \itemtrig\   $IdVizinho$: vetor com a identificação dos processos vizinhos
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação}
+  Idéia do algoritmo:
+  
+Para o processo que possui a informação inicialmente:
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\ Envia informação, para todos os vizinhos, aguarda e;
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Recebe informação de todos os vizinhos
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação}
+  Idéia do algoritmo:
+
+Para os demais processos:
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Recebe informação de um vizinho (inicial)
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Envia informação para todos os vizinhos (inclusive para o inicial)
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Recebe informação de todos os vizinhos, exceto do vizinho inicial 
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação} 
+Para o processo que possui a informação inicialmente:
+
+ \begin{codebox}
+  \zi  $msg := informacao$
+  \zi \For $i := 0$ \To $NVizinhos-1$ \DoSeq
+  \zi  $envia(msg, IdVizinho[i])$
+  \zi \End   
+  \zi \For $i := 0$ \To $NVizinhos-1$ \DoSeq
+  \zi  $recebe(msg, id)$
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação} 
+Para os demais processos:
+
+ \begin{codebox}
+  \zi $recebe(msg, id)$
+  \zi $informacao := msg$
+  \zi \For $i := 0$ \To $NVizinhos-1$ \DoSeq
+  \zi  $envia(msg, IdVizinho[i])$
+  \zi \End   
+  \zi \For $i := 0$ \To $NVizinhos-2$ \DoSeq
+  \zi  $recebe(msg, id)$
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+Processo com informação inicialmente: 1
+\begin{center}
+\includegraphics[height=10cm]{fig14}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação}
+  Cada processo precisa enviar a informação para todos os vizinhos pois ele não sabe se algum destes vizinhos vai receber ou já recebeu  a informação de outro processo.
+  
+  Quando um processo enviar informação para seus vizinhos ele não sabe se a informação será a primeira recebida de algum destes vizinhos
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação}
+Um processo que não possuir a informação inicialmente pode receber a informação pela primeira vez, vinda de qualquer um de seus vizinhos (não determinismo)  
+
+Um processo que não possui a informação inicialmente precisa enviá-la para todos os seus vizinhos, inclusive o vizinho inicial. Se não for feito assim, cada processo não saberá quantas mensagens deve esperar.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação}
+Quando um processo recebe as mensagens dos vizinhos não importa a ordem em que recebe e sim que ele receba de todos.
+
+Este algoritmo também permite que vários processos possuam a informação inicialmente.
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Complexidades}
+  
+  \vspace{-1cm} \itemtrig\ de mensagens: $O(n^2)$
+  
+\vspace{-1cm} \hspace{1cm} \itemcirc\   Cada processo envia 1 mensagem para cada vizinho. Em cada canal passam 2 mensagens, uma em cada direção. Número de mensagens é igual a $2 \cdot |E|$, onde $|E|$ é igual ao número de canais
+ 
+
+  \vspace{-1cm} \itemtrig\ Tamanho das mensagens: Tamanho da informação
+
+    \vspace{-1cm} \itemtrig\ Tempo local: $O(n)$
+    
+    \vspace{-1cm} \hspace{1cm} \itemcirc\    loop em $NVizinhos$
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Complexidades}
+    
+    \vspace{-1cm} \itemtrig\ Tempo assíncrono: $O(n)$
+        
+    \vspace{-1cm} \hspace{1cm} \itemcirc\    Cadeia causal
+    
+    \vspace{-1cm} \hspace{1cm} \itemcirc\  Processo inicialmente  envia informação para seus vizinhos espontaneamente
+    
+        \vspace{-1cm} \hspace{1cm} \itemcirc\  Um dos processo vizinho recebe a informação pela primeira vez, e a envia para seus vizinho
+        
+        \vspace{-1cm} \hspace{1cm} \itemcirc\  Um dos processo vizinho recebe a informação pela primeira vez, e a envia para seus vizinho
+     
+        \vspace{-1cm} \hspace{1cm} \itemcirc\  $\cdots$ e assim por diante
+
+No pior caso a cadeia causal é o comprimento do maior caminho do grafo da rede.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação} 
+  
+  Propriedades
+  
+   \vspace{-1cm} \hspace{1cm} \itemtrig\ Topologia ponto a ponto qualquer
+
+    \vspace{-1cm} \hspace{1cm} \itemtrig\ Comunicação direta assimétrica
+    
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Capacidade de comunicação
+ 
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Não exige canais FIFO
+  
+   \vspace{-1cm} \hspace{1cm} \itemtrig\ Controle distribuído
+   
+    \vspace{-1cm} \hspace{1cm} \itemtrig\ Nenhum processo tem conhecimento de terminação global    
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação com Realimentação}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação com Realimentação}
+  Para uma topologia ponto a ponto qualquer
+  
+  Um processo possui uma informação e precisa difundí-la para todos os demais processos
+  
+  O processo inicial precisa saber quando todos os processos já receberam a informação
+  
+  Cada processo sobe apenas quais são os processos vizinhos a ele. 
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação com Realimentação}
+  Estrutura de dados de cada processo:
+  
+  \vspace{-1cm} \itemtrig\   $NVizinhos$: número de vizinhos
+  
+  \vspace{-1cm} \itemtrig\   $id$: id do processo
+
+  \vspace{-1cm} \itemtrig\   $idVizInicial$: id do processo inicial
+  
+  \vspace{-1cm} \itemtrig\   $informacao$: a informação a ser transmitida
+  
+  \vspace{-1cm} \itemtrig\   $IdVizinho$: vetor com a identificação dos processos vizinhos
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação com Realimentação}
+  Idéia do algoritmo:
+  
+Para o processo que possui a informação inicialmente:
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\ Envia informação, para todos os vizinhos, aguarda e;
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Recebe informação de todos os vizinhos
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação}
+  Idéia do algoritmo:
+
+Para os demais processos:
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Recebe informação de um vizinho (inicial)
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Envia informação para todos os vizinhos, exceto para o inicial
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Recebe informação de todos os vizinhos, exceto do vizinho inicial 
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Envia informação para o vizinho inicial
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação} 
+Para o processo que possui a informação inicialmente:
+
+ \begin{codebox}
+  \zi  $msg := informacao$
+  \zi \For $i := 0$ \To $NVizinhos-1$ \DoSeq
+  \zi  $envia(msg, IdVizinho[i])$
+  \zi \End   
+  \zi \For $i := 0$ \To $NVizinhos-1$ \DoSeq
+  \zi  $recebe(msg, id)$
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para Propagação de Informação} 
+Para os demais processos:
+
+ \begin{codebox}
+  \zi $recebe(msg, idVizInicial)$
+  \zi $informacao := msg$
+  \zi \For $i := 0$ \To $NVizinhos-1$ \DoSeq
+  \zi \If $IdVizinho[i] \neq idVizInicial$ \Then
+  \zi  $envia(msg, IdVizinho[i])$
+  \zi \End   
+  \zi \End   
+  \zi \For $i := 0$ \To $NVizinhos-2$ \DoSeq
+  \zi  $recebe(msg, id)$
+  \zi \End   
+  \zi $envia(msg, idVizInicial)$
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Complexidades}
+  
+  \vspace{-1cm} \itemtrig\ de mensagens: $O(n^2)$
+  
+  \vspace{-1cm} \itemtrig\ Tamanho das mensagens: Tamanho da informação
+
+    \vspace{-1cm} \itemtrig\ Tempo local: $O(n)$
+    
+    \vspace{-1cm} \itemtrig\ Tempo assíncrono: $O(n)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Propriedades}
+    \vspace{-1cm} \itemtrig\  Topologia ponto a ponto qualquer
+    
+    \vspace{-1cm} \itemtrig\ Comunicação direta assíncrona
+      
+    \vspace{-1cm} \itemtrig\ Capacidade de comunicação: 0 (quanto menor melhor o algoritmo)
+    
+    \vspace{-1cm} \itemtrig\  Não exige que canais sejam FIFO
+    
+  \vspace{-1cm} \itemtrig\ Distribuição de controle
+  
+    \vspace{-1cm} \itemtrig\ Terminação: apenas o processo que possui a informação inicialmente tem o conhecimento da terminação global.     
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

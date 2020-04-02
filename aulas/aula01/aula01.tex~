@@ -1,0 +1,677 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{multicol}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\algorithmicrequire}{\textrm{Entrada:}}
+\renewcommand{\algorithmicensure}{\textrm{Saída:}}
+\renewcommand{\algorithmicend}{\underline{fim algoritmo}}
+\renewcommand{\algorithmicif}{\underline{se}}
+\renewcommand{\algorithmicthen}{\underline{então}}
+\renewcommand{\algorithmicelse}{\underline{senão}}
+\renewcommand{\algorithmicelsif}{\underline{senão se}}
+\renewcommand{\algorithmicelsif}{\underline{senão se}}
+\renewcommand{\algorithmicendif}{\underline{fim se}}
+\renewcommand{\algorithmicfor}{\underline{para}}
+\renewcommand{\algorithmicforall}{\underline{para todo}}
+\renewcommand{\algorithmicdo}{} %\underline{faça}
+\renewcommand{\algorithmicendfor}{\underline{fim para}}
+\renewcommand{\algorithmicwhile}{\underline{enquanto}}
+\renewcommand{\algorithmicendwhile}{\underline{fim enquanto}}
+\renewcommand{\algorithmicloop}{\underline{laço}}
+\renewcommand{\algorithmicendloop}{\underline{fim laço}}
+\renewcommand{\algorithmicrepeat}{\underline{repita}}
+\renewcommand{\algorithmicuntil}{\underline{até que}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item J. Jaja, An introduction to Parallel Algorithms, Addison Wesley, 92
+    \begin{itemize}
+    \itemT Algoritmos paralelos
+    \end{itemize}
+  \item E. Cáceres, H. Mongeli, S. Song: Algoritmos paralelos u\-san\-do CGM/PVM/MPI: uma introdução\\
+    \verb|http://www.ime.usp.br/~song/papers/jai01.pdf| 
+  \end{enumerate}
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Por que discutir Computação Paralela?}
+	  \itemtrig\ Buscar execuções cada vez mais rápidas dos programas.
+	  
+
+\vspace{-1cm} \itemtrig\ Processamento sobre grande volume de dados
+
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Sistemas de computação paralela}
+  Um \textbf{\blue sistema de computação paralela} é uma coleção de processadores interconectados de maneira a permitir a coordenação de suas atividades e a troca de dados.
+
+Os processadores trabalham simultaneamente, de forma coordenada para resolver um problema. 
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Aplicações do Paralelismo}
+  
+  	  \itemtrig\ Problemas computacionalmente custosos, que demandam muito tempo de processamento em computadores sequenciais.
+
+ \itemtrig\ Problemas com entrada de dados muito grande
+
+     \itemtrig\ Problema que não possuem algoritmos sequenciais eficientes também não terão algoritmos paralelos eficientes. Problemas que possuem algoritmos sequenciais eficientes podem ter ou não algoritmos paralelos eficientes
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Dificuldades no paralelismo}
+    	  \itemtrig\ Limitações Físicas
+    	  
+    	  \vspace{-1cm} \itemtrig\ Dependência de arquitetura
+    	  
+    	  \vspace{-1cm} \itemtrig\ Dificuldade de programação
+   \end{slide}
+
+
+\begin{slide}
+  \stitle{Diferentes áreas do processamento paralelo}
+ 
+    	  \itemtrig\ Arquitetura de Computadores
+    	  
+    	  \vspace{-1cm} \itemtrig\ Algoritmos
+    	  
+    	  \vspace{-1cm} \itemtrig\ Redes
+    	  
+    	  \vspace{-1cm} \itemtrig\ Compiladores e linguagens de programação
+    	  
+    	  \vspace{-1cm} \itemtrig\ Sistemas operacionais
+    	  
+    	  \vspace{-1cm} \itemtrig\ Engenharia de software
+    	  
+    	  \vspace{-1cm} \itemtrig\ Banco de dados
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Classificação de Flynn (1966)}
+  Os sistemas de computação paralela podem ser definidos de acordo com:
+  
+\itemtrig\ Fluxo de instruções
+
+\vspace{-1cm} \itemtrig\ Fluxo de dados
+
+\begin{center}
+\begin{tabular}{|c|c|c|} \hline
+                    & SD            & MD              \\ 
+                    & (Single Data) & (Multiple Data) \\ \hline
+SI                  & \multirow{ 2}{*}{SISD}          & \multirow{ 2}{*}{SIMD}            \\ 
+(Single Instruction)&               &                 \\ \hline
+MI                  & \multirow{ 2}{*}{MISD}          & \multirow{ 2}{*}{MIMD}            \\ 
+(Multiple Instruction)& & \\\hline
+\end{tabular}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{SISD - Single Instruction Single Data}
+Computador de Von Newman
+
+ \itemtrig\ Computadores convencionais
+
+\vspace{-1cm} \itemtrig\ Uma CPU e uma unidade de controle conectadas por barramento.
+
+\begin{center}
+\includegraphics[height=6cm]{fig01}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{SIMD - Single Instruction Multiple Data}
+
+Vários processadores homogêneos com acesso à memória compartilhada em tempo constante.
+
+Mesma instrução execuntando sobre dados distintos
+
+Ex.: Processador vetorial
+\end{slide}
+
+\begin{slide}
+  \stitle{Processador vetorial }
+Executa em 1 passo
+
+\includegraphics[height=11cm]{fig02}
+\end{slide}
+
+\begin{slide}
+  \stitle{MIMD - Multiple Instruction Multiple Data}
+  Cada processador executa o seu próprio fluxo de instruções.
+  
+	  \itemtrig\ Multicomputadores
+	  
+\vspace{-1cm} \itemtrig\ Multiprocessadores
+
+\end{slide}
+
+\begin{slide}
+  \stitle{MIMD - Multiple Instruction Multiple Data}
+\begin{center} 
+\includegraphics[height=7cm]{fig03}  
+\end{center} 
+\end{slide}
+ 
+\begin{slide}
+\stitle{Sistemas de computação paralela}
+    Existem outras formas de classificar os sistemas de computação paralela, entre eles, destacamos: \textbf{dispersão de computadores}, \textbf{estruturas de interconexão}, e \textbf{sincronismo}.
+\end{slide}
+  
+\begin{slide}
+\stitle{Modelos de computação paralela}
+
+\end{slide}
+
+\begin{slide}
+\stitle{Modelos de computação paralela}
+Existem vários tipos de arquiteturas paralelas que implementam diferentes sistemas de computação paralela. Para cada arquitetura paralela, temos modelos distintos de desenvolvimento de algoritmos paralelos. 
+
+ Estes modelos, nos quais baseamos o desenvolvimento
+de algoritmos, são denominados \textbf{modelos de computação paralela e distribuída}.
+\end{slide}
+ 
+\begin{slide}
+\stitle{Modelos de computação paralela}
+Memória compartilhada
+   \vspace{-1.5cm} \begin{itemize}
+    \itemT PRAM
+    \end{itemize}
+Modelo de rede
+      \vspace{-1.5cm} \begin{itemize}
+    \itemT Array, Anel, Hipercubo, Malha, Torus, Estrela
+    \end{itemize}
+Realístico    
+      \vspace{-1.5cm} \begin{itemize}
+    \itemT BSP, CGM
+    \end{itemize}
+    \end{slide}
+
+\begin{slide}
+\stitle{Modelo PRAM}
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo PRAM}
+
+Nos algoritmos sequenciais o modelo \textbf{\blue  RAM (Random Access Machine)} é bastante próximo da forma de escrever algoritmos em máquinas Von Neuman.
+
+O modelo \textbf{\blue PRAM (Parallel Random Access Machine)} é uma extensão do modelo RAM.
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo PRAM}
+ \begin{itemize}
+ \itemT O modelo PRAM consiste de um conjunto de processadores conectados a uma memória global.
+
+ \itemT Existem n processadores ligados a uma memória global, e cada processador é identificado por um número inteiro.
+
+ \itemT A memória global pode ser acessado por qualquer processador.
+ \end{itemize}
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo PRAM}
+\begin{center} 
+\includegraphics[height=8cm]{fig04}  
+\end{center} 
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo PRAM}
+ \begin{itemize}
+ \itemT Existe uma única unidade de controle, que passa a instrução a ser executada para todos os processadores (SIMD).
+ 
+ \itemT  Em cada instante, todos os processadores ativos executam a mesma instrução sobre dados possivelmente diferente.
+
+ \itemT Existe um único relógio (clock) global compartilhado pelos processadores. Modelo síncrono.
+ 
+ \itemT Processadores se comunicam através da {\blue memória comparti\-lhada}, utilizando variáveis comparti\-lhadas.
+
+ \end{itemize}
+
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Exemplos}
+Algoritmos paralelos no modelo PRAM
+
+\begin{algorithmic}[0]
+   \FOR{$1 \leq i \leq n - 1$ \underline{faça em paralelo}} 
+   \STATE $C[i] := A[i] + B[i]$
+   \STATE $F[i] := D[i] + E[i]$
+   \ENDFOR   
+   \STATE
+   \FOR{$1 \leq i \leq n - 1$ \underline{faça em paralelo}} 
+   \STATE $G[i] := C[i+1]$
+   \ENDFOR   
+\end{algorithmic}
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo PRAM}
+\begin{center}
+\includegraphics[height=11cm]{fig09}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+\stitle{Modelo de Computação Paralela e Distribuída}
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo de Computação Paralela e Distribuída}
+ \begin{itemize}
+    \itemT Modelo MIMD.
+    \itemT Existem p processadores que executam em paralelo e estão interligados através de uma rede de interconexão.
+    
+    \itemT Cada processador é identificado por um número inteiro
+    \end{itemize}
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo de Computação Paralela e Distribuída}
+ \begin{itemize}
+ \itemT Cada processador possui associado a ele uma memória local, acessível apenas a ele. Um processador não possui acesso à memória local associada aoutro processador (memória distribuída).
+ 
+ \itemT Cada posição de memórias locais possui um endereço e pode ser acessada apenas por seu processador associado.
+ 
+ \itemT A cada instante os processadores podem estar ativos ou inativos.
+    \end{itemize}
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo de Computação Paralela e Distribuída}
+ \begin{itemize}
+ \itemT Cada processador possui sua unidade de controle, que passa a instrução a ser executada para ele.
+ 
+ \itemT Em cada instante, cada processador ativo executa uma instrução, possivelmente diferente dos demais, sobre os dados possivelmente diferentes (MIMD)
+ Rede de Interconexão
+ \itemT Não existe relógio global. Cada processador possui o seu relógio local. Modelo assíncrono.
+    \end{itemize}
+
+ \end{slide}
+
+\begin{slide}
+\stitle{Modelo de Computação Paralela e Distribuída}
+ \begin{itemize}
+ \itemT Mesmo que os processadores ativos estejam executando a mesma sequência de instruções, eles estarão executando a taxas diferentes.
+ 
+ \itemT Processadores se comunicam através da rede de interconexão, usando troca de mensagens. 
+ \end{itemize}
+  \end{slide}
+
+\begin{slide}
+\stitle{Modelo de Computação Paralela e Distribuída}
+ \begin{itemize}
+ \itemT \textbf{\blue envia(x, i)}: envia uma cópia de x ao processador $P_i$ e passa a executar a próxima instrução (não bloqueante).
+ \itemT \textbf{\blue recebe(y, j)}: suspende a execução do seu programa até que dos dados do processador $P_j$ sejam recebidos. O processador armazena os dados e continua a execução do programa (bloqueante).
+ \end{itemize}
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo de Computação Paralela e Distribuída}
+ \begin{itemize}
+ \itemT Se um processador i precisar de um dado que o processador j calculou, para fazer um novo cálculo, o processador j envia este dado para o processador i (em uma mensagem), através da rede, e o processador i recebe este dado.
+ 
+ \itemT Os termos de transmissão de mensagens através da rede são indeterminados (porém finitos).
+ \end{itemize}
+
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Exemplos}
+\begin{multicols}{2}
+Processador 1
+\begin{algorithmic}[0]
+   \FOR{$1 \leq i \leq n - 1$ \underline{faça}} 
+   \STATE $C[i] := A[i] + B[i]$
+   \IF{$i \neq 1$}
+   \STATE $envia(C[i], proc3)$
+   \ENDIF
+   \ENDFOR   
+\end{algorithmic}
+
+Processador 2
+\begin{algorithmic}[0]
+   \FOR{$1 \leq i \leq n - 1$ \underline{faça}} 
+   \STATE $F[i] := D[i] + E[i]$
+   \ENDFOR   
+\end{algorithmic}
+\columnbreak
+
+Processador 3
+\begin{algorithmic}[0]
+   \FOR{$1 \leq i \leq n - 1$ \underline{faça}} 
+   \STATE $recebe(M, proc1)$
+   \STATE $G[i] := M$
+   \ENDFOR   
+\end{algorithmic}
+
+\end{multicols}
+\end{slide}
+
+\begin{slide}
+\stitle{Modelo de Computação Paralela e Distribuída}
+\begin{center}
+\includegraphics[height=11cm]{fig10}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Comparações entre modelos}
+ 
+
+Modelo PRAM
+
+\itemtrig\ Execução síncrona
+	  
+\vspace{-1cm} \itemtrig\ Memória compartilhada
+
+\vspace{-1cm} \itemtrig\ Comunicação através de memória compartilhada
+ 
+Modelo Distribuído
+
+\itemtrig\ Execução assíncrona
+	  
+\vspace{-1cm} \itemtrig\ Memória distribuída
+
+\vspace{-1cm} \itemtrig\ Comunicação através de troca de mensagens
+\end{slide}
+
+
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+
+\end{document}
+
+% Local Variables: 
+% mode: latex
+% eval: (Portug-mode)
+% TeX-master: t
+% End: 

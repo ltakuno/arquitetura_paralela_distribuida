@@ -1,0 +1,1066 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item J. Jaja, An introduction to Parallel Algorithms, Addison Wesley, 92
+    \begin{itemize}
+    \itemT Algoritmos paralelos
+    \end{itemize}
+  \item E. Cáceres, H. Mongeli, S. Song: Algoritmos paralelos u\-san\-do CGM/PVM/MPI: uma introdução\\
+    \verb|http://www.ime.usp.br/~song/papers/jai01.pdf| 
+  \end{enumerate}
+\end{slide}
+\begin{slide}
+  \stitle{Técnicas de desenvolvimento de algoritmos paralelos}
+\end{slide}
+ 
+ 
+ 
+\begin{slide}
+  \stitle{Método da árvore binária balanceada}
+
+ O problema é decomposto em 2 subproblemas menores que são decompostos, cada um, em dois subproblemas menores, e assim sucessivamente, até chegarmos a subproblemas triviais.
+ 
+ A decomposição do problema é representada por uma árvore binária e balanceada
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Método da árvore binária balanceada}
+O problema é resolvido de baixo para cima na árvore (dos subproblemas menores para os maiores).
+
+Temos um passo de tempo no algoritmo para cada nível da árvore.
+
+\end{slide} 
+\begin{slide}
+  \stitle{Método da árvore binária balanceada}
+Todos os subproblemas de um mesmo nível da árvore são resolvidos em paralelo.
+
+\begin{center}
+\includegraphics[height=8cm]{fig01}
+\end{center}
+
+\end{slide} 
+\begin{slide}
+  \stitle{Algoritmo para determinar o elemento de valor máximo de um vetor}
+  
+  Idéia:
+
+ \itemtrig\ Na base da árvore (folhas) ficam os elementos do vetor 
+ 
+\vspace{-1cm} \itemtrig\ O algoritmo determina o máximo de 2 em 2 elementos
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para determinar o elemento de valor máximo de um vetor}
+  
+ \begin{center}
+\includegraphics[height=10cm]{fig02}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para determinar o elemento de valor máximo de um vetor}
+  Entrada:
+
+   \itemtrig\ $n$: número de elementos do vetor = $2^n$ (senão, ajeitar)
+
+\vspace{-1cm} \itemtrig\ $A$: vetor de n elementos $A[0] \cdots A[n-1]$
+   
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para determinar o elemento de valor máximo de um vetor}
+  Estrutura auxiliar:
+  
+   \itemtrig\ $B$: vetor com $2 \times n$ posições $B[0], \cdots B[2n - 1]$
+   
+
+\vspace{-1cm} \itemtrig\ As $n$ posições finais de B terão uma cópia de A.
+
+\vspace{-1cm} \itemtrig\ As $n$ posições iniciais de B terão máximos intermediários.
+
+\vspace{-1cm} \itemtrig\ Ao final do algoritmo, $B[1]$ terá o máximo de A.
+
+
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para determinar o elemento de valor máximo de um vetor}
+  Saída:
+
+  \itemtrig\ máximo: valor do elemento máximo de A
+
+\begin{center}
+\includegraphics[height=4cm]{fig03}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+  
+\textbf{\blue Algoritmo}
+
+\begin{codebox}
+  \zi \Comment Vetor A é copiado para a 2a. metade de B
+  \zi \For $0 \leq i \leq n-1$ \DoPar 
+  \zi     $B[n+i] := A[i]$
+  \zi  \End  
+  \zi \Comment Loop sequencial, para cada nível da árvore
+  \zi \For $j := (\log_2 n) - 1$ \To $0$ \DoSeq
+  \zi \Comment Loop paralelo, alocando um processador 
+  \zi \Comment para cada subproblema deste nível
+  \zi  \For $2^j \leq i \leq 2^{j+1}-1$ \DoPar
+  \zi  $B[i] := max(B[2i], B[2i+1])$
+  \zi \End
+  \zi \End
+  \zi $maximo := B[1]$
+\end{codebox}
+
+\end{slide}
+
+\begin{slide}
+Exemplo: $n = 8 = 2^3$
+\begin{center}
+\includegraphics[height=12cm]{fig04}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+Exemplo: $n = 8 = 2^3$
+\begin{center}
+\includegraphics[height=10cm]{fig05}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para determinar o elemento de valor máximo de um vetor}
+  Submodelos e complexidade
+  
+  \itemtrig\ EREW
+
+\vspace{-1cm}   \itemtrig\ Tempo: $O(\log_2 n)$ (loop mais externo, número de níveis da árvore)
+
+\vspace{-1cm}   \itemtrig\ Processadores: $O(n)$ (número de vértices no último nível da árvore = $n/2$)
+
+\vspace{-1cm}   \itemtrig\ Custo: $O(n \log_2 n)$
+
+\vspace{-1cm}   \itemtrig\ Eficiente: sim
+
+\vspace{-1cm}   \itemtrig\ Ótimo: Não, pois o tempo sequencial é $O(n)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para determinar o elemento de valor máximo de um vetor}
+Solução genérica, para qualquer $n$:
+  
+  \itemtrig\ $n$ não é potência de 2
+  
+\vspace{-1cm}   \itemtrig\  Obter $n'$, menor potência de 2 maior que n: $n' = 2^{\lceil \log_2 n \rceil}$.
+
+\vspace{-1cm}   \itemtrig\  Ajeitar o vetor $A$, preenchendo posições de $n$ a $n'- 1$, com valores neutros em relação à operação a ser realizada.
+
+\vspace{-1cm}   \itemtrig\  Neste caso, o valor neutro é qualquer valor que seja menor que o máximo.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para determinar o elemento de valor máximo de um vetor}
+\textbf{\blue Algoritmo}
+\begin{codebox}
+  \zi $n' := 2^{\lceil \log_2 n \rceil}$
+  \zi \For $n \leq i \leq n'-1$ \DoPar 
+  \zi     $A[i] := A[i-n]-1$
+  \zi  \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo para determinar o elemento de valor máximo de um vetor}
+  Submodelo e Complexidade
+  
+  \itemtrig\ EREW
+
+  \vspace{-1cm}   \itemtrig\ Tempo: $O(1)$
+
+  \vspace{-1cm}   \itemtrig\ Processadores: $O(n)$
+
+  \vspace{-1cm}   \itemtrig\ Não altera a complexidade do algoritmo original.
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Aplicando o Teorema de Brent}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Aplicando o Teorema de Brent}
+Idéia do algoritmo
+
+  \itemtrig\ Utilizar $p < n$ processadores.
+
+  \vspace{-1cm}   \itemtrig\ Os $n$ elementos de A são divididos em p grupos de $\lceil n/p \rceil$ elementos.
+
+   \vspace{-1cm}   \itemtrig\ Cada processador determina o máximo de um grupo, sequencialmente em paralelo com os demais processadores.
+\end{slide}
+
+\begin{slide}
+  \stitle{Aplicando o Teorema de Brent}   
+
+\begin{center}
+\includegraphics[height=12cm]{fig08}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Aplicando o Teorema de Brent}   
+\itemtrig\ Para determinar o máximo dos p números resultantes, aplicamos o algoritmo visto, substituindo $n$ por $p$.  
+    
+    Entrada:
+    
+    \vspace{-1cm}   \itemtrig\ $n$: número de elementos do vetor, $n$ é potência de 2. 
+    
+    \vspace{-1cm}   \itemtrig\ $p$: número de processadores
+    
+    \vspace{-1cm}   \itemtrig\ $A$ : vetor de n elementos $A[0], \cdots, A[n-1]$
+\end{slide}
+
+\begin{slide}
+  \stitle{Aplicando o Teorema de Brent}   
+Estrutura auxiliar:
+
+   \vspace{-1cm}   \itemtrig\  $B$: vetor com $2 \times p$ posições $B[0], \cdots, B[2 \times p - 1]$  
+    
+    Armazena máximos intermediários. As $p$ posições finais de B terão o elemento máximo de cada grupo de A. Ao final do algoritmo, $B[1]$ conterá o valor do elemento máximo de $A$
+    
+Saída
+ 
+   \vspace{-1cm}   \itemtrig\  máximo: valor do elemento máximo de $A$.    
+\end{slide}
+
+
+
+\begin{slide}
+\textbf{\blue Algoritmo}
+\begin{codebox}
+  \zi \Comment Loop paralelo, alocando um processador 
+  \zi para cada grupo de elementos
+  \zi \For $0 \leq i \leq p-1$ \DoPar 
+  \zi     $B[p+i] := A[i \times \lceil n/p \rceil]$
+  \zi \Comment Loop sequencial, para determinar o máximo de
+  \zi \Comment  cada grupo de $A$ e copiá-lo para o vetor $B$
+  \zi \For $j := 1$ \To $\lceil n/p \rceil-1$ \DoSeq
+  \zi  \If $A[i \times \lceil n/p \rceil + j] > B[p+i]$ \Then
+  \zi  $B[p + i] := A[i \times \lceil n/p \rceil + j]$
+  \zi \End
+  \zi \End
+  \zi  \End  
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+continuação ...
+
+\begin{codebox}
+  \zi \Comment Loop sequencial, para cada nível da árvore
+  \zi \For $j := (\log_2 p) - 1$ \To $0$ \DoSeq
+  \zi \Comment Loop paralelo, alocando um processador 
+  \zi \Comment para cada subproblema deste nível
+  \zi  \For $2^j \leq i \leq 2^{j+1}-1$ \DoPar
+  \zi  $B[i] := max(B[2i], B[2i+1])$
+  \zi \End
+  \zi \End
+  \zi $maximo := B[1]$
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Aplicando o Teorema de Brent}   
+Exemplo: $n=16, p=4, \lceil n/p \rceil = 4$
+\begin{center}
+\includegraphics[height=11cm]{fig06}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Aplicando o Teorema de Brent}   
+\begin{center}
+\includegraphics[height=10cm]{fig07}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Aplicando o Teorema de Brent}   
+Submodelo: EREW
+
+Complexidades:
+
+                   \itemtrig\ Tempo: $O(\displaystyle \left\lceil  n/p \right\rceil + \log_2 p  )$
+                   
+   \vspace{-1cm}   \itemtrig\ Processadores: $O(p)$
+\end{slide}
+\begin{slide}
+  \stitle{Aplicando o Teorema de Brent}   
+Fazendo $\displaystyle p= \frac{n}{\log_2 n}$
+  
+Complexidades:
+
+                   \itemtrig\ Tempo: $O \left(\displaystyle \left\lceil  \frac{n}{\frac{n}{\log_2 n}} \right\rceil + \log_2 \frac{n}{\log_2 n} \right) = O \left(\displaystyle  \log_2 n  + \log_2 \frac{n}{\log_2 n} \right) $
+                   
+                 \itemtrig\ Tempo:   $O(\log_2 n)$
+                   
+  \itemtrig\ Processadores: $O\left(\displaystyle \frac{n}{\log_2 n}\right)$
+
+  \vspace{-1cm}    \itemtrig\ Custo: $O(n)$
+  
+   \vspace{-1cm}    \itemtrig\ É eficiente e ótimo.
+\end{slide}
+
+\begin{slide}
+  \stitle{Máximo de um vetor para CRCW Forte}      
+\end{slide}
+
+\begin{slide}
+  \stitle{Máximo de um vetor para CRCW Forte}  
+
+\begin{codebox}
+  \zi \For $0 \leq i \leq n-1$ \DoPar
+  \zi  $maximo := A[i]$
+  \zi \End
+\end{codebox}
+
+\itemtrig\ Tempo: $O(1)$
+
+  \vspace{-1cm}    \itemtrig\ Processadores: $O(n)$
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Máximo de um vetor para CRCW Fraco}      
+\end{slide}
+
+\begin{slide}
+  \stitle{Máximo de um vetor para CRCW Fraco}      
+  
+\textbf{\blue Algoritmo}  
+  \begin{codebox}
+  \zi \For $0 \leq i  \leq n-1$ \DoPar 
+  \zi     $F[i] := 1$
+  \zi  \End   
+\end{codebox}
+\end{slide}
+
+
+\begin{slide}
+\begin{codebox}
+  \zi \For $0 \leq i,j \leq n-1$, $i<j$ \DoPar 
+  \zi \If $A[i] < A[j]$ \Then
+  \zi     $F[i] := 0$
+  \zi \ElseIf $A[i] > A[j]$ \Then
+  \zi     $F[j] := 0$
+  \zi \Else  
+  \zi     $F[j] := 0$
+  \zi \End  
+  \zi \End  
+  \zi \For $0 \leq i \leq n-1$ \DoPar
+  \zi  \If $F[i] = 1$ \Then
+  \zi  $maximo := A[i]$
+  \zi  \End
+  \zi \End
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Máximo de um vetor para CRCW Fraco}
+  Exemplo: $n = 3$      
+\begin{center}
+\includegraphics[height=8cm]{fig09}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Máximo de um vetor para CRCW Fraco}  
+ \itemtrig\ tempo : $O(1)$
+
+ \vspace{-1cm}  \itemtrig\ processadores: $O(n^2)$
+ 
+  \vspace{-1cm}  \itemtrig\ custo: $O(n^2)$
+  
+  É eficiente, não é ótimo.
+\end{slide}
+
+\begin{slide}
+  \stitle{Comparação dos Algoritmos}
+  
+\begin{tabular}{|l|c|c|c|c|} \hline
+Modelo: & tempo & processadores & eficiente & ótimo \\ \hline
+CRCW Forte & $O(1)$ & $O(n)$ & Sim & Sim \\ \hline
+CRCW Fraco & $O(1)$ & $O(n^2)$ & Sim & Não \\ \hline
+EREW       & $O(\log_2 n)$ & $O(n)$ & Sim & Não \\ \hline
+EREW com & \multirow{2}{*}{$O(\log_2 n)$} & \multirow{2}{*}{$O(n / \log_2 n)$} & \multirow{2}{*}{Sim} & \multirow{2}{*}{Sim} \\ 
+Teorema de Brent & & & & \\ \hline
+\end{tabular}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplos Análogos}
+   \itemtrig\ Algoritmo para determinar o elemento de valor mínimo de um vetor.
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\   Valor neutro: $A[i] + 1$
+
+\itemtrig\ Algoritmo para determinar a soma dos elementos de um vetor.
+ 
+ \vspace{-1cm} \hspace{1cm} \itemtrig\    Valor neutro: 0
+   
+  \itemtrig\ Algoritmo paralelo para determinar o índice do elemento de valor máximo (ou mínimo) de um vetor.
+\end{slide}
+
+\begin{slide}
+  \stitle{Computação de Prefixos/Sufixos}    
+\end{slide}
+
+\begin{slide}
+  \stitle{Computação de Prefixos/Sufixos}    
+  Dado um vetor A de $n$ elementos $A[0], \cdots, A[n-1]$, a computação de prefixos calcula valores
+  
+  \begin{verbatim}
+  A[0]
+  A[0] op A[1]
+  A[0] op A[1] op A[2]
+  ...
+  A[0] op A[1] ... op A[n-1]    
+\end{verbatim}  
+onde \verb|op| é uma operação binária associativa.
+\end{slide}
+
+\begin{slide}
+  \stitle{Computação de Prefixos/Sufixos} 
+  Este método utiliza a árvore binária balanceada em 2 passos.
+  
+  \itemtrig\  \textbf{\green passo 1:} sobe na árvore equivalente ao método da árvore binária balanceada.
+\end{slide}
+\begin{slide}
+  \stitle{Computação de Prefixos/Sufixos} 
+  
+  \itemtrig\  \textbf{\green passo 2:} desce na árvore calculando as operações \verb|op| parciais.
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de Prefixos}    
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de Prefixos}    
+  \itemtrig\   Exemplo: op é a adição
+  
+  \itemtrig\  Vetor de entrada:
+  
+  \vspace{-1cm} \hspace{1cm} $[3, 7, 5, 1, 2, 4, 0, 9]$
+  
+  \itemtrig\  Vetor de resultante:
+  
+  \vspace{-1cm} \hspace{1cm} $[3, 10, 15, 16, 18, 22, 22, 31]$
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de Prefixos - \textbf{\blue Algoritmo Sequencial}}    
+  \begin{codebox}
+  \zi \Comment passo 1: out[0] recebe a soma de prefixos de in[0]. 
+  \zi $soma := in[0]$  
+  \zi $out[0] := soma$  
+  \zi \Comment passo 2: Calcule os demais prefixo.
+  \zi \For $1 \leq i  \leq n-1$ \DoSeq
+  \zi \Comment passo 2.1: A soma do i-ésimo prefixo é a i-ésima posição
+  \zi \Comment   do vetor de entrada mais soma. 
+  \zi \Comment   Soma contém a soma do (i-ésimo)-1 prefixo.
+  \zi     $out[i] := in[i] + soma$
+  \zi     $soma := out[i]$
+  \zi  \End   
+\end{codebox}  
+Complexidade: $O(n)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de Prefixos}    
+  \itemtrig\  \textbf{\green passo 1:} equivalente a técnica da árvore binária balanceada.
+
+  \itemtrig\  \textbf{\green passo 2:} desce na árvore subtraindo alguns elementos das somas intermediárias para outras somas de prefixos. Quando desce para o filho esquerdo subtrai o valor do filho direito, e quando desce para o filho direito passa o valor direto
+  \end{slide}
+
+\begin{slide}
+  \stitle{Soma de Prefixos}    
+  
+Entrada:   
+
+  \itemtrig\ $n$: número de elementos (n potência de 2, senão, ajeitar..) 
+  
+ \vspace{-1cm} \itemtrig\ $A$: vetor de $n$ elementos     
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de Prefixos}    
+  
+Estrutura auxiliar:   
+
+  \itemtrig\ $B$: vetor de $2 \times n$ elementos
+  
+ \vspace{-1cm} \itemtrig\ As $n$ posições finais de $B$ terão cópias de $A$
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de Prefixos}    
+  
+Saída:   
+
+  \itemtrig\ $P$ vetor de $2 \times n$ posições
+  
+ \vspace{-1cm} \itemtrig\ As $n$ posições finais de $P$ terão somas de prefixos
+ \end{slide}
+
+\begin{slide}
+  \stitle{Soma de Prefixos}    
+
+{\blue Algoritmo}
+  \begin{codebox}
+  \zi \Comment Vetor A é copiado para a segunda metade de B
+  \zi \For $0 \leq i  \leq n-1$ \DoPar 
+  \zi     $B[n + i] := A[i]$
+  \zi  \End   
+  \zi \Comment passo 1: subida na árvore
+  \zi \For $j := (\log_2n)-1$  \To $0$ \DoSeq 
+  \zi \For $2^j \leq i  \leq 2^{j+1}-1$ \DoPar 
+  \zi  $B[i] := B[2 \times i] +  B[2 \times i + 1]$
+  \zi  \End     
+\end{codebox}
+ \end{slide}
+
+\begin{slide}
+Subida na árvore
+
+\begin{center}
+\includegraphics[height=10cm]{fig13}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+Subida na árvore
+
+\begin{center}
+\includegraphics[height=10cm]{fig11}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \begin{codebox}
+  \zi \Comment passo 2: descida na árvore
+  \zi $P[1] := B[1]$
+  \zi \Comment loop sequencial para cada nível da árvore
+  \zi \For $j := 1$ \To $\log_2n$ \DoSeq
+  \zi \Comment loop paralelo alocando um processador para 
+  \zi\Comment cada vértice deste nível
+  \zi \For $2^j \leq i  \leq 2^{j+1}-1$ \DoPar 
+  \zi \If $i$ $mod$ $2 = 0$  \Then 
+  \zi  $P[i]:=P[i/2] - B[i+1]$  \Comment filho esquerdo
+  \zi \Else 
+  \zi  $P[i] := P[(i-1)/2]$ \Comment  filho direito
+  \zi  \End   
+  \zi  \End   
+  \zi  \End   
+\end{codebox} 
+ \end{slide}
+
+\begin{slide}
+Descida na árvore
+
+\begin{center}
+\includegraphics[height=10cm]{fig14}
+\end{center}
+\end{slide}
+
+\begin{slide}
+Descida na árvore
+
+\begin{center}
+\includegraphics[height=10cm]{fig12}
+\end{center}
+\end{slide}
+\begin{slide}
+  \stitle{Soma de Prefixos}    
+
+Submodelo: EREW
+
+Complexidade
+
+  \vspace{-1cm} \hspace{1cm} tempo: $O(\log_2 n)$
+
+  \vspace{-1cm} \hspace{1cm} processadores: $O(n)$
+
+  \vspace{-1cm} \hspace{1cm} custo: $O(n \log_2 n)$
+  
+  É eficiente. Não é ótimo
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de Prefixos}    
+Aplicando o Teorema de Brent
+
+  \vspace{-1cm} \hspace{1cm} processadores: $O(n/\log_2 n)$
+
+  \vspace{-1cm} \hspace{1cm} tempo: $O(\log_2 n + \log_2 p) = O(\log_2 n)$
+
+  \vspace{-1cm} \hspace{1cm} custo: $O(n)$
+  
+  É eficiente. É ótimo
+\end{slide}
+
+\begin{slide}
+  \stitle{Avaliação de Polinômios}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Avaliação de Polinômios}  
+  Polinômio de grau $n-1$:
+  
+  $$P(x) = c_0 + c_1 x + c_2 x^2 + c_3 x^3 + \cdots + c_{n-1} x^{n-1}$$
+  \end{slide}
+
+\begin{slide}
+  \stitle{Avaliação de Polinômios}  
+Algoritmo sequencial:
+\begin{codebox}
+  \zi \For $i := 0$ \To $n-1$ \DoSeq 
+  \zi     $P := P + c[i] * x^i$
+  \zi  \End   
+\end{codebox} 
+
+Problema: Executa muitas exponenciações! 
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Avaliação de Polinômios}  
+Algoritmo sequencial mais eficiente:
+\begin{codebox}
+  \zi \For $i := n-1$ \To $1$ \DoSeq 
+  \zi     $P := (P + c[i]) * x$
+  \zi \End   
+  \zi $P := P + c[0]$   
+\end{codebox} 
+
+Mesma complexidade de tempo, mas não faz exponenciação.
+  \end{slide}
+
+\begin{slide}
+  \stitle{Avaliação de Polinômios}  
+  Polinômio de grau $n-1$:
+  
+  $$P(x) = c_0 + c_1 x + c_2 x^2 + c_3 x^3 + \cdots + c_{n-1} x^{n-1}$$
+  
+  Idéia: Representar $P(x)$ da forma:
+$$P(x) = R(x) + Q(x) \times x^{n/2} $$  
+
+onde $R(x)$ e $Q(x)$ são polinômios de graus $\displaystyle \frac{n}{2} - 1$
+\end{slide}
+
+\begin{slide}
+  \stitle{Avaliação de Polinômios}  
+  Recursivamente aplicamos a mesma idéia para determinar $R(x)$ e $Q(x)$, e assim sucessivamente até chegarmos a polinômios de grau 1, que são a base da recursão.
+  
+Ex.:  $n=8$
+
+$c_0 + c_1 x + c_2 x^2 + c_3 x^3 + c_4 x^4 + c_5 x^5 + c_6 x^6 + c_7 x^7$
+    
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Avaliação de Polinômios}  
+Ex.:  $n=8$
+
+\begin{center}
+\psfrag{exp1}{$c_0 + c_1 x + c_2 x^2 + c_3 x^3 + c_4 x^4 + c_5 x^5 + c_6 x^6 + c_7 x^7$}
+\psfrag{exp2}{$c_0 + c_1 x + c_2 x^2 + c_3 x^3$}
+\psfrag{exp3}{$x^4(c_4 + c_5 x^1 + c_6 x^2 + c_7 x^3)$}
+\psfrag{exp4}{$c_0 + c_1 x$}
+\psfrag{exp5}{$x^2 (c_2 + c_3 x)$}
+\psfrag{exp6}{$c_4 + c_5 x$}
+\psfrag{exp7}{$x^2(c_6  + c_7 x)$}
+
+\includegraphics[height=6cm]{fig10}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Avaliação de Polinômios}  
+  Entrada:
+
+  \itemtrig\ $n$: Supomos que $n$ é potência de 2.
+  
+ \vspace{-1cm} \itemtrig\   $c$ : Vetor de $n$ coeficientes $c[0], \cdots, c[n-1]$
+
+ \vspace{-1cm} \itemtrig\   $x$: Variável do polinômio.
+ 
+ Saída
+  
+   \itemtrig\ $resultado$: resultado do polinômio.
+   
+Algoritmo
+\begin{codebox}
+  \zi $resultado := avalia(0,n-1)$   
+\end{codebox} 
+\end{slide}
+
+
+\begin{slide}
+{\blue \textbf{função} avalia(i, j:inteiros)}
+ \vspace{-1cm} \begin{codebox}
+  \zi {\blue \textbf{variáveis locais}: a, b}
+  \zi \If $i = j - 1$ \Then
+  \zi    \textbf{\blue retorna} $c[i] + c[j] x$  
+  \zi \Else
+  \zi \For $0 \leq k \leq 1$ \DoPar
+  \zi \If $k = 0$ \Then
+  \zi $a := avalia(i, \frac{i+j-1}{2})$ 
+  \zi \Else
+  \zi $b := avalia(\frac{i+j+1}{2}, j)$ 
+  \zi \End
+  \zi \End
+  \zi \textbf{\blue retorna} $a + b x^{\left\lceil \frac{j-i}{2} \right\rceil}$  
+  \zi \End
+\end{codebox} 
+ \vspace{-2cm} \textbf{\blue fim} 
+ \end{slide}
+
+
+\begin{slide}
+  \stitle{Avaliação de Polinômios}  
+  Submodelo: EREW 
+  
+  Complexidades:
+  
+     \vspace{-1cm}  \itemtrig\ Tempo: $O( \log_2 n )$
+                   
+   \vspace{-1cm}   \itemtrig\ Processadores: $O(n)$  
+
+   \vspace{-1cm}   \itemtrig\ Custo: $O(n \log_2 n)$  
+   
+   É eficiente. Não é ótimo.
+   
+   Podemos aplicar o teorema de Brent para obter o algoritmo ótimo.
+  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

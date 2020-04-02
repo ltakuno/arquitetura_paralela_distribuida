@@ -1,0 +1,1031 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item J. Jaja, An introduction to Parallel Algorithms, Addison Wesley, 92
+    \begin{itemize}
+    \itemT Algoritmos paralelos
+    \end{itemize}
+  \item E. Cáceres, H. Mongeli, S. Song: Algoritmos paralelos u\-san\-do CGM/PVM/MPI: uma introdução\\
+    \verb|http://www.ime.usp.br/~song/papers/jai01.pdf| 
+  \end{enumerate}
+\end{slide}
+ 
+ 
+\begin{slide}
+  \stitle{Algoritmos Paralelos em Grafos}
+\end{slide}
+ 
+ 
+\begin{slide}
+  \stitle{Obtenção de circuitos de Euler em árvores}
+
+ \itemtrig\ Circuito de Euler: caminho fechado que passa por cada aresta do grafo exatamente uma vez.
+
+  \itemtrig\ Um grafo direcionado é euleriano se e somente se, para cada vértice $v$ do grafo, o grau de entrada($v$) é igual ao grau de saída($v$)
+ \end{slide}
+ 
+ 
+\begin{slide}
+  \stitle{Obtenção de circuitos de Euler em árvores}
+   \itemtrig\ Dada uma árvore $T$ qualquer, $T$ pode ser transformado em um grafo direcionado $D$, substituindo-se cada aresta da árvore por duas arestas direcionadas anti-paralelas.
+   
+      \itemtrig\ O grafo obtido é euleriano. O algoritmo encontrará o circuito de Euler neste grafo.
+\end{slide}
+ 
+ 
+ 
+\begin{slide}
+  \stitle{Representação da árvore e do grafo direcionado}
+ \itemtrig\ Para cada vértice $v$ da árvore existe uma lista de arestas adjacentes a $v$.
+ 
+  \itemtrig\ Esta representação já transforma a árvore no grafo direcionado. 
+\end{slide}
+  
+\begin{slide}
+  \stitle{Representação da árvore e do grafo direcionado}
+
+Entrada:  
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $n$: número de vértices de $T$
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $inicio[i]$: ponteiro para o início da lista de arestas adjacentes ao vértice.
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $prox[(i,j)]$: ponteiro para a aresta seguinte à aresta $(i,j)$ na lista de arestas adjacentes ao vértice $i$. Se $(i,j)$ é a última aresta da lista, $prox[(i,j)] = nil$.
+  
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $reverso[(i,j)]$: ponteiro para $(j,i)$, a aresta reversa de $(i,j)$, na lista de arestas adjacentes ao vértice $j$.      
+\end{slide}
+  
+\begin{slide}
+  \stitle{Representação da árvore e do grafo direcionado}
+
+Saída:
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $proxCircuito[(i,j)]$: ponteiro para a aresta seguinte a aresta $(i,j)$, no circuito de Euler
+\end{slide}
+  
+\begin{slide}
+  \stitle{Representação da árvore e do grafo direcionado}
+   Exemplo: Árvore T, $n = 7$
+\begin{center}
+\includegraphics[height=10.3cm]{fig01}
+\end{center} 
+\end{slide}
+
+\begin{slide}
+  \stitle{Representação da árvore e do grafo direcionado}
+   Exemplo: Grafo Direcionado D, $n = 7$ e o Reverso
+\begin{center}
+\includegraphics[height=10.3cm]{fig02}
+\end{center} 
+\end{slide}
+  
+\begin{slide}
+  \stitle{Obtenção de circuitos de Euler em árvores}
+\textbf{\blue Algoritmo}
+\vspace{-1cm} \begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$  \DoPar 
+  \zi \If $prox[(i,j)] = nil$ \Then
+  \zi $prox[(i,j)] := inicio[i]$
+  \zi \End   
+  \zi \End   
+  \zi \For cada aresta direcionada $(i,j)$  \DoPar 
+  \zi $proxCircuito[(i,j)]$ = $prox[reverso(i,j)]$
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Obtenção de circuitos de Euler em árvores}
+   $proxCircuito$
+\begin{center}
+\includegraphics[height=10.3cm]{fig03}
+\end{center} 
+\end{slide}
+
+\begin{slide}
+  \stitle{Obtenção de circuitos de Euler em árvores}
+ Submodelo e complexidades:
+ 
+ Submodelo: EREW
+ 
+ Complexidades
+ 
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ Tempo: $O(1)$
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ Processador: número de arestas do grafo direcionado, $O(n)$
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ É eficiente.
+  
+  Obs.: Assumimos que o reverso é dado.
+\end{slide}
+
+\begin{slide}
+  \stitle{Obtenção de circuitos de Euler em árvores}  
+\itemtrig\ O algoritmo contrói uma lista circular representando o circuito de Euler. Quebrando esta lista em qualquer posição, obtemos uma ordenação das arestas dentro do circuito.
+
+\itemtrig\ O circuito de Euler fornece o percurso de uma busca em profundidade na árvore.
+
+\itemtrig\ Dado o circuito, conseguimos realizar várias operações sobre a árvore.
+\end{slide}
+  
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+\end{slide}
+  
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+
+Orientação de uma árvore (determinar o vértice pai de cada vértice)
+
+\itemtrig\ Dada uma árvore $T$, e um vértice escolhido para ser raiz de $T$, deseja-se orientar $T$ das folhas para a raiz (transformá-la em uma ``\textit{in-tree}''. Para isso, determinamos o vértice pai de cada vértice de $T$.
+\end{slide}
+  
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+Idéia:
+
+\begin{enumerate}
+  \vspace{-1.5cm} \item[a)] Obter circuito de Euler de $T$
+  \vspace{-1cm} \item[b)] Quebrar o circuito na raiz
+  \vspace{-1cm} \item[c)] Numerar as arestas dos circuitos (usando duplicação   recursiva)
+\vspace{-1cm} \item[d)] Determinar pai usando esta numeração.
+\end{enumerate}
+\end{slide}
+  
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+Entrada:  
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $inicio[i]$: ponteiro para o início da lista de arestas adjacentes ao vértice.
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $prox[(i,j)]$: ponteiro para a aresta seguinte à aresta $(i,j)$ na lista de arestas adjacentes ao vértice $i$. Se $(i,j)$ é a última aresta da lista, $prox[(i,j)] = nil$.
+  
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $reverso[(i,j)]$: ponteiro para $(j,i)$, a aresta reversa de $(i,j)$, na lista de arestas adjacentes ao vértice $j$.      
+
+  \vspace{-1cm}   \hspace{1cm} $r$: vértice escolhido para ser a raiz de T.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+
+Estruturas auxiliares:
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $proxCircuito[(i,j)]$: ponteiro para a aresta seguinte a aresta $(i,j)$, no circuito de Euler
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $p[(i,j)]$: inicialmente terá cópia de $proxCircuito[(i,j)]$  
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $dist[(i,j)]$: numeração da aresta $(i,j)$ na lista $proxCircuito$.  
+  
+Saída:
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $pai[i]$: o pai de cada vértice de $T$   
+\end{slide} 
+
+ \begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+Passo (a): já visto
+
+\vspace{-1cm} \begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$  \DoPar 
+  \zi \If $prox[(i,j)] = nil$ \Then
+  \zi $prox[(i,j)] := inicio[i]$
+  \zi \End   
+  \zi \End   
+  \zi \For cada aresta direcionada $(i,j)$  \DoPar 
+  \zi $proxCircuito[(i,j)] := prox[reverso(i,j)]$
+  \zi \End   
+\end{codebox}
+
+\end{slide}
+
+ \begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+Passo (b): 
+
+\vspace{-1cm} \begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$  \DoPar 
+  \zi \If $prox[(i,j)] = inicio[r]$ \Then
+  \zi $proxCircuito[reverso(i,j)]:= nil$
+  \zi \End   
+  \zi \End    
+\end{codebox}
+\end{slide}
+
+ \begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+  Obs: Agora $proxCircuito$ forma uma lista encadeada aberta de aresta, sendo que a primeira aresta é da forma $(r,-)$. Esta lista representa o percurso de uma busca em profundidade em $T$, partindo de $r$.
+\end{slide}
+
+
+ \begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+Passo (c): 
+
+\vspace{-1cm} \begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$  \DoPar 
+  \zi $dist[(i,j)] := 1$
+  \zi $p[(i,j)] := proxCircuito[(i,j)]$
+  \zi \End   
+  \zi \For cada aresta direcionada $(i,j)$  \DoPar 
+  \zi \While $p[(i,j)] \neq nil$ \DoSeq
+  \zi $dist[(i,j)] := dist[(i,j)] + dist[p(i,j)]$
+  \zi $p[(i,j)] := p[p(i,j)]$
+  \zi \End   
+  \zi $dist[(i,j)] := E(D)-dist[(i,j)] + 1$
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+Obs.: $E(D) = 2(n-1)$
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ Número de arestas na lista $proxCircuito$ é $E(D)$.
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ Estamos numerando as arestas na lista $proxCircuito$ de 1 a $E(D)$, do início para o fim da lista. 
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+
+Passo (d):
+\vspace{-1cm} \begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$  \DoPar 
+  \zi \If $dist[(i,j)] < dist[reverso[(i,j)]]$ \Then
+  \zi $pai[j] := i$
+  \zi \End   
+  \zi $pai[r] := -1$
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+Obs.: Usando o percurso da busca em profundidade, determinamos se cada aresta é de avanço ou recuo, baseado na numeração. No percurso passamos sempre na aresta de avanço antes de passar na aresta de recuo reversa. Logo a aresta de avanço terá uma numeração menor do que a de recuo.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+Obs.:
+
+\vspace{-1cm} \begin{codebox}
+  \zi \If $dist[(i,j)] < dist[reverso[(i,j)]]$ \Then
+  \zi $aresta(i,j)$ é de avanço
+  \zi \Else   
+  \zi $aresta(i,j)$ é de recuo
+  \zi \End     
+\end{codebox}
+
+\end{slide}
+
+\begin{slide}
+Ex.: $n = 7$, $r = 0$
+   
+\begin{center}
+\includegraphics[height=10.3cm]{fig04}
+\end{center} 
+\end{slide}
+
+
+\begin{slide}
+Ex.: Início
+   
+\begin{center}
+\includegraphics[height=10.3cm]{fig05}
+\end{center} 
+\end{slide}
+
+\begin{slide}
+Passo (a)
+   
+\begin{center}
+\includegraphics[height=4.3cm]{fig06}
+\end{center} 
+\end{slide}
+
+\begin{slide}
+Passo (b)
+   
+\begin{center}
+\includegraphics[height=4.0cm]{fig07}
+\end{center} 
+\end{slide}
+
+
+\begin{slide}
+Passo (c)
+   
+\begin{center}
+\includegraphics[height=12.1cm]{fig08}
+\end{center} 
+\end{slide}
+
+\begin{slide}
+Passo (d)
+   
+\begin{center}
+\includegraphics[height=12.1cm]{fig09}
+\end{center} 
+\end{slide}
+
+ \begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+ Submodelo e complexidades:
+ 
+ Submodelo: CREW (leitura concorrente em n no passo (c))
+ 
+ Complexidades
+ 
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ Passo (a): EREW, $t = O(1)$, $p = O(n)$
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ Passo (b): EREW, $t = O(1)$, $p = O(n)$
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ Passo (c): CREW, $t = O(\log n)$, $p = O(n)$
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ Passo (d): EREW, $t = O(1)$, $p = O(n)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmos em árvore usando o circuito de Euler (e duplicação recursiva)}
+  \vspace{-1cm}   1) Orientação de uma árvore
+  
+  \vspace{-1cm}   2) Determinar o número de descendentes de cada vértice
+\end{slide}
+
+\begin{slide}
+  \stitle{Determinar o número de descendentes de cada vértice}
+\end{slide}
+
+\begin{slide}
+  \stitle{Determinar o número de descendentes de cada vértice}
+Dada uma árvore T enraizada, determinar para cada vértice $i$ de T, o número de descendentes de $i$.
+
+Idéia:
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ a) Obter circuito de Euler de T
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ b) Quebrar o circuito na raiz
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ c) Numerar arestas do circuito
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ d) Determinar o pai de cada vértice
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ e) Determinar o número de descendentes de cada vértice, usando a numeração das arestas e pai.
+\end{slide}
+
+\begin{slide}
+  \stitle{Determinar o número de descendentes de cada vértice}
+
+Entrada:  
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $n$: número de vértices de $T$
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $inicio[i]$: ponteiro para o início da lista de arestas adjacentes ao vértice.
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $prox[(i,j)]$: ponteiro para a aresta seguinte à aresta $(i,j)$ na lista de arestas adjacentes ao vértice $i$. Se $(i,j)$ é a última aresta da lista, $prox[(i,j)] = nil$.
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $reverso[(i,j)]$: ponteiro para $(j,i)$, a aresta reversa de $(i,j)$, na lista de arestas adjacentes ao vértice $j$.  
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\  $r$: vértice escolhido para ser a raiz de T.
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Determinar o número de descendentes de cada vértice}
+
+Estruturas auxiliares:
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $proxCircuito[(i,j)]$: ponteiro para a aresta seguinte a aresta $(i,j)$, no circuito de Euler
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $p[(i,j)]$: inicialmente terá cópia de $proxCircuito[(i,j)]$  
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $dist[(i,j)]$: numeração da aresta $(i,j)$ na lista $proxCircuito$.  
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $pai[i]$: o pai de cada vértice de $T$   
+
+Saída:
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $ND[i]$: número de descendentes do vértice $i$  
+\end{slide} 
+ 
+ 
+\begin{slide}
+  \stitle{Determinar o número de descendentes de cada vértice}
+ Passos (a), (b), (c), (d), já vimos
+ 
+ Passo (e)
+\begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$ \DoPar 
+  \zi \If $j = pai[i]$ \Then
+  \zi \Comment $(i,j)$ é aresta de recuo e $(j,i)$ é aresta de avanço
+  \zi $ND[i] := \displaystyle \frac{(dist[(i,j)] - dist[reverso[(i,j)]] - 1)}{2}$
+  \zi \End   
+  \zi \End   
+  \zi $ND[r] := n - 1$
+\end{codebox}
+\end{slide} 
+ 
+\begin{slide}
+\begin{center}
+\includegraphics[height=12.7cm]{fig10}
+\end{center} 
+\end{slide}
+
+ 
+\begin{slide}
+  \stitle{Determinar o número de descendentes de cada vértice}
+  Submodelo: CREW
+  
+  Complexidades:
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Tempo: $O(\log n)$
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Processadores: $O(n)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Obter numeração pré-ordem dos vértices}
+\end{slide}
+
+\begin{slide}
+  \stitle{Obter numeração pré-ordem dos vértices}
+  
+  Dada uma árvore T, determinar para cada vértice $i$ de T, a ordem de $i$ no percurso em pré-ordem (ou pós-ordem) de T, enraizada.
+  
+  Numeração pré-ordem:
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ numera raiz
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ numera as subárvores em pré-ordem
+\end{slide} 
+ 
+ 
+\begin{slide}
+  \stitle{Obter numeração pré-ordem dos vértices}
+
+Idéia    
+
+\vspace{-1cm}   \hspace{1cm}  \itemtrig\ Passos (a), (b), (c), já vimos
+ 
+\vspace{-1cm}   \hspace{1cm}  \itemtrig\ (d) Classificar arestas em avanço e recuo, usando a numeração obtida em (c)
+
+\vspace{-1cm}   \hspace{1cm}  \itemtrig\ (e) Numerar as arestas de avanço do circuito, usando a duplicação recursiva
+
+\vspace{-1cm}   \hspace{1cm}  \itemtrig\ (f) Determinar numeração pré-ordem dos vértices usando numeração obtida em (e)
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Obter numeração pré-ordem dos vértices}
+
+Entrada:  
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $n$: número de vértices de $T$
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $inicio[i]$: ponteiro para o início da lista de arestas adjacentes ao vértice.
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $prox[(i,j)]$: ponteiro para a aresta seguinte à aresta $(i,j)$ na lista de arestas adjacentes ao vértice $i$. Se $(i,j)$ é a última aresta da lista, $prox[(i,j)] = nil$.
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $reverso[(i,j)]$: ponteiro para $(j,i)$, a aresta reversa de $(i,j)$, na lista de arestas adjacentes ao vértice $j$.  
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\  $r$: vértice escolhido para ser a raiz de T.
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Obter numeração pré-ordem dos vértices}
+
+Estruturas auxiliares:
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $proxCircuito[(i,j)]$: ponteiro para a aresta seguinte a aresta $(i,j)$, no circuito de Euler
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $p[(i,j)]$: inicialmente terá cópia de $proxCircuito[(i,j)]$  
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $dist[(i,j)]$: numeração da aresta $(i,j)$ na lista $proxCircuito$.  
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $avanco[(i,j)]$: Vetor de valores lógicos que indicará se a aresta é de avanço ou de recuo
+
+Saída:
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $preOrdem[i]$: numeração pré-ordem do vértice $i$
+\end{slide} 
+
+\begin{slide}
+  \stitle{Obter numeração pré-ordem dos vértices}
+ Passos (a), (b), (c),  já vimos
+ 
+ Passo (d)
+\begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$ \DoPar 
+  \zi \If $dist[(i,j)] < dist[reverso[(i,j)]]$ \Then
+  \zi $avanco[(i,j)] := true$
+  \zi \Else
+  \zi $avanco[(i,j)] := false$
+  \zi \End   
+  \zi \End   
+\end{codebox}
+\end{slide} 
+
+\begin{slide}
+ Passo (e)
+\begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$ \DoPar 
+  \zi \If $avanco[(i,j)]$ \Then
+  \zi $dist[(i,j)] := 1$
+  \zi \Else
+  \zi $dist[(i,j)] := 0$
+  \zi \End   
+  \zi $p[(i,j)] := proxCircuito[(i,j)]$
+  \zi \While $p[(i,j)] \neq nil$ \DoSeq
+  \zi $dist[(i,j)] := dist[(i,j)] + dist[p(i,j)]$
+  \zi $p[(i,j)] := p[p[(i,j)]]$
+  \zi \End   
+  \zi  $dist[(i,j)] := \displaystyle \frac{E(D)}{2} - dist[(i,j)] + 1$
+  \zi \End   
+\end{codebox}
+\end{slide} 
+
+\begin{slide}
+ Passo (f)
+\begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$ \DoPar 
+  \zi \If $avanco[(i,j)]$ \Then
+  \zi $preOrdem[j] := dist[(i,j)]$
+  \zi \End   
+  \zi $preOrdem[r] := 0$
+  \zi \End
+\end{codebox}  
+
+\end{slide} 
+
+\begin{slide}
+\begin{center}
+\includegraphics[height=12.7cm]{fig11}
+\end{center} 
+\end{slide}
+
+
+\begin{slide}
+\begin{center}
+\includegraphics[height=12.7cm]{fig12}
+\end{center} 
+\end{slide}
+
+\begin{slide}
+\begin{center}
+\includegraphics[height=12.7cm]{fig13}
+\end{center} 
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Obter numeração pré-ordem dos vértices}
+  Submodelo: CREW
+  
+  Complexidades:
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Tempo: $O(\log n)$
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Processadores: $O(n)$
+\end{slide} 
+
+\begin{slide}
+  \stitle{Numeração pós-Ordem dos vértices}
+Observação:
+
+  \hspace{1cm}  Para obter numeração pós-ordem
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Marcar arestas de recuo
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Numerar arestas de recuo
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Obter numeração pós-Ordem
+ \end{slide} 
+
+\begin{slide} 
+  \stitle{Numeração pós-Ordem dos vértices}
+ Passo (f)
+
+\begin{codebox}
+  \zi \For cada aresta direcionada $(i,j)$ \DoPar 
+  \zi \If $recuo[(i,j)]$ \Then
+  \zi $posOrdem[j] := dist[(i,j)] - 1$
+  \zi \End   
+  \zi $posOrdem[r] := n - 1$
+  \zi \End   
+\end{codebox}  
+  
+
+\end{slide}
+ 
+
+\begin{slide}
+  \stitle{Obter a relação é descendente entre vértices}
+\end{slide}
+
+\begin{slide}
+  \stitle{Obter a relação é descendente entre vértices}
+  
+  Dada uma árvore T enraizada, determinar para cada par de vértices $i$, $j$ de $T$, se $i$ é descendente de $j$
+  
+  \itemtrig\ Idéia:
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Determinar números de descendentes de cada vértice.
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Determinar a numeração pré-ordem de cada vértice.
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Determinar a relação é descendente para cada par de vértices, usando número de descendentes e pré-ordem.
+    
+    
+\end{slide}
+
+\begin{slide}
+  \stitle{Obter a relação é descendente entre vértices}
+
+Entrada:  
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $n$: número de vértices de $T$
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $inicio[i]$: ponteiro para o início da lista de arestas adjacentes ao vértice.
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $prox[(i,j)]$: ponteiro para a aresta seguinte à aresta $(i,j)$ na lista de arestas adjacentes ao vértice $i$. Se $(i,j)$ é a última aresta da lista, $prox[(i,j)] = nil$.
+  
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\ $reverso[(i,j)]$: ponteiro para $(j,i)$, a aresta reversa de $(i,j)$, na lista de arestas adjacentes ao vértice $j$.  
+
+  \vspace{-1cm}   \hspace{1cm} \itemtrig\  $r$: vértice escolhido para ser a raiz de T.
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Obter a relação é descendente entre vértices}
+
+Estruturas auxiliares:
+
+  \vspace{-1cm}   \hspace{1cm}   \itemtrig\ $proxCircuito[(i,j)]$: ponteiro para a aresta seguinte a aresta $(i,j)$, no circuito de Euler
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $p[(i,j)]$: inicialmente terá cópia de $proxCircuito[(i,j)]$  
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $dist[(i,j)]$: numeração da aresta $(i,j)$ na lista $proxCircuito$.  
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $avanco[(i,j)]$: Vetor de valores lógicos que indicará se a aresta é de avanço ou de recuo
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $ND[i]$: número de descendentes do vértice vértices $i$
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $preOrdem[i]$: numeração pré-ordem do vértice $i$
+ 
+Saída:
+  
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ $ehDescendente[i,j]$ : será 1 se $i$ for descendente de $j$. Senão será $0$.
+  \end{slide}
+
+\begin{slide}
+  \stitle{Obter a relação é descendente entre vértices}
+  
+1) Obtem número de descendentes: já visto
+
+2) Obtem a pré-ordem: já visto
+
+3) Obter a relação é descendente
+
+\begin{codebox}
+  \zi \For $0 \leq i, j \leq n-1$ \DoPar 
+  \zi \If $preOrdem[j] < preOrdem[i]$ $e$
+  \zi  \hspace{1cm}   $preOrdem[i] \leq preOrdem[j] + ND[j]$ \Then
+  \zi $ehDescendente[i,j] = 1$
+  \zi \Else   
+  \zi $ehDescendente[i,j] = 0$
+  \zi \End
+  \zi \End
+\end{codebox}  
+\end{slide} 
+
+\begin{slide}
+\begin{center}
+\includegraphics[height=13.5cm]{fig14}
+\end{center} 
+\end{slide}
+
+\begin{slide}
+  \stitle{Obter a relação é descendente entre vértices}
+  Submodelo: CREW
+  
+  Complexidades:
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Tempo: $O(\log n)$
+
+  \vspace{-1cm}   \hspace{1cm}  \itemtrig\ Processadores: $O(n^2)$
+\end{slide} 
+
+%%%------------------------------------------------------------------------------------------
+
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

@@ -1,0 +1,512 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\>\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item J. Jaja, An introduction to Parallel Algorithms, Addison Wesley, 92
+    \begin{itemize}
+    \itemT Algoritmos paralelos
+    \end{itemize}
+  \item E. Cáceres, H. Mongeli, S. Song: Algoritmos paralelos u\-san\-do CGM/PVM/MPI: uma introdução\\
+    \verb|http://www.ime.usp.br/~song/papers/jai01.pdf| 
+  \end{enumerate}
+\end{slide}
+ 
+
+
+\begin{slide}
+  \stitle{Simulação entre Submodelos PRAM}
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação entre Submodelos PRAM}
+  
+  Executar um algoritmo para um submodelo mais fraco em uma máquina de um submodelo mais forte não traz problema (em quase todos os casos).
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Simulação CRCW com prioridade $\rightarrow$ CRCW Forte}
+\end{slide}  
+  
+\begin{slide}
+  \stitle{Simulação CRCW com prioridade $\rightarrow$ CRCW Forte}
+  
+  Tenho um algoritmo CRCW com prioridade e uma máquina CRCW Forte.
+ 
+ \itemtrig\ n processadores desejam escrever simultaneamente (com prio\-ridade) em uma variável $A$, valores $B[1], B[2], \cdots, B[n]$, respectivamente.
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW com prioridade $\rightarrow$ CRCW Forte}
+ 
+\itemtrig\  Antes da escrita simultânea, os processadores escrevem simultaneamente (forte) em uma variável x, o seu número de prioridade.
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW com prioridade $\rightarrow$ CRCW Forte}
+
+\itemtrig\  Como resultado, o valor de x será o número de prioridade maior.
+
+\vspace{-1cm} \itemtrig\  O processador, cuja prioridade é igual a x, escreve então, exclusivamente, em $A$, o elemento de B.
+  
+\end{slide}
+\begin{slide}
+  \stitle{Simulação CRCW com prioridade $\rightarrow$ CRCW Forte}
+
+Algoritmo para CRCW com prioridade
+
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $A := B[i]$
+  \zi \End   
+\end{codebox}
+
+Algoritmo para CRCW forte
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $x := i$	
+  \zi \If $x = i$ \Then
+  \zi     $A := B[i]$
+  \zi \End  
+  \zi \End   
+\end{codebox}
+  
+\end{slide}
+\begin{slide}
+  \stitle{Simulação CRCW com prioridade $\rightarrow$ CRCW Forte}
+
+\begin{center}
+\includegraphics[height=11cm]{fig02}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ EREW}
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ EREW}
+  
+Tenho um algoritmo CRCW e uma máquina EREW
+  
+Algoritmo para o submodelo CRCW forte tem complexidade
+
+\vspace{-1cm} \itemtrig\  tempo : $O(t)$
+ 
+\vspace{-1cm} \itemtrig\  processadores : $O(p)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ EREW}
+Este algoritmo pode ser implementado no modelo EREW através de uma simulação com complexidade
+
+\vspace{-1cm} \itemtrig\  tempo : $O(t \log_2 p)$
+ 
+\vspace{-1cm} \itemtrig\  processadores : $O(p)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ CRCW Fraco}
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ CRCW Fraco}
+  
+  Temos um algoritmo para CRCW forte e uma máquina CRCW fraco.
+  
+  \itemtrig\ n processadores desejam escrever simultaneamente em uma variável $A$, valores  $B[1], B[2], \cdots, B[n]$, respectivamente. 
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ CRCW Fraco}
+Para simular esta escrita simultânea (forte) inicializamos um vetor $F$ de flags de n posições com valor 1.
+
+Utilizamos $O(n^2)$ processadores para comparar todos os possíveis pares de elementos de $B$. Para cada para $(i,j)$ comparado $i<j$, colocamos 0 na flag correspondente ao elemento de $B$ que é o menor dos dois. Caso os dois elementos sejam iguais, colocamos 0 na flag correspondente ao elemento de $B$ que tem maior índice dos dois.
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ CRCW Fraco}
+  Como resultado, apenas uma flag de $F$ ficará com 1, e esta é a flag correspondente a um dos elementos de $B$ de maior valor.
+  
+  O processador correspondente a este elemento escreve exclusivamente em $A$, o seu elemento de $B$.
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ CRCW Fraco}
+
+Algoritmo para CRCW forte
+
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $A := B[i]$
+  \zi \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+Algoritmo para CRCW fraco
+
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $F[i] := 1$	
+  \zi \End    
+  \zi \For $1 \leq i,j \leq n$, $i<j$ \DoPar 
+  \zi \If $B[i] < B[j]$ \Then
+  \zi     $F[i] := 0$
+  \zi \ElseIf $B[i] > B[j]$ \Then
+  \zi     $F[j] := 0$
+  \zi \Else  
+  \zi     $F[j] := 0$
+  \zi \End  
+  \zi \End  
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+continuação...
+\begin{codebox}  
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi \If $F[i] = 1$ \Then
+  \zi     $A := B[i]$
+  \zi \End  
+  \zi \End     
+\end{codebox}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ CRCW Fraco}  
+  \begin{center}
+\includegraphics[height=11cm]{fig03}
+\end{center}
+
+\itemtrig\ leitura concorrente em B e escrita concorrente fraca
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ CRCW Fraco}  
+Algoritmo para o submodelo CRCW forte tem complexidade
+
+\vspace{-1cm} \itemtrig\  tempo : $O(t)$
+ 
+\vspace{-1cm} \itemtrig\  processadores : $O(p)$
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Simulação CRCW Forte $\rightarrow$ CRCW Fraco}  
+Este algoritmo pode ser implementado no submodelo CRCW fraco, através desta simulação, com complexidade
+
+\vspace{-1cm} \itemtrig\  tempo : $O(t)$
+ 
+\vspace{-1cm} \itemtrig\  processadores : $O(p^2)$
+
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

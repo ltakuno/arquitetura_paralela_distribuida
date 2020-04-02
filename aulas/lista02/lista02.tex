@@ -1,0 +1,478 @@
+\documentclass{article}
+
+\usepackage[brazil]{babel}     % Definição-padrão língua portuguesa
+\usepackage[latin1]{inputenc}  % Para traduzir acentos
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+ 
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{multirow}
+ 
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{-.125in}
+\setlength{\evensidemargin}{-.125in}
+\setlength{\textwidth}{6.75in}
+
+
+\newcommand{\CWEB}{\texttt{CWEB} }
+\newtheorem{definicao}{Definição}[section]
+\newtheorem{exemplo}{Exemplo}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{corolario}{Corolário}[section]
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+
+\begin{document}
+
+
+\bibliographystyle{plain}       % estilo de bibliografia
+
+\title{Ciência da Computação \\ Arquitetura Paralela e Distribuída\\Exercícios}
+\author{Professor: Leonardo Takuno \\
+\texttt{\{leonardo.takuno@gmail.com\}}}
+\maketitle
+
+ 
+\begin{enumerate}
+\item Dado um vetor a de $n$ elementos inteiros. Escreva uma algoritmo paralelo para calcular o vetor B de $n$ posições, tal que:
+
+$$B[i] = A[i]^n, 0 \leq i \leq n - 1.$$
+
+Seu algoritmo deve utilizar apenas operações de multiplicação (não deve utilizar operações de exponenciação). Suponha que $n$ é uma potência de 2. Apresente as complexidades do algoritmo e o modelo PRAM utilizado.
+
+\item  Dado uma lista L encadeada de n elementos, em que cada elemento possui um ponteiro $prox$ que aponta para o próximo elemento da lista, sendo que o último elemento aponta para $nil$. É dado um ponteiro $inicio$ que aponta para o primeiro elemento da lista.
+
+Escreva um algoritmo paralelo para dividir a lista $L$ em duas sublistas $L_1$ e $L_2$, onde $L_1$ corresponde à primeira metade de $L$, e $L_2$ corresponde à segunda metade de $L$. Seu algoritmo deve determinar dois ponteiros, $inicio_1$ e $inicio_2$, que apontam para o primeiro elemento de $L_1$ e $L_2$, respectivamente. O último elemento de cada sublista deve apontar para $nil$.
+
+
+Suponha que $n$ é uma potência de 2. Apresente as complexidades do algoritmo e o modelo PRAM utilizado.
+
+
+Exemplo:
+
+\begin{center}
+\includegraphics[height=2.5cm]{fig01}
+\end{center}
+\item Dada uma árvore T enraizada, temos:
+
+\begin{itemize}
+\item $n:$ número de vértices de T.
+
+\item $Pai[i]:$ vértice pai do vértice $i$ em T, $0 \leq i \leq n-1$. Se $i$ é a raiz, $Pai[i] = -1$.
+\end{itemize}
+
+Os vértices de T podem ser coloridos com apenas 2 cores, de maneira que vértices adjacentes recebam cores diferentes.
+
+\begin{enumerate}
+\item[a)] Escreva um algoritmo paralelo que atribua as cores 0 e 1 aos vértices de T, de maneira a satisfazer o requerimento acima. Seu algoritmo deve obter o vetor:
+$$Cor[i] : \textrm{cor do vértice } i, 0 \leq i \leq n-1$$
+
+Apresente as complexidades do algoritmo e o submodelo PRAM utilizado.
+
+\item[b)] Seu algoritmo para o item $(a)$ funciona também para uma floresta de árvores enraizadas direcionadas das folhas para a raiz? Seu algoritmo precisa de alguma modificação para isso?
+\end{enumerate}
+\item Dada uma árvore T enraizada, temos:
+
+\begin{itemize}
+	\item $n:$ número de vértices de T
+	\item $Prim\_Filho[i]:$ vértice que é o primeiro filho do vértice $i$, da esquerda para a direita em T, $0 \leq i \leq n-1$. Se o vértice $i$ não possui filhos (isto é, é uma folha), então $Prim\_Filho[i]=-1$. 
+	
+	\item $Prox\_Irmao[i]:$ vértice que é o próximo irmão do vértice $i$,  da esquerda para a direita em T, $0 \leq i \leq n-1$. Se o vértice $i$ não possui mais irmãos, $Prox\_Irmao[i] = -1$.
+\end{itemize}
+
+	Escreva um algoritmo paralelo para determinar o vértice pai de cada vértice de uma árvore enraizada T qualquer. Isto é, seu algoritmo deve obter o vetor:
+ 
+$Pai[i]:$ vértice pai do vértice $i$ em T, $0 \leq i \leq n-1$. Se o vértice $i$ é a raiz, $Pai[i] = -1$.
+
+Apresente as complexidades do algoritmo e o submodelo PRAM utilizado. 
+
+Exemplo:
+
+
+\begin{table*}[htbp]
+\hspace{3.3cm}
+    \begin{tabular}{cccccccc} 
+		  & 0 & 1 & 2 & \hspace{0.07cm}3 &  4 & \hspace{0.01cm} 5 & \hspace{0.01cm} 6  \\ 
+		\end{tabular}
+		
+		
+		\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|} \cline{2-8}
+		Prim\_Filho = & -1 & 4 & -1 & 1 & -1 & -1 & 5  \\ \cline{2-8}
+		\end{tabular}
+
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|} \cline{2-8}
+		Prox\_Irmao = & -1 & 6 & -1 & -1 & 2 & -1 & 0  \\ \cline{2-8}
+		\end{tabular}
+
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|}\cline{2-8}
+		Pai = & 3 & 3 & 1 & -1 & 1 & 6 & 3  \\ \cline{2-8}
+		\end{tabular}
+\end{table*}
+ 
+\begin{center}
+\includegraphics[height=4cm]{fig02}
+\end{center}
+
+\item Dada uma árvore T enraizada, direcionada das folhas para a raiz, temos:
+\begin{itemize}
+	\item $n$: número de vértices de T.
+	\item $Pai[i]:$ vértice pai do vértice $i$ em T, $0 \leq i \leq n-1$. Se $i$ é a raiz, $Pai[i] = -1$.
+\end{itemize}
+	Escreva um algoritmo para determinar o número $N\_Folhas$ de folhas de T. Apresente as complexidades do algoritmo e o submodelo PRAM utilizado. Se necessário, suponha que n é uma potência de 2.
+
+\item Dada uma árvore T enraizada, temos a estrutura $Prox\_Circuito$ que representa uma lista encadeada com as arestas que formam um circuito de Euler de T. Suponha que este circuito já foi quebrado na Raiz, isto é, a última aresta do circuito aponta para $nil$. Assim, temos:
+
+\begin{itemize}
+	\item $n$: número de vértices de T, $n > 1$.
+	\item $Prox\_Circuito[(i, j)]:$ aresta seguinte à aresta $(i, j)$ no circuito de Euler de T. 
+\end{itemize}
+
+Escreva um algoritmo para determinar o número $N\_Folhas$ de folhas de T. Apresente as complexidades do algoritmo e o submodelo PRAM utilizado. Se necessário, suponha que $n$ é uma potência de 2. 
+
+\item Dada uma árvore enraizada, temos:
+
+\begin{itemize}
+	\item $n$: número de vértices de T.
+	\item $Prim\_Filho[i]:$ vértice que é o primeiro filho do vértice $i$, da esquerda para a direita em T, $0 \leq i \leq n-1$.
+	
+	Se o vértice $i$ não possui filhos (isto é, é uma folha), então $Prim\_Filho[i] = -1$.
+	
+	\item $Prox\_Irmao[i]:$ vértice que é o primeiro irmão do vértice $i$, da esquerda para a direita em T, $0 \leq i \leq n-1$.
+	
+	Se o vértice $i$ não possui mais irmãos, então $Prox\_Irmao[i] = -1$.
+\end{itemize}
+	Escreva um algoritmo paralelo para obter um vetor Folha de $n$ posições, onde os vértices folhas da árvore T estejam armazenados em posições consecutivas. As posições não utilizadas do vetor devem ficar com o valor -1. Se necessário suponha que $n$ é uma potência de 2. Apresente as complexidades do algoritmo e o submodelo PRAM utilizado.
+	
+	\begin{table*}[htbp]
+\hspace{3.3cm}
+    \begin{tabular}{cccccccc} 
+		  & 0 & 1 & 2 & \hspace{0.07cm}3 &  4 & \hspace{0.01cm} 5 & \hspace{0.01cm} 6  \\ 
+		\end{tabular}
+		
+		
+		\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|} \cline{2-8}
+		Prim\_Filho = & -1 & 4 & -1 & 1 & -1 & -1 & 5  \\ \cline{2-8}
+		\end{tabular}
+
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|} \cline{2-8}
+		Prox\_Irmao = & -1 & 6 & -1 & -1 & 2 & -1 & 0  \\ \cline{2-8}
+		\end{tabular}
+
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|}\cline{2-8}
+		Pai = & 0 & 2 & 4 & 5 & -1 & -1 & -1  \\ \cline{2-8}
+		\end{tabular}
+\end{table*}
+
+\begin{center}
+\includegraphics[height=4cm]{fig02}
+\end{center}
+	\item Dada uma árvore enraizada T, temos a estrutura $prox\_Circuito$ que representa uma lista encadeada com as arestas que formam um circuito de Euler de T. Suponha que este cirucito já foi quebrado na Raiz, isto é, a última aresta do circuito aponta para $nil$. Assim, temos:
+	
+	
+	
+	\begin{itemize}
+		\item $n$: número de vértices de T.
+		\item $raiz$ : vértice raiz de T.
+		\item $prox\_Circuito[(i,j)]$: aresta seguinte à aresta $(i,j)$ no circuito de Euler de T.
+		\item $p\_ini\_circuito$: ponteiro para o início da lista do circuito de Euler.
+	\end{itemize}
+	
+	Escreva um algoritmo paralelo para obter um vetor Folha de $n$ posições, onde os vértices folhas da árvore T estejam armazenados em posições consecutivas, seguindo a ordem em que as folhas aparecem no circuito de Euler. As posições não utilizadas do vetor devem ficar com o valor -1. Apresente as complexidades do algoritmo e o submodelo PRAM utilizado.
+	
+	$raiz = 3$
+	
+	$prox\_circuito$
+	
+	$p\_ini\_circuito \rightarrow (3,1) \rightarrow (1,4) \rightarrow (4,1) \rightarrow (1,2) \rightarrow (2,1) \rightarrow (1,3) \rightarrow (3,6) \rightarrow (6,5) \rightarrow (5,6) \rightarrow (6,3) \rightarrow (3,0) \rightarrow (0,3) \neg$
+	
+	
+	\vspace{0.5cm}\hspace{1cm}
+			\begin{tabular}{c|c|c|c|c|c|c|c|}\cline{2-8}
+		Folha = & 4 & 2 & 5 & 0 & -1 & -1 & -1  \\ \cline{2-8}
+		\end{tabular}
+	
+\begin{center}
+\includegraphics[height=4cm]{fig02}
+\end{center}
+
+
+\item
+Dada uma árvore binária completa T enraizada, temos:
+
+\begin{itemize}
+	\item $n$: número de vértices de T.
+	\item $prim\_Filho[i]$: vértice que é o primeiro filho do vértice $i$, da esquerda para a direita de T, $0 \leq i \leq n - 1$.
+	
+	Se o vértice $i$ não possui filhos (isto é, é uma folha), então $prim\_Filho[i] = -1$.
+	
+	\item $prox\_Irmao[i]:$ vértice que é o próximo irmão do vértice $i$, da esquerda para a diretia em T, $0 \leq i \leq n - 1$. Se o vértice $i$ não possui mais irmãos, $prox\_Irmao[i] = -1$.
+\end{itemize}
+
+Escreva um algoritmo paralelo para determinar o vértice $pai$, o vértice $filho\_Esquerdo$ e o vértice $filho\_Direito$ de cada vértice de T. Apresente as complexidades do algoritmo e o submodelo PRAM utilizado. Seu algoritmo deve determinar os seguintes valores de $n$ posições:
+
+\begin{itemize}
+	\item $pai[i]$: vértice pai do vértice $i$ em T, $0 \leq i \leq n - 1$. Se o vértice $i$ é a raiz, $pai[i] = -1$.
+	\item $filho\_Esquerdo[i]$: vertice filho esquerdo do vértice $i$ em T, $0 \leq i \leq n - 1$. Se o vértice $i$ é uma folha, $filho\_Esquerdo[i] = -1$.
+	\item $filho\_Direito[i]$: vertice filho direito do vértice $i$ em T, $0 \leq i \leq n - 1$. Se o vértice $i$ é uma folha, $filho\_Direito[i] = -1$.
+\end{itemize}
+
+\begin{center}
+\includegraphics[height=4cm]{fig02}
+\end{center}
+
+	\begin{table*}[htbp]
+\hspace{3.3cm}
+    \begin{tabular}{cccccccccc} 
+		  & 0 & 1 & 2 & \hspace{0.07cm}3 &  4 & \hspace{0.01cm} 5 & \hspace{0.01cm} 6  & \hspace{0.01cm}7 & \hspace{0.01cm}8\\ 
+		\end{tabular}
+		
+		
+		\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|c|} \cline{2-10}
+		Prim\_Filho = & 6 & 4 & -1 & 1 & -1 & 2 & -1 & -1 & -1  \\ \cline{2-10}
+		\end{tabular}
+
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|c|} \cline{2-10}
+		Prox\_Irmao = & -1 & 0 & 7 & -1 & 8 & -1 & 5 & -1 & -1 \\ \cline{2-10}
+		\end{tabular}
+
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|c|}\cline{2-10}
+		Pai = & 3 & 3 & 5 & -1 & 1 & 0 & 0 & 5 & 1  \\ \cline{2-10}
+		\end{tabular}
+		
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|c|}\cline{2-10}
+		filho\_Esquerdo = & 6 & 4 & -1 & 1 & -1 & 2 & -1 & -1 & -1 \\ \cline{2-10}
+		\end{tabular}	
+		
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|c|}\cline{2-10}
+		filho\_Direito = & 5 & 8 & -1 & 0 & -1 & 7 & -1 & -1 & -1 \\ \cline{2-10}
+		\end{tabular}	
+\end{table*}
+
+\item Dada uma árvore binária T enraizada, temos:
+\begin{itemize}
+	\item $n$: número de vértices de T, $n > 1$.
+	\item $pai[i]$: vértice pai do vértice $i$ em T, $0 \leq i \leq n - 1$. Se o vértice $i$ é a raiz, $pai[i] = -1$.
+	\item $filho\_Esquerdo[i]$: vertice filho esquerdo do vértice $i$ em T, $0 \leq i \leq n - 1$. Se o vértice $i$ é uma folha, $filho\_Esquerdo[i] = -1$.
+	\item $filho\_Direito[i]$: vertice filho direito do vértice $i$ em T, $0 \leq i \leq n - 1$. Se o vértice $i$ é uma folha, $filho\_Direito[i] = -1$.
+\end{itemize}
+
+
+Escreva um algoritmo paralelo para obter a estrutura $prox\_Circuito$ que representa uma lista encadeada fechada com as arestas que formam um circuito de Euler de T. Apresente as complexidades do algoritmo e o submodelo PRAM utilizado. Seu algoritmo deve determinar a seguinte estrutura:
+
+$prox\_Circuito[(i,j)]$: aresta seguinte à aresta $(i, j)$ no circuito de Euler de T.
+
+\begin{center}
+\includegraphics[height=4.5cm]{fig03}
+\end{center}
+
+
+\begin{table*}[htbp]
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|}\cline{2-8}
+		Pai = & 3 & 3 & 5 & -1 & 1 & 0 & 5   \\ \cline{2-8}
+		\end{tabular}
+		
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|c|}\cline{2-8}
+		filho\_Esquerdo = & -1& 4 & -1 & 1 & -1 & 2 & -1  \\ \cline{2-8}
+		\end{tabular}	
+		
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|c|}\cline{2-8}
+		filho\_Direito = & 5 & -1& -1 & 0 & -1 & 6 & -1  \\ \cline{2-8}
+		\end{tabular}	
+\end{table*}
+
+\begin{center}
+\includegraphics[height=0.8cm]{fig04}
+\end{center}
+
+
+\end{enumerate}
+
+\end{document}

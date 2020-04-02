@@ -1,0 +1,909 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{tabularx}
+ 
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item J. Jaja, An introduction to Parallel Algorithms, Addison Wesley, 92
+    \begin{itemize}
+    \itemT Algoritmos paralelos
+    \end{itemize}
+  \item N. A. Lynch: Distributed Algorithms, Morgan Kaufmann Publishers, Inc., 96
+   \begin{itemize}
+    \itemT Algoritmos distribuídos
+    \end{itemize}
+  \end{enumerate}
+\end{slide}
+ 
+ 
+\begin{slide}
+  \stitle{Coordenação distribuída}
+\end{slide}
+
+\begin{slide}
+  \stitle{Coordenação distribuída}
+  Em um sistema distribuído, processos podem compartilhar recursos e precisar se sincronizar. 
+
+  Assim, um ambiente distribuído deve prover mecanismos para sincronização de processos, para tratamento de deadlock e para lidar com falhas.
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação de Eventos}
+  
+  Em um sistema centralizado podemos deteminar a ordem em que 2 eventos ocorreram, pois existe um único relógio global e uma memória compartilhada.
+ \end{slide}
+
+\begin{slide}
+  \stitle{Ordenação de Eventos} 
+  Em um sistema distribuído, algumas vezes é impossível determinar, entre 2 eventos, qual ocorreu primeiro. (Eventos são instruções executadas por uma processador instruções internas, envio e recebimento de mensagem)
+ \end{slide}
+
+\begin{slide}
+  \stitle{Ordenação de Eventos} 
+		\begin{tabular}{lll}
+		Processo P & Processo Q & Processo R \\
+		$P_0:$              & $Q_0:envia(msg,P)$  & $R_0:envia(msg,Q)$\\
+		$P_1:envia(msg,Q)$  & $Q_1:recebe(msg)$   & $R_1:recebe(msg)$\\
+		$P_2:$              & $Q_2:envia(msg,R)$  & $R_2:$\\
+		$P_3:$              & $Q_3:recebe(msg)$   & $R_3:$\\
+		$P_4:recebe(msg)$   & $Q_4:$              & $R_4:$\\
+		
+		\end{tabular}
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Relação Aconteceu-Antes}
+ 
+\itemtrig\ Por simplicidade, supomos que cada processo é executado em um processador distinto.
+
+  \vspace{-1cm}  \itemtrig\ Todos os eventos executados em um processador foram executados sequencialmente, logo estão totalmente ordenados.
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Relação Aconteceu-Antes}  
+  \vspace{-1cm}  \itemtrig\ Pelo princípio da causalidade, um evento de recebimento de uma mensagem só é executado por um processador depois do evento de envio desta mensagem ser executado por outro processador
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Relação Aconteceu-Antes}
+Podemos assim, definir uma relação aconteceu-antes ordenando parcialmente os eventos:
+    
+
+ 1) Se $a$ e $b$ são eventos executados em um mesmo processador, e $a$ foi executado antes de $b$, então $a \rightarrow b$
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Relação Aconteceu-Antes}     
+ 2) Se $a$ é o evento de envio de uma mensagem, executado por um processador, e $b$ é o evento de recebimento desta mensagem, executdo por outro processador, então $a \rightarrow b$
+
+  
+ 3) Se $a \rightarrow b$ e $b \rightarrow c$, então $a \rightarrow c$ (transitividade)
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Relação Aconteceu-Antes} 
+Exemplo:
+
+1) $P_0 \rightarrow P_1$ $P_1 \rightarrow P_2$ $P_0 \rightarrow P_1$ $\cdots$
+
+\vspace{-1cm} $R_0 \rightarrow R_1$ $R_0 \rightarrow R_2$ $R_1 \rightarrow R_2$ $\cdots$
+
+\vspace{-1cm} $Q_0 \rightarrow Q_1$ $\cdots$   
+
+2) $P_1 \rightarrow Q_1$ $Q_0 \rightarrow P_4$ $Q_2 \rightarrow R_1$ $R_0 \rightarrow Q_3$
+  
+3) $P_0 \rightarrow Q_1$ $P_0 \rightarrow R_2$
+
+Eventos não relacionados: $P_0$ e $Q_0$, $P_0$ e $R_0$, $R_0 e P_2$
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Relação Aconteceu-Antes}
+A relação aconteceu-antes é uma ordenação parcial dos eventos pois nem todos os pares de eventos estão ordenados.  
+
+Existem eventos $a$ e $b$ que são independentes, isto é, não podemos dizer que $a \rightarrow b$ nem que $b \rightarrow a$. (Dois eventos são independentes se não existe caminho de $a$ para $b$ e nem de $b$ para $a$)
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Relação Aconteceu-Antes}
+Dado que 2 eventos são independentes, não interessa a ordem em que eles ocorreram. Podemos supor uma ordem qualquer. Precisamos apenas que todos os processadores suponham a mesma ordem entre estes eventos.
+
+Podemos construir uma \textbf{ordenação total} dos eventos que res\-peite a relação aconteceu antes, e suponha uma ordem para os eventos independentes.
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Algoritmo para construção de ordenação parcial}
+   Cada processador terá um relógio lógico local
+   
+   A cada evento executado, será atribuído um rótulo de tempo (\textit{timestamp})
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Algoritmo para construção de ordenação parcial}
+
+Processador P
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\  Inicialmente $Relogio := 0$
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Ao executar um evento interno 
+
+ \begin{codebox}
+  \zi $timestamp(evento) := Relogio$
+  \zi $Relogio := Relogio + 1$
+\end{codebox}
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Ao executar um evento de envio de mensagem}
+ \begin{codebox}
+  \zi $timestamp(evento) := Relogio$
+  \zi Envia o $timestamp(evento)$ juntamente com a mensagem
+  \zi $Relogio := Relogio + 1$
+\end{codebox}
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Ao executar um evento de recebimento de mensagem} 
+ \begin{codebox}
+  \zi \If $Relogio \leq timestamp(\textrm{evento de envio da msg})$ \Then
+  \zi $Relogio := timestamp(\textrm{evento de envio da msg}) + 1$
+  \zi \End
+  \zi $timestamp(\textrm{evento de recebimento}) := Relogio$ 
+  \zi $Relogio := Relogio + 1$
+\end{codebox}
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Ordenação de Eventos}  
+Com o algoritmo visto podemos usar a ordem dos timestamps para ordenar os eventos. 
+
+Esta ordem já respeita a ordenação parcial da relação aconteceu-antes,
+pois se $A \rightarrow B$ então $timestamp(A) < timestamp(B)$.  
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Ordenação de Eventos}  
+  Precisamos ordenar alguns eventos independentes. 
+  
+ \vspace{-1cm} \hspace{1cm} \itemtrig\  Exemplo: $P_3$ e $Q_1$, onde $TS(P_3) = 3$ e $TS(Q_1) = 2$
+  
+Assim assumiremos que $Q_1$ aconteceu antes de $P_3$.  
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Ordenação de Eventos}  
+Outros eventos independentes ainda não foram ordenados. 
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Exemplo: $P_0$ e $Q_0$, onde $TS(P_0) = 0$ e $TS(Q_0) = 0$
+
+Neste caso, escolher algum critério de desempate e ordená-los.
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Critério: utilizar a identificação dos processos, logo $P < Q$
+
+Assim asumiremos que $P_0$ aconteceu antes de $Q_0$  
+\end{slide}
+ 
+\begin{slide}
+Sejam $A$ e $B$ dois eventos
+ \vspace{-1cm} \begin{codebox}
+  \zi \If $TS(A) < TS(B)$ \Then
+  \zi $A$ aconteceu antes de $B$
+  \zi \ElseIf $TS(B) < TS(A)$ \Then
+  \zi $B$ aconteceu antes de $A$
+  \zi \Else
+  \zi Seja $P_i$ o processo onde $A$ foi executado
+  \zi Seja $P_j$ o processo onde $B$ foi executado
+  \zi \If $P_i < P_j$ \Then
+  \zi $A$  aconteceu antes de $B$
+  \zi \Else
+  \zi $B$ aconteceu antes de $A$
+  \zi \End
+  \zi \End
+\end{codebox}	
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Ordenação de Eventos}  
+  
+  Ou seja, os eventos são ordenados pelo par
+  
+  $$(TimeStamp(evento), \textrm{id do processo})$$
+  \end{slide}
+ 
+\begin{slide}
+  \stitle{Exclusão mútua em ambiente distribuído}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Exclusão mútua em ambiente distribuído}  
+  Temos $n$ processos (identificados de $0$ a $n-1$) que residem em $n$ processadores distintos e compartilham um recurso que deve ser utilizado com exclusão mútua.
+\end{slide}
+
+\begin{slide}
+  \stitle{Solução Centralizada}  
+  Um processo é escolhido para ser o \textbf{coordenador}. É ele que autoriza os outros processos para usarem o recurso.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de um processo P} 
+Quando P deseja usar o recurso
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ P envia msg \textbf{pedido} para coordenador
+ 
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ P espera receber msg \textbf{atende} do coordenador
+ 
+Quando P recebe msg \textbf{atende} do coordenador
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ P usa o recurso compartilhado
+ 
+Quando P termina de usar o recurso
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ P envia msg \textbf{libera} para coordenador 
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do Processo Coordenador}    
+  
+Quando coordenador recebe msg \textbf{pedido} de um processo P
+
+ \begin{codebox}
+  \zi \If nenhum processo está usando o recurso \Then
+  \zi Coordenador envia msg \textbf{atende} para P
+  \zi \Else
+  \zi Coordenador coloca pedido P em uma fila
+  \zi \End
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do Processo Coordenador}    
+  Quando coordenador recebe msg \textbf{libera} de um processo P
+   \begin{codebox}
+  \zi \If fila não está vazia \Then
+  \zi Coordenador retira um pedido Q da fila
+  \zi Coordenador envia \textbf{atende} para Q
+  \zi \Else
+  \zi recurso fica disponível
+  \zi \End
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do Processo Coordenador}  
+  Coordenador possui uma estrutura de dados fila onde pedidos pendente são colocados.
+  
+  Coordenador pode utilizar algoritmo de escalonamento para escolher qual pedido será atendido, dentre aqueles da fila (ex. FCFS, prioridades ...)
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do Processo Coordenador}  
+Solução garante exclusão mútua.
+
+Pode haver starvation dependendo do algoritmo de escalonamento escolhido.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do Processo Coordenador}  
+Solução centralizada: a decisão de que o processo vai usar o recurso de cada vez é tomada de forma centralizada pelo coordenador.
+
+Para cada vez que um processo usa o recurso, temos 3 msgs: pedido, atende, libera (custo do algoritmo)
+\end{slide}
+
+\begin{slide}
+  \stitle{Solução Distribuída}  
+  Utiliza mecanismo de ordenação de eventos. Cada proceso possui uma fila de pedidos pendentes.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de um processo P} 
+Quando P deseja usar o recurso
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ P envia msg \textbf{pedido} (junto com timestamp) para todos os demais processos
+ 
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ P espera receber msg \textbf{atende} de todos os demais processos
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Algoritmo de um processo P} 
+Quando P recebe uma msg \textbf{pedido} com timestamp de um processo
+ \begin{codebox}
+  \zi \If P está usando o recurso \Then
+  \zi P coloca $(\textrm{Pedido }Q, t')$ na sua fila
+  \zi \ElseIf P não quer usar o recurso \Then
+  \zi P envia msg atende para Q
+  \zi \Else 
+  \zi P compara seu pedido $(\textrm{Pedido }P, t)$ com 
+  \zi \hspace*{3.6cm}pedido de Q $(\textrm{Pedido }Q, t')$
+  \zi \If $(t,P) < (t', Q)$ \Then
+  \zi P coloca $(\textrm{Pedido }Q, t')$ em sua fila
+  \zi \Else \hspace*{1cm} P envia msg atende para Q.
+  \zi \End
+  \zi \End
+\end{codebox}  
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Algoritmo de um processo P} 
+  Quando P recebe msg \textbf{atende} de um dos demais processos:
+ \begin{codebox}
+  \zi \If P já recebeu atende de todos os demais processos \Then
+  \zi    P usa o recurso
+  \zi \End
+\end{codebox}  
+Quando P termina de usar o recurso
+ \begin{codebox}
+  \zi \While fila $\neq$ vazia \DoSeq
+  \zi    Retira pedido da fila $(Pedido, R, t'')$
+  \zi Envia a msg atende para R.
+  \zi \End
+\end{codebox}  
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Solução Distribuída}
+  Observações
+  
+  \textbf{Algoritmo garante a exclusão mútua:} Se um processo P quer usar o recurso, mas já existe um processo Q que já está utilizando o recurso, ou com maior prioridadepara usar o recurso (pedido de Q ``aconteceu antes'' do pedido de P) então não receberá msg atende de Q, até que Q termine de usar o recurso.
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Solução Distribuída}
+  \textbf{Não há starvation:} Processos usam o recurso segundo a ordem dos timestamps. Logo, se P e Q querem usar o recurso, e pedido de P tem timestamp menor, P usará o recurso primeiro. Se P deseja usar o recurso novamente, seu novo pedido terá timestamp maior, logo Q usará o recurso.
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Solução Distribuída}
+\textbf{Solução Distribuída:}  Todos os processos participam da decisão de qual vai usar o recurso
+  
+  \textbf{Custo:} Para cada vez que algum processo usar o recurso temos:
+  
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ $n-1$ msgs pedido
+ 
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $n-1$ msgs atende
+  
+  ou seja $O(n)$, onde n é o número de processos.  
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Algoritmo distribuído para determinar componentes conexos de um Grafo}
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Algoritmo sequencial}
+  Entrada:
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $nVertices$: número de vértices do grafo
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $mat\_adj$: matriz de adjacência
+    
+  Saída:
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $componente$: vetor com uma posição para cada vértice. Se vértices $i$ e $j$ estão com um mesmo componente, então $componente[i] = componente[j]$     
+  
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Algoritmo sequencial}
+  
+  \begin{codebox}
+  \zi \Comment Inicia cada vértice como um componente
+  \zi \For $i := 0$ \To $nVertices-1$ \DoSeq
+  \zi $componente[i] := i$
+  \zi \End
+\end{codebox} 
+\end{slide}
+ 
+\begin{slide}
+  \begin{codebox}
+  \zi \Comment Investiga vértices percorrendo parte triangular da matriz
+  \zi \For $i := 0$ \To $nVertices-1$ \DoSeq
+  \zi \For $j := 0$ \To $i-1$ \DoSeq
+  \zi \Comment Se existe aresta $(i, j)$ e $i$ e $j$ ainda não estão 
+  \zi \Comment no mesmo componente
+  \zi \If $mat\_adj[i,j] = 1$ e $componente[i] \neq componente[j]$ \Then
+  \zi \If $componente[i] < componente[j]$ \Then
+  \zi $comp\_menor = componente[i]$
+  \zi $comp\_maior = componente[j]$
+  \zi \Else
+  \zi $comp\_menor = componente[j]$
+  \zi $comp\_maior = componente[i]$
+  \zi \End
+  \zi \For $k := 0$ \To $i$ \DoSeq
+  \zi \If $componente[k] = comp\_maior$ \Then
+  \zi $componente[k] = comp\_menor$
+   \End
+   \End
+   \End
+   \End
+   \End
+\end{codebox}
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Algoritmo Distribuído} 
+  Idéia
+  
+  Cada processo é responsável por uma parte dos vértices e investiga parte da matriz de adjacência correspondente a estes vértices
+  
+  Quando um processo muda um componente de um vértice, ele informa alguns dos demais processos (apenas aqueles que poderiam alterar seus vértices com esta informação)
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Algoritmo Distribuído} 
+Ao receber esta informação, ele atualiza suas estruturas e investiga os vértices alocados a ele, em relação ao vértice alterado. 
+
+Caso este processador muda o componente $\cdots$
+
+O algoritmo prossegue assim, até chegar ao fim, quando não existem mais informação a serem enviadas ou recebidas.
+ \end{slide}
+ 
+\begin{slide}
+  \stitle{Estrutura de dados de cada processo} 
+ Entrada:
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $nVertices$: número de vértices do grafo
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $mat\_adj$: matriz de adjacência
+    
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $nprocessadores$: número de processadores
+
+ 
+  Saída:
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $componente[nVertices]$  
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Estrutura de dados de cada processo}  
+  Estruturas auxiliares:
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $vini$ : vértice inicial
+
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $vfim$ : vértice final
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $nvertices\_proc$: número de vértices por processadores
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ $id\_proc$: $0,1,2,\cdots, nprocessadores-1$
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de cada processo}    
+  \begin{codebox}
+  \zi \Comment Inicia cada vértice como um componente
+  \zi \For $i := 0$ \To $vfim$ \DoSeq
+  \zi $componente[i] := i$
+  \zi \End
+  \zi \Comment Investiga vértices alocadados a este processador
+  \zi \For $i := vini$ \To $vfim$ \DoSeq
+  \zi \For $j := 0$ \To $i-1$ \DoSeq  
+  \zi \Comment Investiga vértice i em relação a vértice j
+  \zi $investigaVertice(i, j, i)$
+  \zi \End
+  \zi \End
+\end{codebox} 
+\end{slide}
+
+\begin{slide}
+  \begin{codebox}
+  \zi $terminou := false$
+  \zi \While não $terminou$ \DoSeq
+  \zi \Comment Espera receber msg de algum dos demais processadores
+  \zi $recebe(msg)$
+  \zi \If $msg = (NOVO\_COMP,v,comp\_v)$ e 
+  \zi \hspace{1cm}    $comp\_v < componente[v]$ \Then
+  \zi $componente[v] := comp\_v$
+  \zi \Comment investiga vértices alocados a 
+  \zi \Comment este processador em relação a v
+  \zi \For $i := vini$ \To $vfim$ \DoSeq
+  \zi $investigaVertice(i, v, vfim)$
+  \zi \End
+  \zi \End
+  \zi \End
+\end{codebox} 
+\end{slide}
+
+\begin{slide}
+função $Investiga\_Vertice(\textrm{vertice } i,\textrm{vertice } j,\textrm{vertice } final)$
+\vspace{-1cm}\begin{codebox}
+\zi \Comment Se existir aresta (i, j) e vértices i e j ainda não
+\zi \Comment estão no mesmo componente
+\zi \If $mat\_adj[i - vini, j] = 1$ e $componente[i] \neq componente[j]$ \Then
+\zi \Comment junta componentes
+\zi \If $componente[i] < componente[j]$ \Then
+\zi  $comp\_menor := componente[i]$
+\zi  $comp\_maior := componente[j]$
+\zi \Else
+\zi  $comp\_menor := componente[j]$
+\zi  $comp\_maior := componente[1]$
+\zi \End
+\zi \Comment continua no proximo slide ...
+\zi \End
+\end{codebox} 
+\end{slide}
+
+\begin{slide}
+\begin{codebox}
+\zi \Comment Se existir aresta (i, j) e vértices i e j ainda não
+\zi \Comment estão no mesmo componente
+\zi \If $mat\_adj[i - vini, j] = 1$ e $componente[i] \neq componente[j]$ \Then
+\zi $\cdots$ 
+\zi \For $k := 0$ \To $final$ \DoSeq
+\zi  \If $componente[k] = comp\_maior$ \Then
+\zi $componente[k] := comp\_menor$
+\zi \Comment Determine processador responsável por vértices k
+\zi $proc\_alocado := (k$ $div$ $nverticesProc) + 1$
+\zi \Comment Envia msg com informação de novo 
+\zi \Comment componente de k, para todos os 
+\zi \Comment processadores a partir de 
+\zi proc$\_$alocado, exceto para este processador
+\zi \For $t := prox\_alocado$ \To $nprocessadores-1$ \DoSeq
+\zi \If $t \neq id\_proc$ \Then
+\zi Envia para processador $t$ 
+\zi\>  $msg(NOVO\_COMP, k, comp\_menor)$
+\zi \End
+\zi \End
+\zi \End
+\end{codebox} 
+\end{slide}
+
+\begin{slide}  
+  \stitle{Algoritmo distribuído para determinar componentes conexos de um Grafo}
+ Observações:
+ 
+ 
+   \vspace{-1cm} \hspace{1cm} \itemtrig\ Topologia completamente conexa.
+   
+   \vspace{-1cm} \hspace{1cm} \itemtrig\ Algoritmo deve ter distribuição inicial  dos dados ($nvertices$ e $mat\_adj$) e recolhimento final dos dados (componente).
+   
+   \vspace{-1cm} \hspace{1cm} \itemtrig\ Carga não é balanceada: É possível melhorar.
+      
+\end{slide}
+
+\begin{slide}  
+  \stitle{Algoritmo distribuído para determinar componentes conexos de um Grafo}  
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Não determinismo: durante o algoritmo, um processador pode receber msgs dos demais processadores em uma ordem independente.
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Precisa de bufferização (capacidade de comunicação limitada, maior que 0): criação de um buffer recebimento em cada processador,que é concorrente com o processo que determina os componentes conexos
+  
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Precisa de detecção de terminação.
+\end{slide}
+
+\begin{slide}  
+  \stitle{Detecção de terminação}
+  
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ A detecção de terminação poder ser feita de forma centralizada: apenas o processo de $id = 0$ detecta a terminação e avisa aos demais processos.
+  \end{slide}
+
+\begin{slide}  
+  \stitle{Detecção de terminação}   
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Para determinar se não há mensagens em trânsito, cada processo mantém informações sobre o número de mensagens que ele enviou para cada um dos demais processos, e o número de mensagens que ele recebeu de cada um dos demais processos.
+\end{slide}
+ 
+\begin{slide}  
+  \stitle{Detecção de terminação}
+
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Quando um processo (exceto o processo $0$) está ocioso (isto é, não possui trabalho para realizar no algoritmo), ele envia estas informações para o processo $0$.
+ 
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ O processo $0$ possui então as informações de cada processo, inclusive dele mesmo.
+       
+\end{slide}
+ 
+\begin{slide}  
+  \stitle{Detecção de terminação}
+  
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Quando o processo $0$ está ocioso, ele compara estas informações para determinar se a terminação já foi atingida.         
+  
+  Se o número de mensagens enviadas por $P_i$ para $P_j$ é igual ao número de mensagens que $P_j$ recebeu de $P_i$, para todo par de processos $P_i$ e $P_j$, $P_i \neq P_j$, então a terminação foi atingida.
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

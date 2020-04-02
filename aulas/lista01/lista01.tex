@@ -1,0 +1,609 @@
+\documentclass{article}
+
+\usepackage[brazil]{babel}     % Definição-padrão língua portuguesa
+\usepackage[latin1]{inputenc}  % Para traduzir acentos
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{-.125in}
+\setlength{\evensidemargin}{-.125in}
+\setlength{\textwidth}{6.75in}
+
+
+\newcommand{\CWEB}{\texttt{CWEB} }
+\newtheorem{definicao}{Definição}[section]
+\newtheorem{exemplo}{Exemplo}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{corolario}{Corolário}[section]
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+
+\begin{document}
+
+
+\bibliographystyle{plain}       % estilo de bibliografia
+
+\title{Ciência da Computação \\ Arquitetura Paralela e Distribuída\\Exercícios}
+\author{Professor: Leonardo Takuno \\
+\texttt{\{leonardo.takuno@gmail.com\}}}
+\maketitle
+
+ 
+\begin{enumerate}
+\item
+Dada uma máquina PRAM com $n$ processadores, temos na memória compartilhada uma variável C e um vetor A de $n$ posições.  Um determinado algoritmo paralelo precisa, em um dos seus passos, atribuir o valor de C para cada um dos $n$ elementos de A. Suponha que $n$ é uma potência de 2 ou que $n = 2^k - 1$.
+
+Em um modelo CREW, isto é feito da forma abaixo, com leitura simultânea na variável C:
+
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $A[i] := C$
+  \zi  \End   
+\end{codebox}
+
+\begin{enumerate}
+	\item [a)] Apresente as complexidades do algoritmo acima e diga se ele é ótimo.
+	\item [b)] Escreva um algoritmo paralelo que realize a mesma tarefa que o algoritmo acima, porém para o modelo EREW. Apresente as complexidades do algoritmo.
+	\item [c)] Reescreva o algoritmo do item (b), de maneira que ele seja ótimo.
+	
+\end{enumerate}
+\item Dado um vetor A com $n$ elementos, deseja-se um algoritmo paralelo para calcular a soma dos $n$ elementos de A. Suponha que $n$ é uma potência de 2. Escreva este algoritmo e apresente as suas complexidades.
+\begin{enumerate}
+	\item [a)] Para o modelo EREW.
+	\item [b)] Para o modelo EREW, de maneira que o algoritmo seja ótimo.	
+\end{enumerate}
+
+\item Dado um vetor A de $n$ valores booleanos, um algoritmo paralelo que calcula o OR lógico dos $n$ valores de A deve determinar o valor M, tal que:
+
+$$M = A[1] \textrm{ OR } A[2] \textrm{ OR } \cdots \textrm{ OR } A[n]$$
+
+Suponha que $n$ é potência de 2. Escreva este algoritmo paralelo e apresente as suas complexidades para:
+ \begin{enumerate}
+	\item [a)] Para o modelo CRCW fraco.
+	\item [b)] Para o modelo CRCW fraco, com $p < O(n)$ processadores.
+	\item [c)] Para o modelo EREW.
+	\item [d)] Para o modelo EREW, de maneira que o algoritmo seja ótimo.	
+\end{enumerate}
+
+\item Dado um vetor A de $n$ elementos, deseja-se um algoritmo paralelo que determine o elemento de valor mínimo de A. Suponha qu $n$ é uma potência de 2. Escreva este algoritmo e apresente as suas complexidades:
+ \begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+	\item [c)] Para o modelo EREW.
+	\item [d)] Para o modelo EREW, de maneira que o algoritmo seja ótimo.
+\end{enumerate}
+
+\item Dado um vetor A de $n$ elementos, deseja-se um algoritmo paralelo que determine o índice do elemento de valor mínimo de A. Suponha que $n$ é uma potência de 2. Escreva este algoritmo e apresente as suas complexidades:
+
+ \begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+	\item [c)] Para o modelo EREW.
+	\item [d)] Para o modelo EREW, de maneira que o algoritmo seja ótimo.
+\end{enumerate}
+
+\item Dado um vetor A de $n$ elementos e uma variável C, deseja-se um algoritmo paralelo para determinar o número M de elementos de A que são menores que C. Suponha que $n$ é potência de 2. Escreva este algoritmo paralelo e apresente as suas complexidades:
+  \begin{enumerate}
+	\item [a)] Para o modelo CREW.
+	\item [b)] Para o modelo EREW.
+	\item [c)] Para o modelo EREW, de maneira que o algoritmo seja ótimo.
+\end{enumerate}
+
+Exemplo:
+
+C = 14
+
+\begin{table*}[htbp]
+	\centering
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = &12 & 13 & 19 & 15 & 18 & 24 & 17 & 11 \\ \cline{2-9}
+		\end{tabular}
+\end{table*}
+
+M = 3
+
+\item Dado um vetor A de $n$ elementos e uma variável C, deseja-se um algoritmo paralelo para determinar a variável M que é o valor do primeiro elemento de A que é menor que C. Isto é:
+
+$$M = A[k], \textrm{ tal que } A[k] < C \textrm{ e } k \textrm{ é mínimo.} $$
+
+Suponha que $n$ é uma potência de 2. Escreva este algoritmo paralelo e apresente as suas complexidades:
+\begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+	\item [c)] Para o modelo CREW.
+	\item [d)] Para o modelo EREW.
+	\item [e)] Para o modelo EREW, de maneira que o algoritmo seja ótimo.
+\end{enumerate}
+
+Exemplo:
+
+C = 14
+
+\begin{table*}[htbp]
+	\centering
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = &16 & 13 & 19 & 15 & 18 & 24 & 17 & 11 \\ \cline{2-9}
+		\end{tabular}
+\end{table*}
+
+M = 13
+
+
+\item Dado um vetor A de $n$ elementos e uma variável C, deseja-se um algoritmo paralelo para determinar a variável M que é o índice do primeiro elemento de A que é menor que C. Isto é:
+$$M = A[k], \textrm{ tal que } A[k] < C \textrm{ e } k \textrm{ é mínimo.} $$
+
+Suponha que $n$ é uma potência de 2. Escreva este algoritmo paralelo e apresente as suas complexidades:
+\begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+	\item [c)] Para o modelo CREW.
+	\item [d)] Para o modelo EREW.
+	\item [e)] Para o modelo EREW, de maneira que o algoritmo seja ótimo.
+\end{enumerate}
+
+Exemplo:
+
+C = 14
+
+\begin{table*}[htbp]
+	\centering
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = &16 & 13 & 19 & 15 & 18 & 24 & 17 & 11 \\ \cline{2-9}
+		\end{tabular}
+\end{table*}
+
+M = 2
+
+\item Dado um vetor A de $n$ elementos booleanos, escreva um algoritmo paralelo para determinar o menor índice $k$, tal que $A[k] = TRUE$. Suponha que $n$ é uma potência de 2. Apresente as complexidades do algoritmo:
+
+\begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+	\item [c)] Para o modelo CREW.
+	\item [d)] Para o modelo EREW.
+	\item [e)] Para o modelo EREW, de maneira que o algoritmo seja ótimo.
+\end{enumerate}
+
+\begin{table*}[htbp]
+	\centering
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = &FALSE & FALSE & TRUE & FALSE & TRUE & TRUE & FALSE & TRUE \\ \cline{2-9}
+		\end{tabular}
+\end{table*}
+
+k = 3
+\item Dado um vetor A de $n$ inteiros e dado um vetor L de $n$ posições. O vetor L possui os rótulos associados a cada elemento de A, isto é, $L[i]$ possui um rótulo associado ao elemento $A[i]$. Os valores dos rótulos estão dentro do intervalo $[1, \log_2 n]$. Deseja-se um algoritmo paralelo para obter um vetor M de $\log_2 n$ posições, onde $M[i]$ é a soma dos valores dos elementos de A com rótulo i, isto é:
+
+
+$$M[i] = \sum A[k], \textrm{ tal que } L[k] = i, 1 \leq k \leq n, 1 \leq i \leq \log_2 n$$
+
+Caso não exista nenhum elemnto de A com rótulo i, $M[i]$ deve ficar com o valor 0. Suponha que n é uma potência de 2. Escreva este algoritmo paralelo e apresente suas complexidades e o modelo PRAM utilizado. 
+
+Exemplo:
+
+n = 8
+
+$\log_2 8 = 3$
+
+\begin{table*}[htbp]
+\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = & 12 & 13 & 19 & 15 & 18 & 14 & 17 & 11 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		L = & 1 & 2 & 3 & 2 & 1 & 3 & 2 & 1 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|} \cline{2-4}
+		M = & 41 & 45 & 33  \\ \cline{2-4}
+		\end{tabular}
+\end{table*}
+
+\item 
+Dado um vetor A de $n$ inteiros e dado um vetor L de $n$ posições. O vetor L possui os rótulos associados a cada elemento de A, isto é, $L[i]$ possui um rótulo associado ao elemento $A[i]$. Os valores dos rótulos estão no intervalor $[1, \log_2 n]$. Deseja-se um algoritmo paralelo para obter um vetor M de $\log_2 n$ posições, onde $M[i]$ é o número de elemntos de A com rótulo $i$. Caso não exista nenhum elemnto de A com rótulo $i$, $M[i]$ deve ficar com o valor 0.
+\pagebreak
+Suponha que $n$ é uma potência de 2. Escreva este algoritmo paralelo e apresente suas complexidades e o modelo PRAM utilizado.
+ 
+Exemplo: 
+
+n = 8
+
+$\log_2 8 = 3$
+ 
+\begin{table*}[htbp]
+\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = & 12 & 13 & 19 & 15 & 18 & 14 & 17 & 11 \\ \cline{2-9}
+		\end{tabular}
+
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		L = & 1 & 2 & 3 & 2 & 1 & 3 & 2 & 1 \\ \cline{2-9}
+		\end{tabular}
+
+
+\vspace{0.5cm}\hspace{1cm}
+		\begin{tabular}{c|c|c|c|} \cline{2-4}
+		M = & 3 & 3 & 2  \\ \cline{2-4}
+		\end{tabular}
+\end{table*}
+ 
+
+\item Dado um vetor A de $n$ inteiros e dado um vetor L de $n$ posições. O vetor $L$ possui os rótulos associados a cada elemento de A, isto é, $L[i]$ possui um rótulo associado ao elemento $A[i]$. Os valores dos rótulos estão dentro do intervalo $[1, \log_2 n]$. Deseja-se um algoritmo paralelo para obter um vetor M de $\log_2 n$ posições, onde $M[i]$ é o elemento de valor mínimo de $A$ com rótulo $i$, isto é:
+
+$$M[i] = A[k], \textrm{ tal que } A[k] \textrm{ é mínimo e } L[k] = i, 1 \leq k \leq n, 1 \leq i \leq \log_2 n$$
+
+Caso não exista nenhum elemento de A com rótulo i, $M[i]$ deve ficar com o valor Nulo. Suponha que $n$ é uma potência de 2. Escreva este algoritmo paralelo e apresente suas complexidades:
+
+\begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+	\item [c)] Para o modelo EREW e CREW. testes
+\end{enumerate}
+
+Exemplo: 
+
+n = 8
+
+$\log_2 8 = 3$
+
+\begin{table*}[htbp]
+\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = & 12 & 13 & 19 & 15 & 18 & 14 & 17 & 11 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		L = & 1 & 2 & 3 & 2 & 1 & 3 & 2 & 1 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|} \cline{2-4}
+		M = & 11 & 13 & 14  \\ \cline{2-4}
+		\end{tabular}
+\end{table*}
+  
+	\item Dado um vetor A de $n$ inteiros e dado um vetor L de $n$ posições. O vetor $L$ possui os rótulos associados a cada elemento de A, isto é, $L[i]$ possui um rótulo associado ao elemento $A[i]$. Os valores dos rótulos estão dentro do intervalo $[1, \log_2 n]$. Deseja-se um algoritmo paralelo para obter um vetor M de $\log_2 n$ posições, onde $M[i]$ é o índice do elemento de valor mínimo de $A$ com rótulo $i$, isto é:
+
+$$M[i] = A[k], \textrm{ tal que } A[k] \textrm{ é mínimo e } L[k] = i, 1 \leq k \leq n, 1 \leq i \leq \log_2 n$$
+
+Caso não exista nenhum elemento de A com rótulo i, $M[i]$ deve ficar com o valor Nulo. Suponha que $n$ é uma potência de 2. Escreva este algoritmo paralelo e apresente suas complexidades:
+
+\begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+	\item [c)] Para o modelo EREW e CREW. testes
+\end{enumerate}
+
+Exemplo: 
+
+n = 8
+
+$\log_2 8 = 3$
+
+\begin{table*}[htbp]
+\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = & 12 & 13 & 19 & 15 & 18 & 14 & 17 & 11 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		L = & 1 & 2 & 3 & 2 & 1 & 3 & 2 & 1 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|} \cline{2-4}
+		M = & 8 & 2 & 6  \\ \cline{2-4}
+		\end{tabular}
+\end{table*}
+
+\item Dado um vetor $A$ com $n$ elementos, deseja-se um algoritmo paralelo para obter os valores $P$ e $S$, de $n$ posições cada, tal que $P$ contém as somas dos prefixos de $A$, e $S$ contém as somas dos sufixos de $A$. Isto é:
+
+	\begin{tabular}{l}  
+		$P[i] = A[1] + A[2] + \cdots + A[i], 1 \leq i \leq n$, e \\ 
+		$S[i] = A[n] + A[n-1] + \cdots + A[i], 1 \leq i \leq n$. \\
+		\end{tabular}
+		
+ Suponha que $n$ é uma potência de 2. Escreva este algoritmo paralelo e apresente suas complexidades:
+
+\begin{enumerate}
+	\item [a)] Para o modelo CREW.
+	\item [b)] Para o modelo CREW, de maneira que o algoritmo seja ótimo.
+\end{enumerate}
+
+\item O algoritmo paralelo para determinar a soma de prefixos e de sufixos de um vetor A de $n$ elementos, visto na questão 5, possui leitura simultânea.
+Reescreva o algoritmo para eliminar a leitura simultânea, isto é para passá-lo para o modelo EREW. Apresente as complexidades do algoritmo.
+
+
+\item Dado um vetor A de $n$ elementos, deseja-se um algoritmo paralelo para determinar os vetores P e S de $n$ posições cada, onde P contém os mínimos dos prefixos de A, e S contém os mínimos dos sufixos de A.
+
+Isto é:
+
+
+\begin{tabular}{l}  
+		$P[i] = \textrm{Mínimo}(A[1], A[2], \cdots, A[i]), 1 \leq i \leq n$, e \\ 
+		$S[i] = \textrm{Mínimo}(A[i] + A[i+1] + \cdots + A[n], 1 \leq i \leq n$. \\
+\end{tabular}
+
+Suponha que $n$ é uma potência de 2. Escreva este algoritmo paralelo e apresente suas complexidades:
+
+\begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+	\item [c)] Para o modelo CREW.
+	\item [d)] Para o modelo CREW, de maneira que o algoritmo seja ótimo.
+\end{enumerate}
+		
+		
+\item Dado um vetor A de $n$ elementos, deseja-se um algoritmo paralelo para determinar os vetores $P$ e $S$ de $n$ posições cada, onde $P$ contém os índices dos mínimos dos prefixos de $A$, e $S$ contém os índices dos mínimos dos sufixos de A. Isto é:  	
+
+\begin{tabular}{l}  
+		$P[i] = \textrm{Índice do Mínimo}(A[1], A[2], \cdots, A[i]), 1 \leq i \leq n$, e \\ 
+		$S[i] = \textrm{Índice do Mínimo}(A[i] + A[i+1] + \cdots + A[n], 1 \leq i \leq n$. \\
+\end{tabular}
+
+Se dois elementos possuem o emso valor mínimo, o índice deve ser o menor.
+
+Suponha que $n$ é uma potência de 2. Escreva este algoritmo paralelo e apresente suas complexidades:
+
+\begin{enumerate}
+	\item [a)] Para o modelo CRCW forte.
+	\item [b)] Para o modelo CRCW fraco.
+	\item [c)] Para o modelo CREW.
+	\item [d)] Para o modelo CREW, de maneira que o algoritmo seja ótimo.
+\end{enumerate}
+	
+
+\begin{table}[htbp]
+\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = & 12 & 13 & 19 & 15 & 18 & 14 & 17 & 11 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		P = & 1 & 2 & 3 & 3 & 3 & 6 & 6 & 6 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		S = & 6 & 6 & 6 & 6 & 6 & 6 & 8 & 8 \\ \cline{2-9}
+		\end{tabular}
+\end{table}
+
+\item Dada uma variável C escreva um algoritmo paralelo para calcular o vetor $A$ de $n$ posições, onde:
+
+$A[i] = C^i, 1 \leq i \leq n.$
+
+Seu algoritmo deve utilizar apenas operações de multiplicação (não deve utilizar operações de exponenciação). Apresente as complexidades do algoritmo e o modelo PRAM utilizado. Suponha que $n$ é uma potência de 2.
+
+\item Dado um vetor A de $n$ elementos e dados duas variáveis X e Y. Escreva um algoritmo paralelo para armazenar os elementos que pertençam ao intervalo $[X, Y]$, em posição consecutivas de um vetor B de $n$ posições. As posições não ocupadas de B devem ficar com o valor Nulo. Suponha que $n$ é uma potência de 2. Apresente as complexidades do algoritmo e o modelo PRAM utilizado.
+
+Exemplo: 
+
+\begin{table}[htbp]
+\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = & 12 & 13 & 19 & 15 & 18 & 14 & 17 & 11 \\ \cline{2-9}
+		\end{tabular} \\
+		
+	\hspace{1cm}	$X = 13$, $Y = 17$ \\
+		
+ \hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		S = & 13 & 15 & 14 & 17 & Nulo & Nulo & Nulo & Nulo \\ \cline{2-9}
+		\end{tabular}
+\end{table}
+
+\item  Dado um vetor A de n elementos, deseja-se obter os vetores L (\textit{left} - esquerda) e R (\textit{right} - direita) de $n$ posições, tal que:
+
+\begin{tabular}{l}  
+		$L[i] = A[k], \textrm{ onde k é o maior índice tal que}, k < i, \textrm{ e } A[k] < A[i], 1 \leq i \leq n$, e \\ 
+		$R[i] = A[k], \textrm{ onde k é o menor índice tal que}, i < k, \textrm{ e } A[k] < A[i], 1 \leq i \leq n$.\\ 
+\end{tabular}
+
+Isto é, $L[i]$ é o elemento de A menor que $A[i]$, mais próximo de $A[i]$ pela esquerda e $R[i]$ é o elemento de A menor que $A[i]$, mais proximo de $A[i]$ pela direita. Se tal elemento não existe, $L[i] = Nulo$ ou $R[i] = Nulo$, respectivamente.
+
+Escreva um algoritmo paralelo para obter os vetores $L$ e $R$, para o modelo CRCW forte, com custo $O(n^2)$.
+
+Exemplo:
+
+\begin{table}[htbp]
+\hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		A = & 12 & 13 & 19 & 15 & 18 & 14 & 17 & 11 \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		L = & Nulo & 12 & 13 & 13 & 15 & 13 & 14 & Nulo \\ \cline{2-9}
+		\end{tabular}
+
+\vspace{0.5cm} \hspace{1cm}
+		\begin{tabular}{c|c|c|c|c|c|c|c|c|} \cline{2-9}
+		R = & 11 & 11 & 15 & 14 & 14 & 11 & 11 & Nulo \\ \cline{2-9}
+		\end{tabular}
+\end{table}
+
+
+\end{enumerate}
+
+\end{document}

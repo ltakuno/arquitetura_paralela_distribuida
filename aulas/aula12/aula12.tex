@@ -1,0 +1,884 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{tabularx}
+ 
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+\newtheorem{definicao}  [theorem] {Definição}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item E. Cáceres, H. Mongeli, S. Song: Algoritmos paralelos u\-san\-do CGM/PVM/MPI: uma introdução\\
+    \verb|http://www.ime.usp.br/~song/papers/jai01.pdf| 
+   \item E. Cáceres, C. Nishibe: 0-1 Knapsack problem: BSP/CGM Algorithm and implementation. Proc of the 17th LASTED International Conference on Parallel and Distributed Computing and System (PDCS 2005), pp. 331-335, 2005 
+  \end{enumerate}
+\end{slide}
+
+ 
+ 
+\begin{slide}
+  \stitle{Programação dinâmica}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+O problema da mochila 0-1 consiste de um conjunto $S = \{1,2, \cdots , n\}$ de $n$ itens distintos, cujo $i-$ésimo item possui um valor $v_i$ e um peso $w_i$ onde $v_i$ e $w_i$ são inteiros.
+
+Seja $W$ um inteiro que representa a capacidade máxima da mochila que será utilizada para transportar itens.
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+  O objetivo consiste em determinar quais itens devem ser escolhidos a fim de encher a mochila com valores mais valioso e que não exceda a capacidade máxima da mochila.
+  
+  Ou seja:
+  
+  $$max\{ \displaystyle \sum_{i=1}^n v_i z_i : \displaystyle \sum_{i=1}^n w_i z_i \leq W, z_i \in \{0,1\} \}$$
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Algoritmo de Gilmore e Gomory}
+Primeiro algoritmo a usar programação dinâmica para resolver o problema da mochila 0-1.  
+  
+Seja $f(r,c)$, com $1 \leq r \leq n$ e $0 \leq c \leq W$, os valores da solução ótima do problema da mochila 0-1 com um conjunto de objetos $[1, r]$ e peso $c$. Consequentemente, $f(n, W)$ é o valor da solução ótima. A relação de recorrência é:
+  
+ $$f(r,c) = max\{f(r-1, c), f(r-1, c-w_r) + v_r\}$$
+ 
+ $\forall c$, com $0 \leq c \leq W$, onde $r = 1,2, \cdots, n$
+ 
+ Tempo: $O(nW)$
+ \end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+\textbf{\blue Algoritmo}
+
+\vspace{-1cm}  \begin{codebox}
+  \zi  \For $c = 0$ \To $W$ \DoSeq 
+  \zi  $f(0,c) = 0$ \End
+  \zi  \For $r = 1$ \To $n$ \DoSeq 
+  \zi  $f(r,0) = 0$ \End  
+  \zi \For $r = 1$ \To $n$ \DoSeq
+  \zi \For $c = 1$ \To $W$ \DoSeq
+  \zi \If $c < w_r$ \Then
+  \zi $f(r,c) := f(r-1,c)$
+  \zi \Else
+  \zi $f(r,c) := max\{ f(r-1,c - w_r) + v_r, f(r-1,c)\}$
+  \zi  \End \End \End
+\end{codebox}
+ \end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+Exemplo:
+Sejam uma mochila de capacidade 10 e 3 objetos com seus pesos e valores representados na tabela abaixo:
+\begin{center}
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+\end{center}
+ \end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10  \\ \hline \hline
+0   &    &     &     &    &    &    &    &    &    &    &     \\ \hline
+2   &    &     &     &    &    &    &    &    &    &    &     \\ \hline
+3   &    &     &     &    &    &    &    &    &    &    &     \\ \hline
+6   &    &     &     &    &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10  \\ \hline \hline
+0   & 0  &  0  &  0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0   \\ \hline
+2   & 0  &     &     &    &    &    &    &    &    &    &     \\ \hline
+3   & 0  &     &     &    &    &    &    &    &    &    &     \\ \hline
+6   & 0  &     &     &    &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2 & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10  \\ \hline \hline
+0   & 0  &  0 \tikzmark{a0} & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0 & 0   \\ \hline
+2   & 0  &  0 \tikzmark{b0} &    &    &    &    &    &    &    &    &     \\ \hline
+3   & 0  &    &    &    &    &    &    &    &    &    &     \\ \hline
+6   & 0  &    &    &    &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, yshift=.25\baselineskip, shorten >=.5pt, shorten <=.5pt]
+    \draw [->] ({pic cs:a0})  to ({pic cs:b0});
+  \end{tikzpicture}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2 & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10  \\ \hline \hline
+0   & 0 \tikzmark{a1} &  0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0 & 0   \\ \hline
+2   & 0  &  0 &  \tikzmark{b1}3  &    &    &    &    &    &    &    &     \\ \hline
+3   & 0  &    &    &    &    &    &    &    &    &    &     \\ \hline
+6   & 0  &    &    &    &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, yshift=.25\baselineskip, shorten >=.5pt, shorten <=.5pt]
+    \draw [->] ([yshift=.75pt]{pic cs:a1}) -- ({pic cs:b1});
+  \end{tikzpicture}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2 & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10  \\ \hline \hline
+0   & 0  &  0 \tikzmark{a2} & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0 & 0   \\ \hline
+2   & 0  &  0 &  3  & \tikzmark{b2}3   &    &    &    &    &    &    &     \\ \hline
+3   & 0  &    &    &    &    &    &    &    &    &    &     \\ \hline
+6   & 0  &    &    &    &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, yshift=.25\baselineskip, shorten >=.5pt, shorten <=.5pt]
+    \draw [->] ([yshift=.75pt]{pic cs:a2}) -- ({pic cs:b2});
+  \end{tikzpicture}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2 & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10  \\ \hline \hline
+0   & 0  &  0  & 0 \tikzmark{a3} & 0  & 0  & 0  & 0  & 0  & 0  & 0 & 0   \\ \hline
+2   & 0  &  0 &  3  & 3   & \tikzmark{b3}3   &    &    &    &    &    &     \\ \hline
+3   & 0  &    &    &    &    &    &    &    &    &    &     \\ \hline
+6   & 0  &    &    &    &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, yshift=.25\baselineskip, shorten >=.5pt, shorten <=.5pt]
+    \draw [->] ([yshift=.75pt]{pic cs:a3}) -- ({pic cs:b3});
+  \end{tikzpicture}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  &  3   &  4  & 5   & 6   &  7  &  8  &  9  &  10  \\ \hline \hline
+0   & 0  &  0  &  0  &  0   &  0  & 0   & 0   &  0  &  0  &  0  &   0   \\ \hline
+2   & 0  &  0  &  3  &  3   &  3  &  3  &  3  &  3  &  3  &  3  &   3   \\ \hline
+3   & 0  &     &     &      &    &    &    &    &    &    &     \\ \hline
+6   & 0  &     &     &      &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  &  3   &  4  & 5   & 6   &  7  &  8  &  9  &  10  \\ \hline \hline
+0   & 0  &  0  &  0  &  0   &  0  & 0   & 0   &  0  &  0  &  0  &   0   \\ \hline
+2   & 0  &  0  &  3 \tikzmark{a4} &  3   &  3  &  3  &  3  &  3  &  3  &  3  &   3   \\ \hline
+3   & 0  &  0  &  3 \tikzmark{b4} &      &    &    &    &    &    &    &     \\ \hline
+6   & 0  &     &     &      &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, yshift=.25\baselineskip, shorten >=.5pt, shorten <=.5pt]
+    \draw [->] ({pic cs:a4})  to ({pic cs:b4});
+  \end{tikzpicture}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  &  3   &  4  & 5   & 6   &  7  &  8  &  9  &  10  \\ \hline \hline
+0   & 0  &  0  &  0  &  0   &  0  & 0   & 0   &  0  &  0  &  0  &   0   \\ \hline
+2   & 0 \tikzmark{a5} &  0  &  3  &  3   &  3  &  3  &  3  &  3  &  3  &  3  &   3   \\ \hline
+3   & 0  &  0  &  3  &  \tikzmark{b5} 6    &    &    &    &    &    &    &     \\ \hline
+6   & 0  &     &     &      &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, yshift=.25\baselineskip, shorten >=.5pt, shorten <=.5pt]
+    \draw [->] ({pic cs:a5})  to ({pic cs:b5});
+  \end{tikzpicture}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  &  3   &  4  & 5   & 6   &  7  &  8  &  9  &  10  \\ \hline \hline
+0   & 0  &  0  &  0  &  0   &  0  & 0   & 0   &  0  &  0  &  0  &   0   \\ \hline
+2   & 0  &  0 \tikzmark{a6} &  3  &  3   &  3  &  3  &  3  &  3  &  3  &  3  &   3   \\ \hline
+3   & 0  &  0  &  3  &   6    & \tikzmark{b6} 6   &    &    &    &    &    &     \\ \hline
+6   & 0  &     &     &      &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, yshift=.25\baselineskip, shorten >=.5pt, shorten <=.5pt]
+    \draw [->] ({pic cs:a6})  to ({pic cs:b6});
+  \end{tikzpicture}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  &  3   &  4  & 5   & 6   &  7  &  8  &  9  &  10  \\ \hline \hline
+0   & 0  &  0  &  0  &  0   &  0  & 0   & 0   &  0  &  0  &  0  &   0   \\ \hline
+2   & 0  &  0  &  3 \tikzmark{a7} &  3   &  3  &  3  &  3  &  3  &  3  &  3  &   3   \\ \hline
+3   & 0  &  0  &  3  &   6    &  6   &  \tikzmark{b7} 9  &    &    &    &    &     \\ \hline
+6   & 0  &     &     &      &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, yshift=.25\baselineskip, shorten >=.5pt, shorten <=.5pt]
+    \draw [->] ({pic cs:a7})  to ({pic cs:b7});
+  \end{tikzpicture}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  &  3   &  4  & 5   & 6   &  7  &  8  &  9  &  10  \\ \hline \hline
+0   & 0  &  0  &  0  &  0   &  0  & 0   & 0   &  0  &  0  &  0  &   0   \\ \hline
+2   & 0  &  0  &  3  &  3 \tikzmark{a8}  &  3  &  3  &  3  &  3  &  3  &  3  &   3   \\ \hline
+3   & 0  &  0  &  3  &   6    &  6   &  9  & \tikzmark{b8} 9   &    &    &    &     \\ \hline
+6   & 0  &     &     &      &    &    &    &    &    &    &     \\ \hline
+\end{tabular}
+\begin{tikzpicture}[overlay, remember picture, yshift=.25\baselineskip, shorten >=.5pt, shorten <=.5pt]
+    \draw [->] ({pic cs:a8})  to ({pic cs:b8});
+  \end{tikzpicture}
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  &  3   &  4  & 5   & 6  &  7  &  8  &  9  &  10  \\ \hline \hline
+0   & 0  &  0  &  0  &  0   &  0  & 0   & 0  &  0  &  0  &  0  &   0   \\ \hline
+2   & 0  &  0  &  3  &  3   &  3  &  3  & 3  &  3  &  3  &  3  &   3   \\ \hline
+3   & 0  &  0  &  3  &  6   &  6  &  9  & 9  &  9  &  9  &  9  &   9   \\ \hline
+6   & 0  &     &     &      &     &     &    &     &     &     &     \\ \hline
+\end{tabular}
+ 
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+    \begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} \hline 
+    & 0  &  1  &  2  &  3   &  4  & 5   & 6  &  7  &  8  &  9  &  10  \\ \hline \hline
+0   & 0  &  0  &  0  &  0   &  0  & 0   & 0  &  0  &  0  &  0  &   0   \\ \hline
+2   & 0  &  0  &  3  &  3   &  3  &  3  & 3  &  3  &  3  &  3  &   3   \\ \hline
+3   & 0  &  0  &  3  &  6   &  6  &  9  & 9  &  9  &  9  &  9  &   9   \\ \hline
+6   & 0  &  0  &  3  &  6   &  6  &  9  & 9  &  9  & 12  & 15  &  15   \\ \hline
+\end{tabular}
+ 
+
+\begin{tabular}{|l|c|c|c|} \hline 
+Objeto & 1  &  2 & 3  \\ \hline \hline
+Peso   & 2  &  3 & 6  \\ \hline
+Valor  & 3  &  6 & 9  \\ \hline
+\end{tabular}
+
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{O algoritmo \textit{Wavefront}}
+\end{slide}
+
+\begin{slide}
+  \stitle{O algoritmo \textit{Wavefront}}
+  Algoritmo BSP/CGM para resolver o problema da mochila, considerando $n$ itens, capacidade $W$ e $p$ processadores.
+  
+  \begin{itemize}
+  \item $O(p)$ rodadas de comunicação
+  \item $O(n W / p)$ de computação
+  \end{itemize} 
+  
+   
+\end{slide}
+
+
+\begin{slide}
+  \stitle{O algoritmo \textit{Wavefront}}
+  
+ Para cada conjunto $S = \{1,2, \cdots, n\}$ de itens:
+
+\begin{itemize}
+\item O vetor $w$, onde $w[i]$ é o peso de cada item $i$, é distribuído para todos os processadores.
+\item O vetor $v$, onde $v[i]$ é o valor do item $i$, é dividido em $p$ partes de tamanho $\frac{n}{p}$, cada processador $P_i$, $1 \leq i \leq p$, recebe a $i$-ésima parte de $v$ ($v[(i-1)\frac{n}{p} + 1 \cdots i \frac{n}{p}]$.
+\end{itemize} 
+\end{slide}
+
+
+\begin{slide}
+  \stitle{O algoritmo \textit{Wavefront}}
+\begin{center}
+\includegraphics[height=7cm]{fig01}
+\end{center}
+  A notação $P^k_i$ significa o trabalho do processador $i$ na rodada $k$. Assim, inicialmente $P_1$ começa a computar na rodada 0. 
+\end{slide}
+
+
+\begin{slide}
+  \stitle{O algoritmo \textit{Wavefront}}
+\begin{center}
+\includegraphics[height=7cm]{fig01}
+\end{center}
+   Então $P_1$ e $P_2$ podem trabalhar na rodada 1; $P_1$, $P_2$ e $P_3$ na rodada 2, e assim sucessivamente.
+\end{slide}
+
+
+\begin{slide}
+  \stitle{O algoritmo \textit{Wavefront}}
+Em outras palavras:
+\begin{itemize}
+\item Após a computação da $k$-ésima parte da sub-matriz $f_i$ (denotada por $f^k_i$), o processador $P_i$ envia para o processador $P_{i+1}$ os elementos da fronteira direita (coluna mais a direita) de $f^k_i$. Estes elementos são denotados por $R^k_i$
+\end{itemize}	
+\begin{center}
+\includegraphics[height=5cm]{fig01}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Algoritmo: Mochila 0-1 paralelo}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo: Mochila 0-1 paralelo}
+  Entrada
+  
+  \vspace{-1cm} \itemtrig\ O número $p$ de processadores; 
+  
+  \vspace{-1cm} \itemtrig\ O número $i$ do processador, onde $1 \leq i \leq p$;
+   
+  \vspace{-1cm} \itemtrig\ A capacidade da mochila $W$;
+  
+  \vspace{-1cm} \itemtrig\ Subvetores $v_i$ e $w_i$ de tamanho $\frac{n}{p}$.  
+  
+ Saída
+ 
+   \vspace{-1cm} \itemtrig\ $f(r,c) = max\{f(r-1, c), f(r-1, c-w_r) + v_r\}$ onde $1 \leq c \leq W$ e $(j-1)\frac{n}{p} + 1 \leq r \leq j \frac{n}{p}$
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo: Mochila 0-1 paralelo}
+
+\textbf{\blue Algoritmo}
+
+\vspace{-1cm}  \begin{codebox}
+  \zi  \For $1 \leq k \leq p$ \DoSeq
+  \zi  \If $i = 1$ \Then
+  \zi  \For $(k-1) \frac{W}{p} + 1 \leq r \leq k \frac{W}{p}$, $1 \leq c \leq \frac{n}{p}$ \DoSeq
+  \zi  $compute$ $f(r,c);$ \End
+  \zi  $envia(R^k_i, P_{i+1})$ \End
+  \zi  \If $i \neq 1$ \Then
+  \zi  $recebe(R^k_{i-1}, P_{i-1});$
+  \zi  \For $(k-1) \frac{W}{p} + 1 \leq r \leq k \frac{W}{p}$, $1 \leq c \leq \frac{n}{p}$ \DoSeq
+  \zi  $compute$ $f(r,c);$ \End
+  \zi  \If $i \neq p$ \Then
+  \zi  $envia(R^k_i, P_{i+1})$ \End  
+  \zi  \End \End
+\end{codebox}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1 \\ (versão 2)}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+\begin{center}
+\includegraphics[height=5cm]{fig01}
+\end{center}
+É fácil verificar que o processador $P_p$ só inicia seu trabalho quando o processador $P_1$ termina a sua computação, na rodada $p-1$. Portanto, temos um balanceamento de carga ruim.
+
+Visando uma melhor distribuição de carga, tentamos fazer com que cada processador inicie o seu processamento o quanto antes. Isso pode ser feito diminuindo o tamanho da mensagem que o processador $P_i$ envia para o processador $P_{i+1}$. Em vez de considerarmos mensagens de tamanho $\frac{W}{p}$, consideramos mensagens de tamanho $\alpha \frac{W}{p}$ e testamos vários tamanhos de $\alpha$.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo: Mochila $\alpha$-0-1 paralelo}
+
+\textbf{\blue Algoritmo}
+
+\vspace{-1cm}  \begin{codebox}
+  \zi  \For $1 \leq k \leq \frac{p}{\alpha}$ \DoSeq
+  \zi  \If $i = 1$ \Then
+  \zi  \For $\alpha (k-1) \frac{W}{p} + 1 \leq r \leq \alpha k \frac{W}{p}$, $1 \leq c \leq \frac{n}{p}$ \DoSeq
+  \zi  $compute$ $f(r,c);$ \End
+  \zi  $envia(R^k_i, P_{i+1})$ \End
+  \zi  \If $i \neq 1$ \Then
+  \zi  $recebe(R^k_{i-1}, P_{i-1});$
+  \zi  \For $\alpha (k-1) \frac{W}{p} + 1 \leq r \leq \alpha k \frac{W}{p}$, $1 \leq c \leq \frac{n}{p}$ \DoSeq
+  \zi  $compute$ $f(r,c);$ \End
+  \zi  \If $i \neq p$ \Then
+  \zi  $envia(R^k_i, P_{i+1})$ \End  
+  \zi  \End \End
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila $\alpha$-0-1}
+\begin{center}
+\includegraphics[height=9cm]{fig02}
+\end{center}
+Um escalonamento de $O(p)$ rodadas de comunicação e $\alpha=1/2$
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+\begin{teorema}
+O algoritmo utiliza $O(\frac{Wn}{p})$ computação local com $(1+\frac{1}{\alpha})p - 2$ rodadas de comunicação.
+\end{teorema}
+\begin{proof}
+O processador $P_1$ envia $R_1^k$ para o processador $P_2$ após computar o $k-$ésimo bloco $\frac{\alpha W}{p}$ de linhas da $\frac{Wn}{p}$ submatriz $f_1$. Após $\frac{p}{\alpha}-1$ rodadas de comunicação, o processador $P_1$ termina o seu trabalho. 
+
+Similarmente,  o processador $P_2$ encerra o seu trabalho após $\frac{p}{\alpha}$ rodadas de comunicação. Assim, depois de $\frac{p}{\alpha}-2+i$ rodadas de comunicação, o processador $P_i$ finaliza seu o trabalho. 
+
+\begin{center}
+\includegraphics[height=5cm]{fig02}
+\end{center}
+
+Visto que temos $p$ processadores, após $(1+\frac{1}{\alpha})p-2$ rodadas de comunicação, todos os $p$ processadores terão acabado seu trabalho. 
+
+Cada processador utiliza um algoritmo de programação dinâmica sequencial para computar a solução ótima da submatriz $f_i$ para o problema da Mochila 0-1. Consequentemente este algoritmo utiliza tempo $O(\frac{Wn}{p})$ de computação local em cada processador $p$.
+\end{proof}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema da mochila 0-1}
+\begin{teorema}
+No final do algoritmo, $f(n, W)$ encontraremos a solução ótima para o Problema da Mochila 0-1 com $n$ itens, valores $v_i$ e pesos $w_i$, $1 \leq i \leq n$ e capacidade $W$.	
+\end{teorema}  
+\begin{proof}
+O Teorema 1 prova que após $(1+\frac{1}{\alpha})p-2$ rodadas de comunicação, o processador $P_p$ termina seu trabalho. Essencialmente, estamos computando um algoritmo de programação dinâmica sequencial para o Problema da Mochila 0-1 e enviando as fronteiras para o processador da direita, a corretude do algoritmo aparece naturalmente com a corretude do algoritmo sequencial.
+
+Portanto, após $(1+\frac{1}{\alpha})p-2$  rodadas de comunicação, $f(n,W)$ armazenará a solução ótima para o Problema da Mochila 0-1 com $n$ itens, valores $v_i$ e pesos $w_i$, $1 \leq i \leq n$, capacidade $W$.
+\end{proof}
+\end{slide}
+
+
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

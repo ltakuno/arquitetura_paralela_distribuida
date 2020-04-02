@@ -1,0 +1,787 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{if} }
+\renewcommand{\Then}{\>\textbf{then}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\>\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{elseif} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Fontes principais}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item J. Jaja, An introduction to Parallel Algorithms, Addison Wesley, 92
+    \begin{itemize}
+    \itemT Algoritmos paralelos
+    \end{itemize}
+  \item E. Cáceres, H. Mongeli, S. Song: Algoritmos paralelos u\-san\-do CGM/PVM/MPI: uma introdução\\
+    \verb|http://www.ime.usp.br/~song/papers/jai01.pdf| 
+  \end{enumerate}
+\end{slide}
+\begin{slide}
+  \stitle{O modelo PRAM e algoritmos paralelos}
+\end{slide}
+ 
+ 
+ 
+\begin{slide}
+  \stitle{Modelo de desenvolvimento de algoritmos paralelos}
+
+\begin{codebox}
+  \zi \For $x \in X$ \DoPar 
+  \zi     {\blue instrução 1}
+  \zi     $\cdots$      
+  \zi     {\blue instrução} $k$
+  \zi  \End   
+\end{codebox}
+Significado: $X$ é um conjunto. Cada elemento $x \in X$ é associado a um processador. No total são utilizados $|X|$ processadores. Cada processador executa instruções de $1$ a $k$, sequencialmente, em paralelo com os demais processadores, para cada $x$.
+\end{slide}
+ 
+\begin{slide}
+  \stitle{O modelo PRAM}
+  Exemplos: 
+  
+ \itemtrig\ Zerar um vetor $A$ de $n$ elementos:
+  
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $A[i] := 0$
+  \zi  \End   
+\end{codebox}
+
+ \itemtrig\ Utiliza $n$ processadores.
+ 
+\vspace{-1cm} \itemtrig\  Utiliza 1 passo de tempo
+\end{slide}
+ 
+\begin{slide}
+  \stitle{O modelo PRAM}
+ \itemtrig\ Zerar uma matriz $M$ de $n \times n$ elementos:
+    
+\begin{codebox}
+  \zi \For $1 \leq i,j \leq n$ \DoPar 
+  \zi     $M[i,j] := 0$
+  \zi  \End   
+\end{codebox}
+
+ \itemtrig\ Utiliza $n^2$ processadores.
+ 
+\vspace{-1cm} \itemtrig\  Utiliza 1 passo de tempo
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Submodelos PRAM}
+\end{slide} 
+
+\begin{slide}
+  \stitle{Leitura e escrita concorrente}
+  Como o modelo PRAM é SIMD, todos os processadores ativos executam a mesma instrução ao mesmo tempo, as quais podem ser leitura ou escrita em memória.
+  
+ Quando dois ou mais processadores acessam um mesmo endereço de memória (ao mesmo tempo), dizemos que está ocorrendo uma leitura ou escrita {\darkgreen concorrente} (simultânea). 
+ \end{slide} 
+
+\begin{slide}
+  \stitle{Leitura e escrita concorrente}
+  O que acontece nessas situações?
+  
+  O modelo PRAM foi dividido em submodelos, que tratam o problema acima de maneiras diferentes.
+ 
+    	  \itemtrig\ EREW, CREW, CRCW (fraco, comum, arbitrário, com pri\-o\-ri\-dade, forte)
+   \end{slide} 
+
+\begin{slide}
+  \stitle{Submodelos}
+  \begin{itemize}
+  \itemT EREW: Exclusive Read Exclusive Write
+  
+  	Não existe leitura ou escrita simultâneas
+  	
+  \itemT CREW: Concurrent Read Exclusive Write
+  
+  Existe leitura simultânea. Todos os processadores obtêm o mesmo valor. 
+  
+  Não existe escrita simultânea	
+    \end{itemize}
+    \end{slide} 
+
+\begin{slide}
+  \stitle{Submodelos} 
+  \begin{itemize}
+    \itemT CRCW: Concurrent Read Concurrent Write
+  
+  Existe leitura simultânea. Todos os processadores ativos obtêm o mesmo valor.
+  
+  Existe escrita simultânea. 
+  
+  Como é realizado a escrita simultânea? O submodelo CRCW foi subdividido em submodelos, que realizam a escrita simultaânea de maneiras diferentes.
+  \end{itemize}
+     \end{slide} 
+
+\begin{slide}
+  \stitle{Submodelos}
+    	  \itemtrig\ CRCW Fraco: Na escrita simultânea. Todos os processadores escrevem o mesmo valor 0 ou 1.
+   	  
+    	    \itemtrig\ CRCW modo comum: Na escrita simultânea, todos os processadores escrevem o mesmo valor qualquer.
+
+    \itemtrig\ CRCW vencedor arbitrário: Os valores escritos simultaneamente podem ser diferentes. Qual destes valores ficará armazenada na posição de memória? Qualquer um. Não sabemos qual.
+       \end{slide} 
+
+\begin{slide}
+  \stitle{Submodelos}
+       \itemtrig\ CRCW com prioridade: Os valores escritos simultaneamente podem ser diferentes. Ficará armazenado na posição da memória o valor escrito pelo processador de maior prioridade (assumimos que prioridade é o número de identificação)
+       
+       \itemtrig\ CRCW forte: Os valores escrito simultaneamente podem ser diferentes. Ficará armazenado na posição da memória o maior valor escrito. 
+\end{slide} 
+
+\begin{slide}
+  \stitle{Submodelos PRAM - Exemplos}
+ \itemtrig\ EREW:
+    
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $A[i] := i$
+  \zi  \End   
+\end{codebox}
+ 
+\end{slide}
+\begin{slide}
+  \stitle{Submodelos PRAM - Exemplos}
+ \itemtrig\ CREW:
+    
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $A[i] := C$
+  \zi  \End   
+\end{codebox}
+
+ Leitura simultânea em $C$
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Submodelos PRAM - Exemplos}
+ \itemtrig\ CRCW fraco:
+    
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $B := 0$
+  \zi  \End   
+\end{codebox}
+
+ Escrita simultânea em $B$
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Submodelos PRAM - Exemplos}
+ \itemtrig\ CRCW modo comum:
+    
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $B := C$
+  \zi  \End   
+\end{codebox}
+
+ Escrita simultânea em $B$ e leitura simultânea em $C$
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Submodelos PRAM - Exemplos}
+ \itemtrig\ CRCW modo comum:
+    
+\begin{codebox}
+  \zi \For $1 \leq i,j \leq n$ \DoPar 
+  \zi     $A[i] := i$
+  \zi  \End   
+\end{codebox}
+
+ Escrita simultânea em cada A[i].
+
+\vspace{-1cm} Ex: Os elementos do par $(i,j)$ sendo $\{(1,1), (1,2), (1,3) \cdots (1,n)\}$ são computados para $i=1$, e este será atribuído simultaneamente ao elemento $A[1]$ por n processadores.
+\end{slide}
+
+\begin{slide}
+  \stitle{Submodelos PRAM - Exemplos}
+ \itemtrig\ CRCW vencedor arbitrário:
+
+\vspace{-1cm}  \itemtrig\ CRCW com prioridade:
+
+\vspace{-1cm}  \itemtrig\ CRCW forte:
+    
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi     $B := A[i]$
+  \zi  \End   
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Submodelos PRAM - Exemplos}
+  Escala do submodelo mais fraco para o mais forte
+  
+\begin{center}
+\includegraphics[height=6cm]{fig01}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Submodelos PRAM - Exemplos}
+
+Um submodelo ser mais forte significa que ele exige mais do hardware
+
+Quase sempre posso executar um algoritmo mais fraco em uma máquina mais forte. 
+\end{slide}
+
+\begin{slide}
+  \stitle{Submodelos PRAM - Exemplos}
+
+Se tenho um algoritmo mais forte não posso executá-lo em uma máquina mais fraca sem haver uma simulação
+
+É desejável que o algoritmo seja para um submodelo  o mais fraco possível.
+\end{slide}
+
+\begin{slide}
+  \stitle{Medidas de desempenho de algoritmos paralelos}
+\end{slide}
+
+\begin{slide}
+  \stitle{Medidas de desempenho de algoritmos paralelos}
+  \itemtrig\ Complexidade de tempo paralelo: Tempo total consumido pelo algoritmo (número de passos do algoritmo), sendo que cada computação efetuada em paralelo contribui com uma unidade para o tempo total, independente do número de processadores envolvidos.
+\end{slide}
+
+\begin{slide}
+  \stitle{Medidas de desempenho de algoritmos paralelos}
+  \itemtrig\ Complexidade de processadores: Maior número de processadores envolvidos em qualquer passo do algoritmo.
+  
+  \itemtrig\ Complexidade de espaço: Igual ao caso sequencial
+    
+  \itemtrig\ Complexidade de custo (work): Número de operações rea\-li\-zadas.
+  
+  Compl.de custo = compl. de tempo paralelo $\times$ compl. de processadores   
+    
+\end{slide}
+
+\begin{slide}
+  \stitle{Speed-up (aceleração)}
+    
+    $$\displaystyle  \mbox{Speed-up} = \frac{\mbox{Compl. de tempo do melhor algoritmo sequencial}}{\mbox{Compl. de tempo paralelo do algoritmo paralelo}}$$
+  
+  Pode ser uma medida experimental também.
+\end{slide}
+
+\begin{slide}
+  \stitle{Medidas de desempenho de algoritmos paralelos}
+  O melhor tempo paralelo (mínimo) que pode-se obter é igual ao melhor tempo sequencial dividido pelo número de processadores.
+  
+    $$\displaystyle  \mbox{tempo paralelo} \geq  \frac{\mbox{melhor tempo sequencial}}{\mbox{número de processadores}}$$
+\end{slide}
+
+\begin{slide}
+  \stitle{Speed-up máximo}
+    $$\displaystyle  \mbox{Speed-up máximo} = \frac{\mbox{melhor tempo sequencial}}{\mbox{melhor tempo paralelo}}$$
+      $$\displaystyle  \mbox{Speed-up máximo} = \frac{\mbox{melhor tempo sequencial}}{\frac{\mbox{melhor tempo sequencia}}{\mbox{número de processadores}}}$$
+      
+      $\mbox{speed-up} \leq \mbox{número de processadores}$
+      
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Exemplo}
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar
+  \zi \For $1 \leq j \leq n$ \DoSeq 
+  \zi $M[i,j] := 0$
+  \zi  \End   
+  \zi  \End   
+\end{codebox}
+
+ \itemtrig\ Tempo paralelo: $O(n)$
+
+ \vspace{-1cm} \itemtrig\ Complexidade de processadores: $O(n)$ 
+ 
+ \vspace{-1cm} \itemtrig\ Custo: $O(n^2)$ operações
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo}
+\begin{codebox}
+  \zi \For $1 \leq i,j \leq n$ \DoPar 
+  \zi $M[i,j] := 0$
+  \zi  \End   
+\end{codebox}
+
+ \itemtrig\ Tempo paralelo: $O(1)$
+
+ \vspace{-1cm} \itemtrig\ Complexidade de processadores: $O(n^2)$ 
+
+ \vspace{-1cm} \itemtrig\ Custo: $O(n^2)$ operações
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo}
+  \begin{multicols}{2}
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoSeq 
+  \zi $A[i] := 0$
+  \zi  \End   
+\end{codebox}
+
+ \itemtrig\ Tempo sequencial: $O(n)$
+ \columnbreak
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi $A[i] := 0$
+  \zi  \End   
+\end{codebox}
+
+ \itemtrig\ Tempo paralelo: $O(1)$
+
+ \vspace{-1cm} \itemtrig\ Custo: $O(n)$
+  \end{multicols}
+  
+$$\mbox{Speed-up} = \frac{n}{1} = n$$  
+
+   \vspace{-1cm} \itemtrig\ O algoritmo paralelo é $n$ vezes mais rápido que o sequencial
+\end{slide}
+\begin{slide}
+  \stitle{Medidas de desempenho de algoritmos paralelos}
+  O melhor custo (mínimo) que pode-se obter é igual ao tempo do melhor algoritmo sequencial.
+  
+  $$\mbox{custo mínimo} = \mbox{melhor tempo paralelo} \times \mbox{número de processadores}$$
+  $$\mbox{custo mínimo} = \frac{\mbox{melhor tempo sequencial}}{\mbox{número de processadores}} \times \mbox{número de processadores}$$
+  
+  $\mbox{custo} \geq \mbox{melhor tempo sequencial}$
+\end{slide}
+\begin{slide}
+  \stitle{Eficiência e Otimalidade}
+  Um algoritmo paralelo é \textbf{\darkgreen eficiente} se sua complexidade de tempo é uma função polinomial no logaritmo do tamanho da entrada e sua complexidade de processador é polinomial no tamanho da entrada.
+\end{slide}
+\begin{slide}
+  \stitle{Algoritmos eficientes}
+  
+  \begin{center}
+  \begin{tabular}{|c|c|c|} \hline
+  Algoritmos eficientes & tempo & processadores \\ \hline
+  sequenciais & polinomial & 1 \\
+  paralelos  & polilogaritmo & polinomial \\ \hline
+  \end{tabular}
+
+  \begin{tabular}{|c|c|c|} \hline
+  Algoritmos paralelos & tempo & processadores \\ \hline
+  eficientes & $O(\log^3 n)$ & $O(n^3)$ \\
+  eficientes & $O(\log n)$ & $O(n)$ \\
+  não eficientes  & $O(n)$ & $O(\log n)$ \\  
+  não eficientes  & $O(\log n)$ & $O(2^n)$ \\ \hline
+  \end{tabular}
+  \end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Eficiência e Otimalidade}
+  Um algoritmo paralelo é \textbf{\darkgreen ótimo} se seu custo é igual ao tempo do melhor algoritmo sequencial para o problema.
+\end{slide}
+
+\begin{slide}
+  \stitle{Eficiência e Otimalidade}
+  Um algoritmo é \textbf{\darkgreen ótimo absoluto} se seu custo é igual ao tempo do melhor algoritmo sequencial, e este tempo é igual ao limite inferior do problema.
+  \end{slide}
+
+\begin{slide}
+  \stitle{Eficiência e Otimalidade}
+  O conceito de ótimo em algoritmos paralelos depende do submodelo PRAM considerado. Um algoritmo pode ser implementado em 2 submodelos diferentes com complexidades diferentes.
+  \end{slide}
+
+\begin{slide}
+  \stitle{Eficiência e Otimalidade}
+  
+  Problema: limite inferior $O(n)$
+
+ \vspace{-1cm} Algoritmo sequencial:  tempo $O(n \log n)$
+
+ \vspace{-1cm}  Algoritmo paralelo: tempo $O(\log n)$
+
+ \vspace{-1cm}  Processadores: $O(n)$
+
+ \vspace{-1cm}  Custo: $O(n \log n)$
+ 
+ Algoritmo ótimo e eficiente!
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Eficiência e Otimalidade}
+  
+  Problema: limite inferior $O(n)$
+
+ \vspace{-1cm} Algoritmo sequencial:  tempo $O(n)$
+
+ \vspace{-1cm}  Algoritmo paralelo: tempo $O(\log n)$
+
+ \vspace{-1cm}  Processadores: $O(\frac{n}{\log n})$
+
+ \vspace{-1cm}  Custo: $O(n)$
+ 
+ Algoritmo ótimo e eficiente!
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Teorema de Brent}
+Utilizado para reduzir a complexidade de processadores de um algoritmo
+\begin{teorema}
+Suponha que um problema possa ser resolvido através de um algoritmo paralelo, com complexidade de tempo $O(t)$, custo $O(m)$ operações, e complexidade de processadores maior que $O(p)$. Então este algoritmo pode ser implementado com complexidade de tempo $O(\frac{m}{p} + t)$ e de processadores $O(p)$.
+\end{teorema}
+\begin{proof}
+O algoritmo possui $t$ passos. Suponha que no passo $i$ o algoritmo realize $m_i$ operações. Assim, $m = m_1 + m_2 + \cdots + m_t$. Se utilizarmos apenas p processadores no passo $i$, o tempo total gasto neste passo será $\left\lceil \frac{m_i}{p} \right\rceil$ passos.
+
+O tempo total do algoritmo será:
+
+$$\displaystyle \sum^t_{i=1} \left\lceil \frac{m_i}{p} \right\rceil \leq \displaystyle \sum^t_{i=1} \left( \left\lfloor \frac{m_i}{p} \right\rfloor + 1 \right) = \frac{m_1 + m_2 + \cdots + m_t}{p} + t = \frac{m}{p}+ t$$
+
+Logo, a complexidade de tempo fica $O(\frac{m}{p} + t)$ utilizando $O(p)$ processadores.
+
+\end{proof}
+\end{slide}
+
+\begin{slide}
+  \stitle{Teorema de Brent}
+ \itemtrig\ Algoritmo 1
+    
+\begin{codebox}
+  \zi \For $1 \leq i,j \leq n$ \DoPar 
+  \zi     $A[i,j] := 0$
+  \zi  \End   
+\end{codebox}
+
+
+ \itemtrig\ tempo: $O(1)$
+ 
+\vspace{-1cm} \itemtrig\  processadores: $O(n^2)$
+ 
+\vspace{-1cm} \itemtrig\  custo: $O(n^2)$
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Teorema de Brent}
+Aplicando o teorema de Brent (para $p = O(n)$)
+
+\itemtrig\ Algoritmo 2
+
+\begin{codebox}
+  \zi \For $1 \leq i \leq n$ \DoPar 
+  \zi \For $j = 1$ \To $n$ \DoSeq 
+  \zi     $A[i,j] := 0$
+  \zi  \End   
+  \zi  \End   
+\end{codebox}
+
+ \itemtrig\ tempo: $\displaystyle \frac{n^2}{n} + 1 = O(n)$
+ 
+\vspace{-1cm} \itemtrig\  processadores: $O(n)$
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}

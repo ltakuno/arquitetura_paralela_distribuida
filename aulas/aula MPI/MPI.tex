@@ -1,0 +1,1032 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% talk: prototype
+%%% 2002/10/16
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Erstellen eines Vortrags in PDF-Format wie folgt:
+%%%
+%%% 1) Uebersetzen der Datei mit 
+%%%    pdflatex asz
+%%% 2) Wenn Features von ppower4 gewuenscht werden, dann die eben
+%%%    entstandene Datei asz.pdf weiterverarbeiten mit
+%%%    ./ppower4 asz.pdf vortrag.pdf
+%%% 3) Die Datei vortrag.pdf kann nun mit dem Acrobat Reader angesehen
+%%%    werden
+%%%
+%%% Fuer Testzwecke ist auch ein "normales" Uebersetzen mit LaTeX
+%%% moeglich:
+%%% 1) latex asz
+%%% 2) dvips asz.dvi -o asz.ps -t a4 -t landscape
+%%% 3) Anschauen mit ghostview
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+%----------------------------
+\usepackage{tabularx}
+%%% Die Datei mit dem ASZ-Layout
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Pauseneffekte mit ppower4 werden moeglich
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%Anuschs Extras
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Farben kann man hier definieren
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+%%% Hier beginnt die Praesentation
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Deckblatt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\maketitle
+
+%\slidesubhead{}  %% Teilvortrags-Titel (hier noch nicht)
+                 %% Dieser erscheint spaeter oben links unter
+                 %% dem ASZ Gesamt-Titel
+
+%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{MPI (Message Passage Interface)}
+\end{slide}
+
+\begin{slide}
+  \stitle{MPI (Message Passage Interface)}
+  Programação utilizando passagem de mensagem 
+
+  MPI é uma biblioteca de funções que permite criar programas paralelos e distribuídos.
+  
+  Linguagens:
+  
+	\vspace{-1cm}  \hspace{1cm} \itemtrig\   Standard C, C++, Fortran77, Fortran90, Python e Java.
+\end{slide}
+
+\begin{slide}
+  \stitle{MPI (Message Passage Interface)}
+É possível trabalhar com memória distribuída e compartilhada combinando MPI com OPENMP.
+
+É possível executar múltiplos processos MPI em um processador
+\end{slide}
+
+\begin{slide}
+  \stitle{MPI (Message Passage Interface)}
+Implementações disponíveis:
+
+	\vspace{-1cm}  \hspace{1cm} \itemtrig\  OpenMPI: http://www.open-mpi.org/
+	
+	\vspace{-1cm}  \hspace{1cm} \itemtrig\  MPICH: http://www.mpich.org/
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Hello World}
+\end{slide}
+
+\begin{slide}
+  \stitle{Hello World}
+
+Enter e Exit
+
+\begin{verbatim}
+         MPI_Init(int *argc,char *argv);
+         MPI_Finalize(void);
+\end{verbatim}  
+  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Hello World}
+\begin{verbatim}
+   #include <stdio.h>
+   #include <mpi.h>
+
+   main(int argc, char **argv) 
+   {
+      MPI_Init(&argc, &argv);
+      printf("Hello world\n"); 
+      MPI_Finalize();
+   }
+\end{verbatim}  
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Compilação e Execução}
+  Para compilar
+
+\begin{verbatim}
+         $ mpicc hello.c -o hello
+\end{verbatim}	
+	
+  Para executar
+
+	
+\begin{verbatim}
+         $ mpirun -np 4 hello
+         Hello world
+         Hello world
+         Hello world
+         Hello world
+         $
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Identificando o número do processo}
+\end{slide}
+
+\begin{slide}
+  \stitle{Identificando o número do processo}
+
+Processos: são representados por um único ``rank''(inteiro) e ranks são numerados $0, 1, 2 ..., N-1$. (N = total de processos)
+  
+Quem eu sou?
+
+	\vspace{-1cm}  \hspace{1cm}  \verb|MPI_Comm_rank(MPI_Comm comm,int *rank);|
+
+Informa total de processos: 
+
+	\vspace{-1cm}  \hspace{1cm} \verb|MPI_Comm_size(MPI_Comm comm,int *size);|  
+
+Comunicação padrão:
+
+	\vspace{-1cm}  \hspace{1cm} \verb|MPI_COMM_WORLD| contém todos os processos 
+
+  
+\end{slide}
+
+
+
+\begin{slide}
+  \stitle{Hello World}
+\begin{verbatim}
+   #include <stdio.h>
+   #include <mpi.h>
+
+   main(int argc, char **argv) 
+   {
+      MPI_Init(&argc, &argv);
+      MPI_Comm_rank(MPI_COMM_WORLD, &id);
+      MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+
+      printf("I'm process %i out of %i processes\n", id, nprocs);      
+      MPI_Finalize();
+   }
+\end{verbatim}  
+\end{slide}
+
+
+
+\begin{slide}
+  \stitle{Tipos de Comunicação}
+  
+  A biblioteca MPI implementa os seguintes tipos de comunicação:
+  
+\vspace{-1cm}   \hspace{1cm}  \itemtrig\   Ponto-a-Ponto: send e receive
+
+\vspace{-1cm}   \hspace{1cm}  \itemtrig\   Comunicação coletiva: broadcast, scatter e gather, reduce e scan
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Modelo de programação com MPI}
+  
+  SPMD (Single Program Multiple Data)
+  
+   \vspace{-1cm}   \hspace{1cm} Todos executam o mesmo programa, sendo que através de um controle interno ao programa um nó executa a função mestre e os demais são escravos.
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Modelo de programação com MPI}
+\begin{center}
+\includegraphics[height=10.3cm]{fig01}
+\end{center}    
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Grupo de tarefas}
+\begin{center}
+\includegraphics[height=10.3cm]{fig02}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Para obter um bom desempenho}
+  
+ \itemtrig\  Use granularidade grossa
+  
+  \vspace{-1cm}\itemtrig\  Minimize o número de mensagens
+  
+  \vspace{-1cm} \itemtrig\ Maximize o tamanho de cada mensagem
+  
+  \vspace{-1cm} \itemtrig\ Use alguma forma de balanceamento de carga    
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Primitivas ponto-a-ponto}
+\end{slide}
+
+\begin{slide}
+  \stitle{Tipos de comunicação ponto-a-ponto}
+  De acordo com o modo de transmissão, o padrão MPI pode definir os seguintes tipos de comunicação:
+  
+  \hspace{1cm} \textit{Standard}, \textit{Synchronous}, \textit{Ready}, \textit{Buffered};
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Tipos de comunicação ponto-a-ponto}
+  \hspace{1cm} \textit{Standard}: primitivas de envios bloqueantes e não-bloqueantes;
+  
+  \hspace{2cm} Bloqueantes: \verb|MPI_Send|, \verb|MPI_Recv|  
+
+  \vspace{-1cm} \hspace{2cm} Não bloqueantes: \verb|MPI_ISend|, \verb|MPI_IRecv|  
+  
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Tipos de comunicação ponto-a-ponto}
+
+  \vspace{-1cm}   \hspace{1cm} \textit{Synchronous}: O processo de envio fica bloqueado até que o \textit{buffer} da aplicação do processo emissor esteja livre para ser utilizado e que o processo receptor já tenha começado a receber a mensagem. 
+\end{slide}
+
+\begin{slide}
+  \stitle{Tipos de comunicação ponto-a-ponto}
+  
+  Este modo introduz o sincronismo através da confirmação por parte dos processos receptores (\textit{handshake});
+
+  \hspace{2cm} \textit{Synchronous}: \verb|MPI_Ssend|, \verb|MPI_Recv|  
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Tipos de comunicação ponto-a-ponto}
+  \vspace{-1cm}   \hspace{1cm} \textit{Ready}: O processo que envia os dados manda uma mensagem ao receptor perguntando se o mesmo está pronto para receber a mensagem.
+\end{slide}
+
+\begin{slide}
+  \stitle{Tipos de comunicação ponto-a-ponto}
+  
+  O emissor só inicia a transmissão da mensagem se o outro processo estiver apto a receber os dados.
+  
+  \hspace{2cm} \textit{Ready}: \verb|MPI_Rsend|, \verb|MPI_Recv|  
+\end{slide}
+
+\begin{slide}
+  \stitle{Tipos de comunicação ponto-a-ponto}
+\vspace{-1cm}   \hspace{1cm} \textit{Buffered}: Permite ao programador definir um buffer onde os dados serão copiados e armazenados até serem transmitidos. 
+
+  \hspace{2cm} \textit{Buffered}: \verb|MPI_Bsend|, \verb|MPI_Recv|  
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Primitivas ponto-a-ponto bloqueantes}
+
+Enviando Mensagens
+
+\vspace{-1cm}   \hspace{1cm}  \verb|MPI_Send(void *buf,int count,MPI_Datatype dtype,|
+
+
+\vspace{-1cm}   \hspace{4cm}  \verb|int dest,int tag,MPI_Comm comm);|
+
+Recebendo Mensagens
+
+\vspace{-1cm}   \hspace{1cm}  \verb|MPI_Recv(void *buf,int count,MPI_Datatype dtype,|
+
+\vspace{-1cm}   \hspace{4cm}  \verb|int source,int tag,MPI_Comm comm,MPI_Status *status);|
+
+
+status:  
+
+\vspace{-1cm}   \hspace{1cm}  \verb|status.MPI_TAG| e \verb|status.MPI_SOURCE|
+
+\vspace{-1cm}   \hspace{1cm}  \verb|MPI_ANY_TAG| e \verb|MPI_ANY_SOURCE| são \textit{wildcards}.
+
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Tipo de dados}
+  
+  Os principais tipos de dados:
+  
+  \vspace{-1cm}   \hspace{1cm}  \verb|MPI_CHAR|, \verb|MPI_INT|, \verb|MPI_FLOAT|, \verb|MPI_DOUBLE|, entre outros.
+  
+  Novos tipos podem ser criados:
+  	
+\vspace{-1cm}   \hspace{1cm}  baseados em tipos existentes
+
+\vspace{-1cm}   \hspace{1cm}  chamados de tipos de dados derivados
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Envio padrão bloqueante}
+  O comportamento do sistema depende do tamanho da mensagem, se é menor ou igual ou maior do que um limite. Este limite é definido pela implementação do sistema e do número de tarefas na aplicação.
+  
+
+
+\begin{center}
+\includegraphics[height=6.3cm]{fig03}
+\end{center}    
+
+Mensagem <= limite  
+\end{slide}
+
+ 
+\begin{slide}
+  \stitle{Envio padrão bloqueante}
+
+Mensagem > limite
+  
+  \begin{center}
+\includegraphics[height=6.3cm]{fig04}
+\end{center}    
+
+\end{slide}
+
+
+ 
+\begin{slide}
+  \stitle{Exemplo de mensagens send/recv}
+\end{slide}
+ 
+\begin{slide}
+ 
+\begin{verbatim}
+#include<stdio.h>
+#include<mpi.h>
+
+int main(int argc, char *argv[])
+{
+   int size, rank;
+   int length;
+   char name[80];
+   int dest = 0;
+   int tag = 999;
+
+   MPI_Init(&argc, &argv);
+   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+   MPI_Comm_size(MPI_COMM_WORLD, &size);
+   
+   if (rank > 0) {
+      MPI_Get_processor_name(name, &length);
+      MPI_Send(name, 80, MPI_CHAR, dest, tag, MPI_COMM_WORLD);
+   } else { 
+      MPI_Status status;
+      int source;
+      for(source = 1; source < size; source++) {
+         MPI_Recv(name, 80, MPI_CHAR, source, tag, 
+                                     MPI_COMM_WORLD, &status);
+         printf("msg from %d %d on %s\n", source, size, name);
+      }
+   }
+   MPI_Finalize();
+   return 0;
+}
+\end{verbatim} 
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Exercícios}
+\end{slide}
+ 
+ \begin{slide}
+  \stitle{Exercícios}
+  
+  Escreva um programa paralelo utilizando a biblioteca MPI que some os elementos de um determinado vetor.
+  
+
+\vspace{-1cm}   \hspace{1cm}1. O processo mestre deve gerar um vetor de n elementos
+
+\vspace{-1cm}   \hspace{1cm}2. O processo mestre deve enviar pedaços do vetor para os demais processos
+
+\vspace{-1cm}   \hspace{1cm}3. Cada processo escravo receberá o vetor e calculará a soma parcial
+
+\vspace{-1cm}   \hspace{1cm}4. Cada processo escravo deverá enviar para o mestre o resultado da soma parcial
+
+\vspace{-1cm}   \hspace{1cm}5. O processo mestre deverá acumular as somas parciais e mostrar o resultado.
+\end{slide}
+ 
+\begin{slide}
+  \stitle{Exercícios (solução)}
+  
+\begin{verbatim}
+#include<stdio.h>
+#include<mpi.h>
+
+#define N 12
+
+int P;
+int tag = 999;
+
+void mestre();
+void escravo();
+
+
+
+int main(int argc, char *argv[])
+{
+   int id;
+   MPI_Init(&argc, &argv);
+   MPI_Comm_rank(MPI_COMM_WORLD, &id);
+   MPI_Comm_size(MPI_COMM_WORLD, &P);
+   if (id ==  0) {
+      mestre();
+   } else { 
+      escravo();
+   }
+   MPI_Finalize();
+   return 0;
+}
+
+void mestre()
+{
+   int v[N], i, dest, soma, soma_parcial; 
+   MPI_Status status;
+   for (i = 0; i < N; i++)  v[i] = i;
+   
+   for (dest = 1; dest < P; dest++) {
+      MPI_Send(v + dest * N/P, N/P, MPI_INT, 
+                      dest, tag, MPI_COMM_WORLD);
+   }
+   
+   soma = 0;
+   for(i = 0; i < N/P; i++)  
+       soma += v[i];
+     
+   for (dest = 1; dest < P; dest++){ 
+      MPI_Recv(&soma_parcial, 1, MPI_INT, 
+                   MPI_ANY_SOURCE, tag, MPI_COMM_WORLD, &status);
+      soma += soma_parcial;
+   }
+
+   printf("soma total: %d\n", soma);
+}
+
+
+
+
+
+
+
+void escravo()
+{
+   int i, v[N], soma_parcial,id;
+   MPI_Status status;
+   MPI_Recv(v, N/P, MPI_INT, 0, tag, MPI_COMM_WORLD, &status);
+   soma_parcial = 0;
+   MPI_Comm_rank(MPI_COMM_WORLD, &id);
+   for (i = 0; i < N/P; i++){
+      soma_parcial += v[i];
+   }
+
+   MPI_Send(&soma_parcial, 1, MPI_INT, 0, tag, MPI_COMM_WORLD);
+}
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Exercícios}
+  
+  Escreva um programa paralelo utilizando biblioteca MPI para calcular o maior elemento de um vetor de n elementos.
+  
+  
+  Escreva um programa paralelo utilizando biblioteca MPI para calcular a multiplicação de uma matriz por um vetor.
+  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Comunicação coletiva}
+\end{slide}
+
+\begin{slide}
+  \stitle{Comunicação coletiva}
+  
+  Comunicação coletiva é um método de comunicação que envolve todos os processos de um dado comunicador.
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Comunicação coletiva}
+MPI fornece uma lista de funções para comunicação coletiva:
+
+\hspace{1cm} \verb|MPI_Bcast()|:  Broadcast (um para todos) 
+
+\hspace{1cm} \verb|MPI_Scatter()|:  Distribuir os dados (um para todos) 
+
+\hspace{1cm} \verb|MPI_Gather()|:  Coletar os dados (um para todos) 
+
+\hspace{1cm} \verb|MPI_Reduce()|:  Redução (todos para um)
+
+\hspace{1cm} \verb|MPI_AllReduce()|:  Redução (todos para todos)
+
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Broadcast} 
+ 
+\begin{verbatim}
+MPI_Bcast(void *buf, int count, MPI_Datatype dtype,
+                              int root, MPI_Comm comm);
+\end{verbatim} 
+  
+Na operação broadcast todos os processos especificam o mesmo processo root (argumento root) cujo conteúdo do buffer será enviado. Os demais processos especificam buffers de recepção. Após a execução da chamada todos os buffers contêm os dados do buffer do processo root.
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Broadcast} 
+
+\begin{center}
+\includegraphics[height=10.3cm]{fig05}
+\end{center}    
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Exemplo de Broadcast} 
+ Enviando vetor de tamanho 100 de números inteiros a todos os processos do grupo.
+\begin{verbatim}
+ MPI_Comm comm;
+    int array[100];
+    int root=0;
+    ...
+    MPI_Bcast(array, 100, MPI_INT, root, comm);
+\end{verbatim}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Distribuição de dados: scatter e gather}
+\end{slide}
+\begin{slide}
+  \stitle{Scatter}
+\textit{Scatter} é uma operação de comunicação coletiva onde uma tarefa \textit{root} envia um conjunto de dados distintos para cada processo pertencente ao grupo.
+
+Sintaxe:
+
+\begin{verbatim}
+MPI_Scatter(void *sendbuf, int sendcount, MPI_Datatype sendtype,
+            void *recvbuf, int recvcount, MPI_Datatype recvtype,
+            int root, MPI_Comm comm);  
+\end{verbatim} 
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Scatter}
+\begin{verbatim}
+MPI_Scatter(void *sendbuf, int sendcount, MPI_Datatype sendtype,
+            void *recvbuf, int recvcount, MPI_Datatype recvtype,
+            int root, MPI_Comm comm);  
+\end{verbatim} 
+
+Esta função particiona um vetor referenciado por \verb|sendbuf|, na tarefa \verb|root|, em $p$ segmentos, cada segmento contendo \verb|sendcount| elementos do tipo \verb|sendtype|  
+\end{slide}
+
+\begin{slide}
+  \stitle{Gather}
+\begin{verbatim}
+MPI_Gather(void *sendbuf, int sendcount, MPI_Datatype sendtype,
+           void *recvbuf, int recvcount, MPI_Datatype recvtype,
+           int root, MPI_Comm comm);
+\end{verbatim} 
+
+a operação gather é o reverso da operação scatter (dados de buffers de todos processos para processo root)
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Scatter e Gather} 
+
+\begin{center}
+\includegraphics[height=6.3cm]{fig09}
+\end{center}    
+\end{slide}
+
+\begin{slide}
+  \stitle{All-Gather}
+\begin{verbatim}
+MPI_Allgather(void *sendbuf, int sendcount, MPI_Datatype sendtype,
+           void *recvbuf, int recvcount, MPI_Datatype recvtype,
+           MPI_Comm comm);
+\end{verbatim} 
+
+A operação all-gather é semelhante à operação gather. A única diferença é que na operação all-gather todos os processos coletam os dados de cada processo da aplicação, enquanto que na operação gather só o \verb|root| coleta os dados.
+
+\end{slide}
+
+\begin{slide}
+  \stitle{All-gather} 
+
+\begin{center}
+\includegraphics[height=6.3cm]{fig10}
+\end{center}    
+\end{slide}
+
+\begin{slide}
+  \stitle{All-to-All}
+  \begin{verbatim}
+MPI_Alltoall(void *sendbuf, int sendcount, MPI_Datatype sendtype,
+           void *recvbuf, int recvcount, MPI_Datatype recvtype,
+           MPI_Comm comm);
+\end{verbatim} 
+
+\textit{All-to-All} é uma operação de comunicação coletiva do tipo muitos-para-muitos, em que cada processo envia seus dados para todos os processos da aplicação 
+\end{slide}
+
+
+\begin{slide}
+  \stitle{All-to-All} 
+
+\begin{center}
+\includegraphics[height=6.3cm]{fig11}
+\end{center}    
+\end{slide}
+
+\begin{slide}
+  \stitle{Redução}
+\end{slide}
+
+\begin{slide}
+  \stitle{Reduce} 
+\begin{verbatim}
+MPI_Reduce(void *sendbuf, void *recvbuf, int count,
+           MPI_Datatype dtype, MPI_Op op, int root, MPI_Comm comm);  
+\end{verbatim} 
+
+Elementos dos buffers de envio são combinados par a par para um único elemento correspondente no buffer de recepção do root.
+
+Operaçoes de redução:
+
+\hspace{1cm} \verb|MPI_MAX| (maximum), \verb|MPI_MIN| (minimum), \verb|MPI_SUM|  (sum), \verb|MPI_PROD| (product), \verb|MPI_LAND| (logical and), \verb|MPI_BAND| (bitwise and) \verb|MPI_LOR| (logical or), \verb|MPI_BOR| (bitwise or), \verb|MPI_LXOR| (logical exclusive or), \verb|MPI_BXOR| (bitwise exclusive or)    
+  
+\end{slide}
+
+
+
+
+\begin{slide}
+  \stitle{Reduce} 
+
+\begin{center}
+\includegraphics[height=10.3cm]{fig06}
+\end{center}    
+\end{slide}
+
+\begin{slide}
+  \stitle{All-Reduce} 
+  Executa da mesma maneira que o Reduce, porém os resultados são transmitidos para todos os nós do grupo.
+  
+\begin{verbatim}
+MPI_Allreduce(void *sendbuf, void *recvbuf, int count,
+           MPI_Datatype dtype, MPI_Op op, MPI_Comm comm);  
+\end{verbatim} 
+
+Assim o argumento root é omitido do protótipo da função.
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{All-Reduce} 
+
+\begin{center}
+\includegraphics[height=10.3cm]{fig07}
+\end{center}    
+\end{slide}
+
+\begin{slide}
+  \stitle{Redução} 
+\begin{verbatim}
+const int ROOT = 0;
+sum = 0;
+MPI_Reduce(&rank, &sum, 1, MPI_INT, MPI_SUM, ROOT, MPI_COMM_WORLD);
+printf("Reduce: process %d has %3d \n", rank, sum);
+sum = 0;
+MPI_Allreduce(&rank, &sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+printf("Allreduce: process %d has %3d \n", rank, sum );
+\end{verbatim} 
+\end{slide}
+
+\begin{slide}
+  \stitle{Redução} 
+Exemplo de saída com 4 processos:  
+  
+\begin{verbatim}
+Reduce : process 1 has 0
+Reduce : process 2 has 0
+Reduce : process 3 has 0
+Reduce : process 0 has 6
+Allreduce : process 1 has 6
+Allreduce : process 2 has 6
+Allreduce : process 0 has 6
+Allreduce : process 3 has 6
+\end{verbatim} 
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de prefixos paralelo} 
+\end{slide}
+
+\begin{slide}
+  \stitle{Computação de prefixos paralelo} 
+  
+A função \verb|MPI_Scan()| executa computação de prefixos em paralelo.   
+\begin{verbatim}
+MPI_Scan(void *sendbuf, void *recvbuf, int count,
+           MPI_Datatype dtype, MPI_Op op, MPI_Comm comm);  
+\end{verbatim} 
+
+No processo $i$, a computação de prefixo calcula $v[0]$ $op$ $v[1]$ $op$ $\cdots$ $op$ $v[i]$, que será armazenado em \verb|recvbuf|.
+\end{slide}
+
+\begin{slide}
+  \stitle{Scan} 
+
+\begin{center}
+\includegraphics[height=10.3cm]{fig08}
+\end{center}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Barreira}
+  O MPI implementa uma barreira de comunicação que possibilita a sincronização de processos através da emissão de um sinal de controle que indica que todos os processos do grupo chamaram a função.
+  
+\begin{verbatim}
+MPI_Barrier(MPI_Comm comm);
+\end{verbatim}   
+O único argumento do \verb|MPI_Barrier()| é o comunicador que define o grupo de processos a serem sincronizados.
+\end{slide}
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}
