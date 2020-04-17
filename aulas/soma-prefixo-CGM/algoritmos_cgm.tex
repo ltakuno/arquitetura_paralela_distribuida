@@ -1,0 +1,581 @@
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+
+%----------------------------
+\usepackage{tabularx}
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+
+%\maketitle
+
+%\slidesubhead{}
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Algoritmo da Soma no modelo CGM}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo da Soma no modelo CGM}
+
+\itemtrig\ Entrada: n elementos $v(1), v(2), \cdots, v(n)$
+
+\vspace{-1cm}\itemtrig\ Saída: $S = v(1)+v(2)+ \cdots+ v(n)$
+
+\vspace{-1cm}\hspace{2cm}(1) $p$ processadores
+  
+\vspace{-1cm}\hspace{2cm}(2) Cada processador recebe $n/p$ elementos, 
+
+\vspace{-1cm}\hspace{2cm} efetua a soma localmente e envia o resultado para $p_1$
+
+\vspace{-1cm}\hspace{2cm}(3) $p_1$ efetua a soma de $S = S_1 + S_2 + \cdots + S_p$
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo da Soma no modelo CGM}
+
+\itemtrig\ Entrada: número do processador $i$; 
+
+\vspace{-1cm}\hspace{4cm}número $p$ de processadores; $B = A((i-1)r+1:r)$; 
+
+\vspace{-1cm}\hspace{4cm}$r=n/p$
+
+\vspace{-1cm}\itemtrig\ Saída: $p_i$ calcula $z = B(1)+B(2)+ \cdots+ B(n)$ e envia o 
+
+\vspace{-1cm}\hspace{4cm}resultado para $p_1$. $p_1$ calcula $S = z_1 + z_2 + \cdots +z_n$
+
+
+\vspace{-1cm}\hspace{2cm}(1) $z = B(1)+B(2)+ \cdots+ B(n)$ 
+  
+\vspace{-1cm}\hspace{2cm}(2) {\blue se} $i = 1$ {\blue então} $S = z$
+
+\vspace{-1cm}\hspace{4cm} {\blue caso contrário} $envia(z, p_1)$
+
+\vspace{-1cm}\hspace{2cm}(3) {\blue se} $i = 1$ {\blue então} 
+
+\vspace{-1cm}\hspace{4cm} {\blue para } $i = 2$ {\blue até} $p$ {\blue faça}
+
+\vspace{-1cm}\hspace{6cm} $receba(s[i], p)$
+ 
+\vspace{-1cm}\hspace{2cm}(4) $S = S_1 + S_2 + \cdots + S_p$
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo da Soma no modelo CGM}
+  
+\textbf{complexidade:}
+  
+\vspace{-1cm}\hspace{2cm} Passo 1: cada $p_i$ efetua $r$ operações
+   
+\vspace{-1cm}\hspace{2cm} Passo 2: $p_1$ efetua uma operação e os demais $p_i$'s 
+
+\vspace{-1cm}\hspace{6cm} enviam uma msg.
+
+\vspace{-1cm}\hspace{2cm} Passo 3: $p_1$ recebe $p-1$ mensagens.
+
+\vspace{-1cm}\hspace{2cm} Passo 4: $p_1$ efetua $p-1$ operações.
+
+\hspace{2cm} Um rodada de comunicação.
+
+\vspace{-1cm}\hspace{2cm} tempo : $O(n/p)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma no modelo CGM - implementação}
+\begin{verbatim}
+#include<mpi.h>
+
+  // Passo 1. Inicializar
+  // Passo 2. Envie os dados para as tarefas diferente de 0
+  // Passo 3. Receba uma msg da tarefa 0
+  // Passo 4. Calcule a soma
+  // Passo 5. Receba as somas parciais
+  // Passo 6. Imprima os valores da soma
+  // Passo 7. Finalize o MPI
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Passo 1}
+
+\begin{verbatim}
+  // Passo 1. Inicializar
+  MPI_init(&argc, &argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &size);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+  tam = (int)TAMMAX/size;      // tamanho do subvetor
+  
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Passo 2 - Enviando dados}
+ 
+\begin{verbatim}
+  // Passo 2. Envie os dados para as tarefas diferente de 0 
+  if (rank == 0){
+     for (i = 1; i < size; i++) 	{
+        for (j = 0; j < tam; j++) {
+           subvetor[j] = vetor_dados[tam * i + j];
+        }   
+        MPI_Send(subvetor, tam, MPI_INT, i, tag, MPI_COMM_WORLD);    
+     } // fim for   
+
+     for (j = 0; j < tam; j++) { // vetor da tarefa 0;
+        subvetor[j] = vetor_dados[j];
+     }   
+  }
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Passo 3 - Recebendo dados}
+\begin{verbatim}
+  // Passo 3. Receba uma msg da tarefa 0
+  if (rank != 0) {
+     MPI_Recv(subvetor, tam, MPI_INT, 0, tag, 
+                             MPI_COMM_WORLD, &status);    
+  }
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Passo 4 - Efetuando a soma}
+  
+\begin{verbatim}
+  // Passo 4. Calcule a soma
+   for(i = 0; i < tam; i++) {
+      somap = somap + subvetor[i];
+   }
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Passo 5 - Recebendo somas parciais}
+  
+\begin{verbatim}
+   // Passo 5. Receba as somas parciais
+   MPI_Reduce(&somap, &soma, 1, MPI_INT, 
+                                MPI_SUM, 0, MPI_COMM_WORLD);
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Passo 6 e 7 - Finalizando}    
+
+\begin{verbatim}
+   // Passo 6. Imprima os valores da soma
+   if (rank == 0) {
+      printf("soma: %d\n", soma);      
+   }
+
+
+   // Passo 7. Finalize o MPI
+   MPI_Finalize();
+   return 0;   
+\end{verbatim}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Compilação e Execução}
+  Para compilar
+
+\begin{verbatim}
+         $ mpicc soma.c -o soma
+\end{verbatim}	
+	
+  Para executar
+
+	
+\begin{verbatim}
+         $ mpirun -np 4 soma
+\end{verbatim}
+\end{slide}
+
+  
+
+\begin{slide}
+  \stitle{Soma de prefixos}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Soma de prefixos}
+  Dado um vetor $A$ de $n$ elementos $A[0], A[1], \cdots, A[n-1]$ a computação de prefixos calcula os valores:
+  
+\begin{verbatim}
+  A[0]
+  A[0] op A[1]
+  A[0] op A[1] op A[2]
+  ...
+  A[0] op ... op A[n-1]
+\end{verbatim}
+
+onde {\darkgreen op} é uma operação binária associativa.
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de prefixos}
+  
+\itemtrig\ Exemplo: {\darkgreen op} é adição 
+
+\vspace{-1cm}\itemtrig\ Vetor de entrada:
+
+\vspace{-1cm}\hspace{4cm} $[3,7,5,1,2,4,0,9]$
+
+\itemtrig\ Vetor de saída:
+
+\vspace{-1cm}\hspace{4cm} $[3,10,15,16,18,22,22,31]$
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de prefixos - CGM}
+
+\itemtrig\ Entrada: $n$ elementos $v(1), v(2), \cdots, v(n)$
+
+\vspace{-1cm}\itemtrig\ Saída: $S(k) = v(1) + \cdots + v(k)$, $1 \leq k \leq n$ 
+
+\vspace{-1cm}\hspace{2cm}(1) $p_0$ envia $n/p$ elementos para cada $p_i$
+
+\vspace{-1cm}\hspace{2cm}(2) Cada $p_i$ calcula a soma $T(i)$ de seus elementos e envia 
+
+\vspace{-1cm}\hspace{4cm}o resultado para os processadores $j>i$
+
+\vspace{-1cm}\hspace{2cm}(3) $p_0$ calcula a soma $ST(i) = T(1) + \cdots +T(i)$, $1 \leq i \leq p$
+
+\vspace{-1cm}\hspace{2cm}(4) Cada $p_i$ calcula a soma de prefixos local 
+
+\vspace{-1cm}\hspace{4cm}\itemcirc\ $S(k) = ST(i-1) + v((i-1)*r+1) + \cdots + v(k)$, 
+
+\vspace{-1cm}\hspace{4cm}\itemcirc\ $(i-1)*r+1 \leq k \leq i*r$, $r = n/p$ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de prefixos - implementação}
+
+\begin{verbatim}
+#include <mpi.h>
+
+
+  // passo 1. Inicialização
+  MPI_init(&argc, &argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &size);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+  tam = (int)TAMMAX/size;      // tamanho do subvetor
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de prefixos - implementação}
+
+\begin{verbatim}
+  // passo 2. Envia os dados as tarefas filhos
+  MPI_Scatter(vetor_dados, tam, MPI_INT, subvetor, tam, 
+                                MPI_INT, root, MPI_COMM_WORLD);  
+
+
+  // passo 3. Calcula a soma em cada tarefa
+  for (i = 0; i < tam; i++)
+     somap = somap + subvetor[i];
+  
+\end{verbatim}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de prefixos - implementação}
+
+\begin{verbatim}
+  // passo 4. Receba as somas parciais
+  MPI_Scan(&somap, &soma, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);  
+
+
+  // passo 5. Calcula as somas parciais em cada tarefa
+  soma_pre[0] = soma - somap + subvetor[0]
+  for (i = 1; i < tam; i++)
+     soma_pre[i] = soma_pre[i-1] + subvetor[i];
+  
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Soma de prefixos - implementação}
+\begin{verbatim}
+  // passo 6. Imprima o valor da soma
+  for (i = 0; i < tam; i++)
+     printf("rank %d e soma_pre[%d] = %d\n", rank, i, soma_pre[i]);
+
+
+
+  // passo 7. Finalize o MPI
+  MPI_Finalize();
+  return 0;
+  
+\end{verbatim}
+  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}
