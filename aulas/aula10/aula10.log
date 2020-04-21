@@ -1,78 +1,80 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.7.14)  7 APR 2016 02:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.3.3)  21 APR 2020 17:36
 entering extended mode
+ restricted \write18 enabled.
  %&-line parsing enabled.
 **aula10.tex
 (./aula10.tex
-LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, loaded.
-(/usr/share/texmf-texlive/tex/latex/base/slides.cls
-Document Class: slides 1997/08/15 v2.3z Standard LaTeX document class
-(/usr/share/texmf-texlive/tex/latex/base/slides.def
-File: slides.def 1997/08/15 v2.3z SLiTeX definitions
+LaTeX2e <2017-04-15>
+Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/slides.cls
+Document Class: slides 2016/03/29 v2.4a Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/slides.def
+File: slides.def 2016/03/29 v2.4a SLiTeX definitions
  hacks, slides,
 \c@page=\count79
- picture,
-mods,
+
+picture, mods,
 \@smashboxa=\box26
 \@smashboxb=\box27
 \@smashboxc=\box28
- output, init) (/usr/share/texmf-texlive/tex/latex/base/sfonts.def
+ output, init)
+(/usr/share/texlive/texmf-dist/tex/latex/base/sfonts.def
 File: sfonts.def 1998/06/12 v2.2e Standard LaTeX slide font definitions
 
-(/usr/share/texmf-texlive/tex/latex/base/ot1lcmss.fd
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1lcmss.fd
 File: ot1lcmss.fd 1998/06/12 v2.2e Standard LaTeX slide font definitions
 ))
 \c@minutes=\count80
 \c@seconds=\count81
 \c@mv@invisible=\count82
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/lcmss/m/n on input line 369.
+(Font)                  OT1/cmr/m/n --> OT1/lcmss/m/n on input line 359.
 LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
-(Font)                  OML/cmm/m/it --> OML/lcmm/m/it on input line 372.
+(Font)                  OML/cmm/m/it --> OML/lcmm/m/it on input line 362.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
-(Font)                  OMS/cmsy/m/n --> OMS/lcmsy/m/n on input line 374.
+(Font)                  OMS/cmsy/m/n --> OMS/lcmsy/m/n on input line 364.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
-(Font)                  OMX/cmex/m/n --> OMX/lcmex/m/n on input line 376.
+(Font)                  OMX/cmex/m/n --> OMX/lcmex/m/n on input line 366.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `invisible'
-(Font)                  OT1/cmr/m/n --> OT1/lcmss/m/In on input line 379.
+(Font)                  OT1/cmr/m/n --> OT1/lcmss/m/In on input line 369.
 LaTeX Font Info:    Overwriting symbol font `letters' in version `invisible'
-(Font)                  OML/cmm/m/it --> OML/lcmm/m/Iit on input line 381.
+(Font)                  OML/cmm/m/it --> OML/lcmm/m/Iit on input line 371.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `invisible'
-(Font)                  OMS/cmsy/m/n --> OMS/lcmsy/m/In on input line 383.
+(Font)                  OMS/cmsy/m/n --> OMS/lcmsy/m/In on input line 373.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `invisibl
 e'
-(Font)                  OMX/cmex/m/n --> OMX/lcmex/m/In on input line 385.
+(Font)                  OMX/cmex/m/n --> OMX/lcmex/m/In on input line 375.
 )
-(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
-Package: babel 2008/07/06 v3.8l The Babel package
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2018/02/14 3.18 The Babel package
 
-(/usr/share/texmf-texlive/tex/generic/babel/portuges.ldf
+(/usr/share/texlive/texmf-dist/tex/generic/babel/switch.def
+File: switch.def 2018/02/14 3.18 Babel switching mechanism
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-portuges/portuges.ldf
 Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
 
-(/usr/share/texmf-texlive/tex/generic/babel/babel.def
-File: babel.def 2008/07/06 v3.8l Babel common definitions
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2018/02/14 3.18 Babel common definitions
 \babel@savecnt=\count83
 \U@D=\dimen102
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@dirlevel=\count84
 )
-
-Package babel Warning: No hyphenation patterns were loaded for
-(babel)                the language `Portuguese'
-(babel)                I will use the patterns loaded for \language=0 instead.
-
-\l@portuges = a dialect from \language0
 \l@brazil = a dialect from \language\l@portuges 
 Package babel Info: Making " an active character on input line 145.
-)) (/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
-Package: inputenc 2008/03/30 v1.1d Input encoding file
+))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
-(/usr/share/texmf-texlive/tex/latex/base/latin1.def
-File: latin1.def 2008/03/30 v1.1d Input encoding file
+(/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def
+File: latin1.def 2015/03/17 v1.2c Input encoding file
 ))
-(/usr/share/texmf-texlive/tex/latex/base/textcomp.sty
-Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2017/04/05 v2.0i Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
 (textcomp)               4 = 5 + \texteuro
@@ -84,215 +86,249 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             only a restricted character set as indicated.
 (textcomp)             Family '?' is the default used for unknown fonts.
 (textcomp)             See the documentation for details.
-Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
 
-(/usr/share/texmf-texlive/tex/latex/base/ts1enc.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 )
-LaTeX Info: Redefining \oldstylenums on input line 266.
-Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
-Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
-Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
-Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
-Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
-Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
-Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
-Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
-Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
-Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
-Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
-Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
-Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
-Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
-Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
-Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
-Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
-Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
-Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
-Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
-Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
-Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
-Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
-Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
 
-Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
-Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
-Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
-Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
-Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
-Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
-Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 311.
-Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 312.
-Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 313.
-Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 314.
-Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 315.
-Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 316.
-Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 317.
-Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 318.
-Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 319.
-Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 320.
-Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 321.
-Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 322.
-Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 323.
-Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
-Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
-Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 )
-(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
-Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
 
-(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
-File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
-LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 )
-LaTeX Font Info:    Try loading font information for T1+lcmss on input line 100
+LaTeX Font Info:    Try loading font information for T1+lcmss on input line 105
 .
 
-(/usr/share/texmf-texlive/tex/latex/base/t1lcmss.fd
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1lcmss.fd
 File: t1lcmss.fd 1998/06/12 v2.2e Standard LaTeX slide font definitions
 ))
-(/usr/share/texmf-texlive/tex/latex/multirow/multirow.sty
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
+\multirow@colwidth=\skip41
+\multirow@cntb=\count85
+\multirow@dima=\skip42
 \bigstrutjot=\dimen103
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(/etc/texmf/tex/latex/config/graphics.cfg
-File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: dvips.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 99.
 
-(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
-File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-(/usr/share/texmf-texlive/tex/latex/oberdiek/epstopdf.sty
-Package: epstopdf 2009/10/17 v2.4 Conversion with epstopdf on the fly (HO)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2016/05/15 v2.6 Conversion with epstopdf on the fly (HO)
 
-(/usr/share/texmf-texlive/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2009/10/17 v2.4 Base part for package epstopdf
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-(/usr/share/texmf-texlive/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 )
-(/usr/share/texmf-texlive/tex/latex/oberdiek/grfext.sty
-Package: grfext 2007/09/30 v1.0 Managing graphics extensions (HO)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
 )
-(/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2009/08/13 v3.4 Keyval support for LaTeX options (HO)
-
-(/usr/share/texmf-texlive/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2009/07/30 v1.5 Key value parser with default handler suppor
-t (HO)
-
-(/usr/share/texmf-texlive/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
 Package etexcmds Info: Could not find \expanded.
 (etexcmds)             That can mean that you are not using pdfTeX 1.50 or
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )))
-(/usr/share/texmf-texlive/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2009/09/23 v0.6 LuaTeX support for pdfTeX utility functions
- (HO)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2018/01/21 v0.26 Utility functions of pdfTeX for LuaTeX (HO
+)
 
-(/usr/share/texmf-texlive/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2009/04/17 v1.2 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-(/usr/share/texmf-texlive/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2009/08/05 v1.0 Some LaTeX kernel commands for general use (HO
-)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
 )
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
 
-Package epstopdf Warning: Other drivers than `pdftex.def' are not supported.
-
-)) (/usr/share/texmf-texlive/tex/latex/float/float.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count84
+\c@float@type=\count86
 \float@exts=\toks17
 \float@box=\box29
 \@float@everytoks=\toks18
 \@floatcapt=\box30
 )
-(/usr/share/texmf-texlive/tex/latex/tools/tabularx.sty
-Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2016/02/03 v2.11 `tabularx' package (DPC)
 
-(/usr/share/texmf-texlive/tex/latex/tools/array.sty
-Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \col@sep=\dimen106
 \extrarowheight=\dimen107
 \NC@list=\toks19
-\extratabsurround=\skip41
-\backup@length=\skip42
+\extratabsurround=\skip43
+\backup@length=\skip44
 )
 \TX@col@width=\dimen108
 \TX@old@table=\dimen109
 \TX@old@col=\dimen110
 \TX@target=\dimen111
 \TX@delta=\dimen112
-\TX@cols=\count85
+\TX@cols=\count87
 \TX@ftn=\toks20
 ) (./clrscode.sty
 Package: clrscode 2007/03/29 v1.7 format pseudocode
 
-(/usr/share/texmf-texlive/tex/latex/base/latexsym.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
-(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
 )
-\c@codelinenumber=\count86
-\c@indent=\count87
-\digitwidth=\skip43
+\c@codelinenumber=\count88
+\c@indent=\count89
+\digitwidth=\skip45
 \savecode=\box31
-\codeboxwidth=\skip44
-\c@thisindent=\count88
+\codeboxwidth=\skip46
+\c@thisindent=\count90
 )
-(/usr/share/texmf-texlive/tex/latex/ltxmisc/algorithm.sty
+(/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
-(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
-Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \@float@every@algorithm=\toks21
-\c@algorithm=\count89
+\c@algorithm=\count91
 )
-(/usr/share/texmf-texlive/tex/latex/tools/multicol.sty
-Package: multicol 2008/12/05 v1.6h multicolumn formatting (FMi)
-\c@tracingmulticols=\count90
+(/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
+\c@tracingmulticols=\count92
 \mult@box=\box32
 \multicol@leftmargin=\dimen113
-\c@unbalance=\count91
-\c@collectmore=\count92
-\doublecol@number=\count93
-\multicoltolerance=\count94
-\multicolpretolerance=\count95
+\c@unbalance=\count93
+\c@collectmore=\count94
+\doublecol@number=\count95
+\multicoltolerance=\count96
+\multicolpretolerance=\count97
 \full@width=\dimen114
 \page@free=\dimen115
 \premulticols=\dimen116
 \postmulticols=\dimen117
-\multicolsep=\skip45
-\multicolbaselineskip=\skip46
+\multicolsep=\skip47
+\multicolbaselineskip=\skip48
 \partial@page=\box33
 \last@line=\box34
+\maxbalancingoverflow=\dimen118
 \mult@rightbox=\box35
 \mult@grightbox=\box36
 \mult@gfirstbox=\box37
@@ -314,18 +350,19 @@ Package: multicol 2008/12/05 v1.6h multicolumn formatting (FMi)
 \@tempa=\box53
 \@tempa=\box54
 \@tempa=\box55
-\c@columnbadness=\count96
-\c@finalcolumnbadness=\count97
-\last@try=\dimen118
-\multicolovershoot=\dimen119
-\multicolundershoot=\dimen120
+\c@columnbadness=\count98
+\c@finalcolumnbadness=\count99
+\last@try=\dimen119
+\multicolovershoot=\dimen120
+\multicolundershoot=\dimen121
 \mult@nat@firstbox=\box56
 \colbreak@box=\box57
+\mc@col@check@num=\count100
 )
-(/usr/share/texmf-texlive/tex/latex/psfrag/psfrag.sty
+(/usr/share/texlive/texmf-dist/tex/latex/psfrag/psfrag.sty
 Package: psfrag 1998/04/11 v3.04 PSfrag (MCG)
-\pfg@pcount=\count98
-\pfg@scount=\count99
+\pfg@pcount=\count101
+\pfg@scount=\count102
 \pfg@temp=\write3
 ) (./shi.sty
 
@@ -333,204 +370,217 @@ LaTeX Warning: You have requested package `shi',
                but the package provides `aszfolie'.
 
 Package: aszfolie 
-(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
-Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
 
-(/etc/texmf/tex/latex/config/color.cfg
-File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package color Info: Driver file: dvips.def on input line 130.
-
-(/usr/share/texmf-texlive/tex/latex/graphics/dvipsnam.def
-File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
-))
-(/usr/share/texmf-texlive/tex/latex/tools/calc.sty
-Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count100
-\calc@Bcount=\count101
-\calc@Adimen=\dimen121
-\calc@Bdimen=\dimen122
-\calc@Askip=\skip47
-\calc@Bskip=\skip48
-LaTeX Info: Redefining \setlength on input line 76.
-LaTeX Info: Redefining \addtolength on input line 77.
-\calc@Ccount=\count102
-\calc@Cskip=\skip49
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count103
+\calc@Bcount=\count104
+\calc@Adimen=\dimen122
+\calc@Bdimen=\dimen123
+\calc@Askip=\skip49
+\calc@Bskip=\skip50
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count105
+\calc@Cskip=\skip51
 )
 \asz@logo=\box58
-\slidetitleskip=\skip50
+\slidetitleskip=\skip52
 )
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2000/07/18 v2.13 AMS math features
-\@mathmargin=\skip51
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip53
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
 
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
-File: amsgen.sty 1999/11/30 v2.0
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks22
-\ex@=\dimen123
+\ex@=\dimen124
 ))
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
-Package: amsbsy 1999/11/29 v1.2d
-\pmbraise@=\dimen124
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen125
 )
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
-Package: amsopn 1999/12/14 v2.01 operator names
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count103
-LaTeX Info: Redefining \frac on input line 211.
-\uproot@=\count104
-\leftroot@=\count105
-LaTeX Info: Redefining \overline on input line 307.
-\classnum@=\count106
-\DOTSCASE@=\count107
-LaTeX Info: Redefining \ldots on input line 379.
-LaTeX Info: Redefining \dots on input line 382.
-LaTeX Info: Redefining \cdots on input line 467.
+\inf@bad=\count106
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count107
+\leftroot@=\count108
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count109
+\DOTSCASE@=\count110
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
 \Mathstrutbox@=\box59
 \strutbox@=\box60
-\big@size=\dimen125
-LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
-\macc@depth=\count108
-\c@MaxMatrixCols=\count109
+\big@size=\dimen126
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count111
+\c@MaxMatrixCols=\count112
 \dotsspace@=\muskip10
-\c@parentequation=\count110
-\dspbrk@lvl=\count111
+\c@parentequation=\count113
+\dspbrk@lvl=\count114
 \tag@help=\toks23
-\row@=\count112
-\column@=\count113
-\maxfields@=\count114
+\row@=\count115
+\column@=\count116
+\maxfields@=\count117
 \andhelp@=\toks24
-\eqnshift@=\dimen126
-\alignsep@=\dimen127
-\tagshift@=\dimen128
-\tagwidth@=\dimen129
-\totwidth@=\dimen130
-\lineht@=\dimen131
+\eqnshift@=\dimen127
+\alignsep@=\dimen128
+\tagshift@=\dimen129
+\tagwidth@=\dimen130
+\totwidth@=\dimen131
+\lineht@=\dimen132
 \@envbody=\toks25
-\multlinegap=\skip52
-\multlinetaggap=\skip53
+\multlinegap=\skip54
+\multlinetaggap=\skip55
 \mathdisplay@stack=\toks26
-LaTeX Info: Redefining \[ on input line 2666.
-LaTeX Info: Redefining \] on input line 2667.
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
 )
-(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
-Package: amssymb 2009/06/22 v3.00
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
-Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup5
 \symAMSb=\mathgroup6
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty
-Package: amsthm 2004/08/06 v2.20
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2017/10/31 v2.20.4
 \thm@style=\toks27
 \thm@bodyfont=\toks28
 \thm@headfont=\toks29
 \thm@notefont=\toks30
 \thm@headpunct=\toks31
-\thm@preskip=\skip54
-\thm@postskip=\skip55
-\thm@headsep=\skip56
+\thm@preskip=\skip56
+\thm@postskip=\skip57
+\thm@headsep=\skip58
 \dth@everypar=\toks32
 )
-(/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2018/02/06 v6.86b Hypertext links for LaTeX
 
-(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in pdf mode not detected.
-)
-(/usr/share/texmf-texlive/tex/generic/oberdiek/ifvtex.sty
-Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package hobsub Info: Skipping package `ifluatex' (already loaded).
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package hobsub Info: Skipping package `etexcmds' (already loaded).
+Package hobsub Info: Skipping package `kvsetkeys' (already loaded).
+Package hobsub Info: Skipping package `kvdefinekeys' (already loaded).
+Package hobsub Info: Skipping package `pdftexcmds' (already loaded).
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
 )
-(/usr/share/texmf-texlive/tex/generic/ifxetex/ifxetex.sty
-Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
 )
-(/usr/share/texmf-texlive/tex/latex/oberdiek/hycolor.sty
-Package: hycolor 2009/10/02 v1.5 Code for color options of hyperref/bookmark (H
-O)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen133
+\Hy@linkcounter=\count118
+\Hy@pagecounter=\count119
 
-(/usr/share/texmf-texlive/tex/latex/oberdiek/xcolor-patch.sty
-Package: xcolor-patch 2009/10/02 xcolor patch
-))
-\@linkdim=\dimen132
-\Hy@linkcounter=\count115
-\Hy@pagecounter=\count116
-
-(/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
 )
-(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
+\Hy@SavedSpaceFactor=\count120
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 2864.
-Package hyperref Info: Hyper figures OFF on input line 2975.
-Package hyperref Info: Link nesting OFF on input line 2980.
-Package hyperref Info: Hyper index ON on input line 2983.
-Package hyperref Info: Plain pages OFF on input line 2990.
-Package hyperref Info: Backreferencing ON on input line 2993.
+Package hyperref Info: Option `colorlinks' set `true' on input line 4383.
+Package hyperref Info: Hyper figures OFF on input line 4509.
+Package hyperref Info: Link nesting OFF on input line 4514.
+Package hyperref Info: Hyper index ON on input line 4517.
+Package hyperref Info: Plain pages OFF on input line 4524.
+Package hyperref Info: Backreferencing ON on input line 4527.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4762.
 
-Implicit mode ON; LaTeX internals redefined
-Package hyperref Info: Bookmarks ON on input line 3191.
-(/usr/share/texmf-texlive/tex/latex/hyperref/backref.sty
-Package: backref 2006/09/05 v1.28 Bibliographical back referencing
-)
-(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/backref.sty
+Package: backref 2016/05/21 v1.39 Bibliographical back referencing
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+))
+\c@Hy@tempcnt=\count121
+
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
-Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 3428.
-
-(/usr/share/texmf-texlive/tex/generic/oberdiek/bitset.sty
-Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
-
-(/usr/share/texmf-texlive/tex/generic/oberdiek/intcalc.sty
-Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+LaTeX Info: Redefining \url on input line 5115.
+\XeTeXLinkMargin=\dimen134
+\Fld@menulength=\count122
+\Field@Width=\dimen135
+\Fld@charsize=\dimen136
+Package hyperref Info: Hyper figures OFF on input line 6369.
+Package hyperref Info: Link nesting OFF on input line 6374.
+Package hyperref Info: Hyper index ON on input line 6377.
+Package hyperref Info: backreferencing ON on input line 6382.
+Package hyperref Info: Link coloring ON on input line 6387.
+Package hyperref Info: Link coloring with OCG OFF on input line 6394.
+Package hyperref Info: PDF/A mode OFF on input line 6399.
+LaTeX Info: Redefining \ref on input line 6439.
+LaTeX Info: Redefining \pageref on input line 6443.
+\Hy@abspage=\count123
+\c@Item=\count124
+\c@Hfootnote=\count125
 )
-(/usr/share/texmf-texlive/tex/generic/oberdiek/bigintcalc.sty
-Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
-))
-\Fld@menulength=\count117
-\Field@Width=\dimen133
-\Fld@charsize=\dimen134
-\Field@toks=\toks33
-Package hyperref Info: Hyper figures OFF on input line 4377.
-Package hyperref Info: Link nesting OFF on input line 4382.
-Package hyperref Info: Hyper index ON on input line 4385.
-Package hyperref Info: backreferencing ON on input line 4390.
-Package hyperref Info: Link coloring ON on input line 4395.
-Package hyperref Info: Link coloring with OCG OFF on input line 4402.
-Package hyperref Info: PDF/A mode OFF on input line 4407.
+Package hyperref Info: Driver (autodetected): hpdftex.
 
-(/usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
-Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
+\Fld@listcount=\count126
+\c@bookmark@seq@number=\count127
+\Hy@SectionHShift=\skip59
 )
-\Hy@abspage=\count118
-\c@Item=\count119
-)
-*hyperref using default driver hdvips*
-(/usr/share/texmf-texlive/tex/latex/hyperref/hdvips.def
-File: hdvips.def 2009/10/09 v6.79a Hyperref driver for dvips
-
-(/usr/share/texmf-texlive/tex/latex/hyperref/pdfmark.def
-File: pdfmark.def 2009/10/09 v6.79a Hyperref definitions for pdfmark specials
-\pdf@docset=\toks34
-\pdf@box=\box61
-\pdf@toks=\toks35
-\pdf@defaulttoks=\toks36
-\Fld@listcount=\count120
-))
 Package hyperref Info: Option `colorlinks' set `false' on input line 67.
  (./pause.sty)
-\c@theorem=\count121
+\c@theorem=\count128
 Package color Info: Redefining color black on input line 286.
 
 (./aula10.aux)
@@ -551,33 +601,49 @@ LaTeX Font Info:    ... okay on input line 295.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 295.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 295.
 
- (/usr/share/texmf-texlive/tex/latex/base/ts1cmr.fd
-File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 295.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 295.
 LaTeX Font Info:    ... okay on input line 295.
-Package hyperref Info: Link coloring OFF on input line 295.
 
-(/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
-Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
-
-(/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
-Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count129
+\scratchdimen=\dimen137
+\scratchbox=\box61
+\nofMPsegments=\count130
+\nofMParguments=\count131
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count132
+\MPscratchDim=\dimen138
+\MPnumerator=\count133
+\makeMPintoPDFobject=\count134
+\everyMPtoPDFconversion=\toks34
 )
-\c@section@level=\count122
+\AtBeginShipoutBox=\box62
+Package hyperref Info: Link coloring OFF on input line 295.
+ (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count135
 )
 LaTeX Info: Redefining \ref on input line 295.
 LaTeX Info: Redefining \pageref on input line 295.
- (./aula10.out)
-(./aula10.out)
+LaTeX Info: Redefining \nameref on input line 295.
+
+(./aula10.out) (./aula10.out)
 \@outlinefile=\write4
 \openout4 = `aula10.out'.
 
-\AtBeginShipoutBox=\box62
 LaTeX Font Info:    Try loading font information for T1+lcmtt on input line 313
 .
- (/usr/share/texmf-texlive/tex/latex/base/t1lcmtt.fd
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1lcmtt.fd
 File: t1lcmtt.fd 1998/06/12 v2.2e Standard LaTeX slide font definitions
 )
 
@@ -589,29 +655,38 @@ Overfull \hbox (10.41669pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 315.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 315.
 [1
+Non-PDF special ignored!{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 Overfull \hbox (10.41669pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 321.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 321.
 [2]
 LaTeX Font Info:    Try loading font information for OML+lcmm on input line 326
 .
- (/usr/share/texmf-texlive/tex/latex/base/omllcmm.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omllcmm.fd
 File: omllcmm.fd 1998/06/12 v2.2e Standard LaTeX slide font definitions
 )
 LaTeX Font Info:    Try loading font information for OMS+lcmsy on input line 32
 6.
 
-(/usr/share/texmf-texlive/tex/latex/base/omslcmsy.fd
+(/usr/share/texlive/texmf-dist/tex/latex/base/omslcmsy.fd
 File: omslcmsy.fd 1998/06/12 v2.2e Standard LaTeX slide font definitions
 )
 LaTeX Font Info:    Try loading font information for OMX+lcmex on input line 32
 6.
 
-(/usr/share/texmf-texlive/tex/latex/base/omxlcmex.fd
+(/usr/share/texlive/texmf-dist/tex/latex/base/omxlcmex.fd
 File: omxlcmex.fd 1998/06/12 v2.2e Standard LaTeX slide font definitions
 )
 LaTeX Font Info:    External font `cmex10 at17.28pt' loaded for size
@@ -622,94 +697,176 @@ LaTeX Font Info:    External font `cmex10 at17.28pt' loaded for size
 (Font)              <13.82> on input line 326.
 LaTeX Font Info:    Try loading font information for U+msa on input line 326.
 
-(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 326.
 
-(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Overfull \hbox (10.41669pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 329.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 329.
 [3]
 Overfull \hbox (10.41669pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 337.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 337.
 [4]
 Overfull \hbox (10.41669pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 341.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 341.
 [5]
-Overfull \hbox (14.19127pt too wide) in paragraph at lines 352--353
-\T1/lcmss/m/n/19.907 geren-ci-a-dos por roteador e com fa-cil-i-dades de sin-cr
-oniza-ção global. 
- []
-
-
 Overfull \hbox (10.41669pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 353.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 353.
 [6]
 Overfull \hbox (10.41669pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 367.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 367.
 [7]
-File: fig01.eps Graphic file (type eps)
- <fig01.eps>
+Package epstopdf Info: Source file: <fig01.eps>
+(epstopdf)                    date: 2016-04-07 02:27:02
+(epstopdf)                    size: 10970 bytes
+(epstopdf)             Output file: <fig01-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-16 01:52:20
+(epstopdf)                    size: 7561 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig01-eps-converted-to.pdf
+ fig01.eps>
+(epstopdf)             \includegraphics on input line 372.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig01-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig01-eps-converted-to.pdf, id=39, 960.58875pt x 461.725pt>
+File: fig01-eps-converted-to.pdf Graphic file (type pdf)
+<use fig01-eps-converted-to.pdf>
+Package pdftex.def Info: fig01-eps-converted-to.pdf  used on input line 372.
+(pdftex.def)             Requested size: 532.75197pt x 256.0748pt.
+
 Overfull \hbox (10.41669pt too wide) has occurred while \output is active
 [][] 
  []
 
-[8]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 374.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 374.
+[8 <./fig01-eps-converted-to.pdf>]
 Overfull \hbox (10.41669pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 392.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 392.
 [9]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 396.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 396.
 [10]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 406.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 406.
 [11]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 413.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 413.
 [12]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 418.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 418.
 [13]
-File: fig02.eps Graphic file (type eps)
- <fig02.eps>
+Package epstopdf Info: Source file: <fig02.eps>
+(epstopdf)                    date: 2016-04-07 02:26:52
+(epstopdf)                    size: 10437 bytes
+(epstopdf)             Output file: <fig02-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-16 01:52:20
+(epstopdf)                    size: 7480 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig02-eps-converted-to.pdf
+ fig02.eps>
+(epstopdf)             \includegraphics on input line 423.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig02-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig02-eps-converted-to.pdf, id=75, 940.51375pt x 483.8075pt>
+File: fig02-eps-converted-to.pdf Graphic file (type pdf)
+<use fig02-eps-converted-to.pdf>
+Package pdftex.def Info: fig02-eps-converted-to.pdf  used on input line 423.
+(pdftex.def)             Requested size: 497.82413pt x 256.0748pt.
+
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
-[14]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 425.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 425.
+[14 <./fig02-eps-converted-to.pdf>]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 429.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 429.
 [15]
 Overfull \hbox (28.6494pt too wide) in paragraph at lines 434--435
 []\T1/lcmss/m/n/19.907 Seja $[]\OML/lcmm/m/it/19.907 r \OT1/lcmss/m/n/19.907 = 
-\OML/lcmm/m/it/19.907 n=p$[]\T1/lcmss/m/n/19.907 . A é par-ti-cionado como segu
-e: $[]\OML/lcmm/m/it/19.907 A \OT1/lcmss/m/n/19.907 = (\OML/lcmm/m/it/19.907 A[
-]; A[]; []  ; A[]\OT1/lcmss/m/n/19.907 )$[]\T1/lcmss/m/n/19.907 ,
+\OML/lcmm/m/it/19.907 n=p$[]\T1/lcmss/m/n/19.907 . A é par-ti-ci-o-nado como se
+-gue: $[]\OML/lcmm/m/it/19.907 A \OT1/lcmss/m/n/19.907 = (\OML/lcmm/m/it/19.907
+ A[]; A[]; []  ; A[]\OT1/lcmss/m/n/19.907 )$[]\T1/lcmss/m/n/19.907 ,
  []
 
 
@@ -717,11 +874,15 @@ Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 435.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 435.
 [16]
 Overfull \hbox (12.06496pt too wide) in paragraph at lines 440--441
-[]\T1/lcmss/m/n/19.907 Para de-ter-mi-nar a soma S, cada pro-ces-sador $[]\OML/
-lcmm/m/it/19.907 P[]$[] \T1/lcmss/m/n/19.907 com-puta a $[]\OML/lcmm/m/it/19.90
-7 i\OMS/lcmsy/m/n/19.907 ^^@$[]\T1/lcmss/m/n/19.907 ésima
+[]\T1/lcmss/m/n/19.907 Para de-ter-mi-nar a soma S, cada pro-ces-sa-dor $[]\OML
+/lcmm/m/it/19.907 P[]$[] \T1/lcmss/m/n/19.907 com-puta a $[]\OML/lcmm/m/it/19.9
+07 i\OMS/lcmsy/m/n/19.907 ^^@$[]\T1/lcmss/m/n/19.907 ésima
  []
 
 
@@ -729,27 +890,43 @@ Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 441.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 441.
 [17]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 450.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 450.
 [18]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 470.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 470.
 [19]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 481.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 481.
 [20]
 Overfull \hbox (18.05568pt too wide) in paragraph at lines 489--490
 []  $[]\U/msa/m/n/19.907 B$[] $[]\OML/lcmm/m/it/19.907 P[]$[] \T1/lcmss/m/n/19.
 907 re-cebe $[]\OML/lcmm/m/it/19.907 p \OMS/lcmsy/m/n/19.907 ^^@ \OT1/lcmss/m/n
-/19.907 1$[] \T1/lcmss/m/n/19.907 men-sagens, to-das no mesmo su-per-passo(BSP)
-
+/19.907 1$[] \T1/lcmss/m/n/19.907 men-sa-gens, to-das no mesmo su-per-passo(BSP
+)
  []
 
 
@@ -757,15 +934,23 @@ Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 490.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 490.
 [21]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 494.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 494.
 [22]
 Overfull \hbox (1.26262pt too wide) in paragraph at lines 498--499
-[]\T1/lcmss/m/n/19.907 A solução do prob-lema de soma de pre-fixos no mod-elo B
-SP/CGM
+[]\T1/lcmss/m/n/19.907 A so-lu-ção do pro-blema de soma de pre-fi-xos no mo-del
+o BSP/CGM
  []
 
 
@@ -773,53 +958,93 @@ Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 499.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 499.
 [23]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 504.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 504.
 [24]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 511.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 511.
 [25]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 526.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 526.
 [26]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 540.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 540.
 [27]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 549.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 549.
 [28]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 553.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 553.
 [29]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 558.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 558.
 [30]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 563.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 563.
 [31]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 573.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 573.
 [32]
-Overfull \hbox (38.57486pt too wide) in paragraph at lines 584--584
+Overfull \hbox (38.57486pt too wide) in paragraph at lines 585--585
 []| [] 
  []
 
@@ -828,259 +1053,1699 @@ Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 586.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 586.
 [33]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 593.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 593.
 [34]
-Overfull \hbox (7.07129pt too wide) in paragraph at lines 598--599
-[]\T1/lcmss/m/n/19.907 O método di-vide a en-trada em $[]\OML/lcmm/m/it/19.907 
-p$[] \T1/lcmss/m/n/19.907 sub-con-jun-tos de mesmo tamanho
- []
-
-
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 600.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 600.
 [35]
-Overfull \hbox (1.17125pt too wide) in paragraph at lines 604--605
-[][][][][]\T1/lcmss/bx/n/19.907 Definição 1. [][]\T1/lcmss/m/sl/19.907 A []\T1/
-lcmss/bx/sl/19.907 me-di-ana[] \T1/lcmss/m/sl/19.907 de um con-junto or-de-nado
- de $[]\OML/lcmm/m/it/19.907 n$[] \T1/lcmss/m/sl/19.907 números
- []
-
-
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 608.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 608.
 [36]
-Overfull \hbox (25.35506pt too wide) in paragraph at lines 611--612
-[][][][][]\T1/lcmss/bx/n/19.907 Definição 2. [][]\T1/lcmss/m/sl/19.907 Os []\T1
-/lcmss/bx/sl/19.907 p-quartis[] \T1/lcmss/m/sl/19.907 de um con-junto or-de-nad
-o $[]\OML/lcmm/m/it/19.907 A$[] \T1/lcmss/m/sl/19.907 de tamanho
- []
-
-
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 615.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 615.
 [37]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 622.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 622.
 [38]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 634.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 634.
 [39]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 642.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 642.
 [40]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 659.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 659.
 [41]
-File: fig03.eps Graphic file (type eps)
- <fig03.eps>
+Package epstopdf Info: Source file: <fig03.eps>
+(epstopdf)                    date: 2016-04-07 02:27:02
+(epstopdf)                    size: 11311 bytes
+(epstopdf)             Output file: <fig03-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-16 01:52:20
+(epstopdf)                    size: 5834 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig03-eps-converted-to.pdf
+ fig03.eps>
+(epstopdf)             \includegraphics on input line 664.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig03-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig03-eps-converted-to.pdf, id=204, 707.64375pt x 463.7325pt>
+File: fig03-eps-converted-to.pdf Graphic file (type pdf)
+<use fig03-eps-converted-to.pdf>
+Package pdftex.def Info: fig03-eps-converted-to.pdf  used on input line 664.
+(pdftex.def)             Requested size: 521.02432pt x 341.43306pt.
+
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
-[42]
-File: fig04.eps Graphic file (type eps)
- <fig04.eps>
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 666.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 666.
+[42 <./fig03-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <fig04.eps>
+(epstopdf)                    date: 2016-04-07 02:26:56
+(epstopdf)                    size: 19756 bytes
+(epstopdf)             Output file: <fig04-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-16 01:52:20
+(epstopdf)                    size: 5985 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig04-eps-converted-to.pdf
+ fig04.eps>
+(epstopdf)             \includegraphics on input line 671.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig04-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig04-eps-converted-to.pdf, id=214, 761.84625pt x 571.13374pt>
+File: fig04-eps-converted-to.pdf Graphic file (type pdf)
+<use fig04-eps-converted-to.pdf>
+Package pdftex.def Info: fig04-eps-converted-to.pdf  used on input line 671.
+(pdftex.def)             Requested size: 455.44893pt x 341.43306pt.
+
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
-[43]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 673.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 673.
+[43 <./fig04-eps-converted-to.pdf>]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 682.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 682.
 [44]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 693.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 693.
 [45]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 698.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 698.
 [46]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 705.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 705.
 [47]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 732.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 732.
 [48]
+
+Class slides Warning: Slide 48 too long on input line 742.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 742.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 742.
+[48]
+Overfull \hbox (37.11845pt too wide) in paragraph at lines 755--756
+[]$[]\U/msa/m/n/19.907 B$[] \T1/lcmss/m/n/19.907 A com-pu-ta-ção lo-cal to-tal 
+(con-si-de-rando $[]\OML/lcmm/m/it/19.907 O\OT1/lcmss/m/n/19.907 (\OML/lcmm/m/i
+t/19.907 p\OT1/lcmss/m/n/19.907 )$[] \T1/lcmss/m/n/19.907 ro-da-das) é $[]\OML/
+lcmm/m/it/19.907 O\OT1/lcmss/m/n/19.907 (\OML/lcmm/m/it/19.907 n [] n\OT1/lcmss
+/m/n/19.907 )$[] 
+ []
+
+
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 756.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 756.
 [49]
-File: fig05.eps Graphic file (type eps)
- <fig05.eps>
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 770.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 770.
 [50]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 774.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 774.
 [51]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 785.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 785.
 [52]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 800.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 800.
 [53]
-File: fig06.eps Graphic file (type eps)
- <fig06.eps>
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 809.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 809.
 [54]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 819.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 819.
 [55]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 827.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 827.
 [56]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 841.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 841.
 [57]
-
-Class slides Warning: Slide 57 too long on input line 775.
-
-[57]
-File: fig07.eps Graphic file (type eps)
- <fig07.eps>
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 852.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 852.
 [58]
+Overfull \hbox (76.33989pt too wide) in paragraph at lines 857--858
+[][]\T1/lcmss/bx/n/19.907 Entrada:[]\T1/lcmss/m/n/19.907 (1) ve-tor $[]\OML/lcm
+m/m/it/19.907 A$[] \T1/lcmss/m/n/19.907 de $[]\OML/lcmm/m/it/19.907 n$[] \T1/lc
+mss/m/n/19.907 ele-men-tos. (2) $[]\OML/lcmm/m/it/19.907 p$[] \T1/lcmss/m/n/19.
+907 pro-ces-sa-do-res $[]\OML/lcmm/m/it/19.907 p[]:p[]; []  ; p[]$[]\T1/lcmss/m
+/n/19.907 .
+ []
+
+
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 861.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 861.
 [59]
+
+LaTeX Font Warning: Font shape `T1/lcmss/m/sc' undefined
+(Font)              using `T1/lcmss/m/n' instead on input line 866.
+
+
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 883.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 883.
 [60]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 891.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 891.
 [61]
-Overfull \hbox (28.88625pt too wide) in paragraph at lines 803--804
-[]\T1/lcmss/m/n/19.907 Um intervalo-s de com-pri-mento $[]\OML/lcmm/m/it/19.907
- k$[] \T1/lcmss/m/n/19.907 é uma se-quen-cia $[]\OML/lcmm/m/it/19.907 I \OT1/lc
-mss/m/n/19.907 = (\OML/lcmm/m/it/19.907 i[]; i[]; []  ; i[]\OT1/lcmss/m/n/19.90
-7 )$[]
- []
-
-
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 905.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 905.
 [62]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 909.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 909.
 [63]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 917.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 917.
 [64]
+Overfull \hbox (39.36888pt too wide) in paragraph at lines 921--922
+\T1/lcmss/m/sc/19.907 clico $[]\OML/lcmm/m/it/19.907 ^^[$[] \T1/lcmss/m/sc/19.9
+07 de $[]\OT1/lcmss/m/n/19.907 (0\OML/lcmm/m/it/19.907 ; \OT1/lcmss/m/n/19.907 
+1\OML/lcmm/m/it/19.907 ; []  ; n \OMS/lcmsy/m/n/19.907 ^^@ \OT1/lcmss/m/n/19.90
+7 1)$[] \T1/lcmss/m/sc/19.907 tal que a sequên-cia $[]\OT1/lcmss/m/n/19.907 (\O
+ML/lcmm/m/it/19.907 s[]; s[]; []  ; s[]\OT1/lcmss/m/n/19.907 )$[]
+ []
+
+
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 922.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 922.
 [65]
-LaTeX Font Info:    External font `cmex10 at17.28pt' loaded for size
-(Font)              <23.89> on input line 835.
-
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 930.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 930.
 [66]
+Overfull \hbox (30.4563pt too wide) in paragraph at lines 934--935
+[]\T1/lcmss/m/sc/19.907 Dada uma sequên-cia bitô-nica de nú-me-ros dis-tin-tos 
+$[]\OT1/lcmss/m/n/19.907 (\OML/lcmm/m/it/19.907 s[]; s[]; []  ; s[]\OT1/lcmss/m
+/n/19.907 )$[]\T1/lcmss/m/sc/19.907 ,
+ []
+
+
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
-[67]
-
-Class slides Warning: Slide 67 too long on input line 859.
-
-[67]
-
-Class slides Warning: Slide 67 too long on input line 862.
-
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 942.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 942.
 [67]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 961.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 961.
 [68]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 970.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 970.
 [69]
 Overfull \hbox (16.6667pt too wide) has occurred while \output is active
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 983.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 983.
 [70]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 998.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 998.
+[71]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1014.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1014.
+[72]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1032.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1032.
+[73]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1050.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1050.
+[74]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1070.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1070.
+[75]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1079.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1079.
+[76]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1096.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1096.
+[77]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1115.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1115.
+[78]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1123.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1123.
+[79]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1133.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1133.
+[80]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1141.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1141.
+[81]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1157.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1157.
+[82]
+
+Class slides Warning: Slide 82 too long on input line 1166.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1166.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1166.
+[82]
+
+Class slides Warning: Slide 82 too long on input line 1171.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1171.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1171.
+[82]
+Package epstopdf Info: Source file: <fig17.eps>
+(epstopdf)                    date: 2020-04-21 02:24:03
+(epstopdf)                    size: 71808 bytes
+(epstopdf)             Output file: <fig17-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 02:24:07
+(epstopdf)                    size: 18619 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig17-eps-converted-to.pdf
+ fig17.eps>
+(epstopdf)             \includegraphics on input line 1180.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig17-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig17-eps-converted-to.pdf, id=401, 914.41624pt x 252.945pt>
+File: fig17-eps-converted-to.pdf Graphic file (type pdf)
+<use fig17-eps-converted-to.pdf>
+Package pdftex.def Info: fig17-eps-converted-to.pdf  used on input line 1180.
+(pdftex.def)             Requested size: 617.16248pt x 170.71652pt.
+
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1182.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1182.
+[83 <./fig17-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <fig17.eps>
+(epstopdf)                    date: 2020-04-21 02:24:03
+(epstopdf)                    size: 71808 bytes
+(epstopdf)             Output file: <fig17-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 02:24:07
+(epstopdf)                    size: 18619 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig17-eps-converted-to.pdf
+ fig17.eps>
+(epstopdf)             \includegraphics on input line 1189.
+Package epstopdf Info: Output file is already uptodate.
+File: fig17-eps-converted-to.pdf Graphic file (type pdf)
+<use fig17-eps-converted-to.pdf>
+Package pdftex.def Info: fig17-eps-converted-to.pdf  used on input line 1189.
+(pdftex.def)             Requested size: 617.16248pt x 170.71652pt.
+
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1193.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1193.
+[84]
+Package epstopdf Info: Source file: <fig17.eps>
+(epstopdf)                    date: 2020-04-21 02:24:03
+(epstopdf)                    size: 71808 bytes
+(epstopdf)             Output file: <fig17-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 02:24:07
+(epstopdf)                    size: 18619 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig17-eps-converted-to.pdf
+ fig17.eps>
+(epstopdf)             \includegraphics on input line 1200.
+Package epstopdf Info: Output file is already uptodate.
+File: fig17-eps-converted-to.pdf Graphic file (type pdf)
+<use fig17-eps-converted-to.pdf>
+Package pdftex.def Info: fig17-eps-converted-to.pdf  used on input line 1200.
+(pdftex.def)             Requested size: 617.16248pt x 170.71652pt.
+
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1204.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1204.
+[85]
+Package epstopdf Info: Source file: <fig18.eps>
+(epstopdf)                    date: 2020-04-21 02:32:11
+(epstopdf)                    size: 76254 bytes
+(epstopdf)             Output file: <fig18-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 02:36:40
+(epstopdf)                    size: 20240 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig18-eps-converted-to.pdf
+ fig18.eps>
+(epstopdf)             \includegraphics on input line 1211.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig18-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig18-eps-converted-to.pdf, id=417, 893.3375pt x 295.1025pt>
+File: fig18-eps-converted-to.pdf Graphic file (type pdf)
+<use fig18-eps-converted-to.pdf>
+Package pdftex.def Info: fig18-eps-converted-to.pdf  used on input line 1211.
+(pdftex.def)             Requested size: 516.80025pt x 170.71652pt.
+
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1215.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1215.
+[86 <./fig18-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <fig18.eps>
+(epstopdf)                    date: 2020-04-21 02:32:11
+(epstopdf)                    size: 76254 bytes
+(epstopdf)             Output file: <fig18-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 02:36:40
+(epstopdf)                    size: 20240 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig18-eps-converted-to.pdf
+ fig18.eps>
+(epstopdf)             \includegraphics on input line 1222.
+Package epstopdf Info: Output file is already uptodate.
+File: fig18-eps-converted-to.pdf Graphic file (type pdf)
+<use fig18-eps-converted-to.pdf>
+Package pdftex.def Info: fig18-eps-converted-to.pdf  used on input line 1222.
+(pdftex.def)             Requested size: 516.80025pt x 170.71652pt.
+
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1226.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1226.
+[87]
+Package epstopdf Info: Source file: <fig19.eps>
+(epstopdf)                    date: 2020-04-21 02:48:47
+(epstopdf)                    size: 83673 bytes
+(epstopdf)             Output file: <fig19-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 02:51:29
+(epstopdf)                    size: 22280 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig19-eps-converted-to.pdf
+ fig19.eps>
+(epstopdf)             \includegraphics on input line 1233.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig19-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig19-eps-converted-to.pdf, id=429, 929.4725pt x 343.2825pt>
+File: fig19-eps-converted-to.pdf Graphic file (type pdf)
+<use fig19-eps-converted-to.pdf>
+Package pdftex.def Info: fig19-eps-converted-to.pdf  used on input line 1233.
+(pdftex.def)             Requested size: 462.2248pt x 170.71652pt.
+
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1237.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1237.
+[88 <./fig19-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <fig19.eps>
+(epstopdf)                    date: 2020-04-21 02:48:47
+(epstopdf)                    size: 83673 bytes
+(epstopdf)             Output file: <fig19-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 02:51:29
+(epstopdf)                    size: 22280 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig19-eps-converted-to.pdf
+ fig19.eps>
+(epstopdf)             \includegraphics on input line 1244.
+Package epstopdf Info: Output file is already uptodate.
+File: fig19-eps-converted-to.pdf Graphic file (type pdf)
+<use fig19-eps-converted-to.pdf>
+Package pdftex.def Info: fig19-eps-converted-to.pdf  used on input line 1244.
+(pdftex.def)             Requested size: 462.2248pt x 170.71652pt.
+
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1248.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1248.
+[89]
+Package epstopdf Info: Source file: <fig20.eps>
+(epstopdf)                    date: 2020-04-21 03:03:27
+(epstopdf)                    size: 71040 bytes
+(epstopdf)             Output file: <fig20-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 03:05:25
+(epstopdf)                    size: 18638 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig20-eps-converted-to.pdf
+ fig20.eps>
+(epstopdf)             \includegraphics on input line 1255.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig20-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig20-eps-converted-to.pdf, id=443, 896.34875pt x 251.94125pt>
+File: fig20-eps-converted-to.pdf Graphic file (type pdf)
+<use fig20-eps-converted-to.pdf>
+Package pdftex.def Info: fig20-eps-converted-to.pdf  used on input line 1255.
+(pdftex.def)             Requested size: 607.37546pt x 170.71652pt.
+
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1259.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1259.
+[90 <./fig20-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <fig20.eps>
+(epstopdf)                    date: 2020-04-21 03:03:27
+(epstopdf)                    size: 71040 bytes
+(epstopdf)             Output file: <fig20-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 03:05:25
+(epstopdf)                    size: 18638 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig20-eps-converted-to.pdf
+ fig20.eps>
+(epstopdf)             \includegraphics on input line 1266.
+Package epstopdf Info: Output file is already uptodate.
+File: fig20-eps-converted-to.pdf Graphic file (type pdf)
+<use fig20-eps-converted-to.pdf>
+Package pdftex.def Info: fig20-eps-converted-to.pdf  used on input line 1266.
+(pdftex.def)             Requested size: 607.37546pt x 170.71652pt.
+
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1270.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1270.
+[91]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1281.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1281.
+[92]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1285.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1285.
+[93]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1292.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1292.
+[94]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1298.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1298.
+[95]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1327.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1327.
+[96]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1331.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1331.
+[97]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1340.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1340.
+[98]
+Overfull \hbox (16.6667pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1355.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1355.
+[99]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1365.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1365.
+[100]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1374.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1374.
+[101]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1383.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1383.
+[102]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1393.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1393.
+[103]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1402.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1402.
+[104]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1412.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1412.
+[105]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1420.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1420.
+[106]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1427.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1427.
+[107]
+Package epstopdf Info: Source file: <fig15.eps>
+(epstopdf)                    date: 2020-04-19 09:53:10
+(epstopdf)                    size: 161364 bytes
+(epstopdf)             Output file: <fig15-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-19 09:55:14
+(epstopdf)                    size: 38631 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig15-eps-converted-to.pdf
+ fig15.eps>
+(epstopdf)             \includegraphics on input line 1433.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig15-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig15-eps-converted-to.pdf, id=522, 1031.855pt x 516.93124pt>
+File: fig15-eps-converted-to.pdf Graphic file (type pdf)
+<use fig15-eps-converted-to.pdf>
+Package pdftex.def Info: fig15-eps-converted-to.pdf  used on input line 1433.
+(pdftex.def)             Requested size: 681.56174pt x 341.43306pt.
+
+Overfull \hbox (31.56174pt too wide) in paragraph at lines 1433--1434
+ [] 
+ []
+
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1436.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1436.
+[108 <./fig15-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <fig16.eps>
+(epstopdf)                    date: 2020-04-19 10:00:48
+(epstopdf)                    size: 89781 bytes
+(epstopdf)             Output file: <fig16-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-19 10:01:09
+(epstopdf)                    size: 21719 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig16-eps-converted-to.pdf
+ fig16.eps>
+(epstopdf)             \includegraphics on input line 1442.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig16-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig16-eps-converted-to.pdf, id=530, 891.33pt x 400.49625pt>
+File: fig16-eps-converted-to.pdf Graphic file (type pdf)
+<use fig16-eps-converted-to.pdf>
+Package pdftex.def Info: fig16-eps-converted-to.pdf  used on input line 1442.
+(pdftex.def)             Requested size: 633.27036pt x 284.52756pt.
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1445.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1445.
+[109 <./fig16-eps-converted-to.pdf>]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1464.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1464.
+[110]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1468.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1468.
+[111]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1476.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1476.
+[112]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1484.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1484.
+[113]
+Overfull \hbox (66.90352pt too wide) in paragraph at lines 1493--1494
+[]\T1/lcmss/m/sc/19.907 (2) Em cada um dos gru-pos ob-ti-dos, apli-que o al-go-
+ritmo $[][]$[]. 
+ []
+
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1504.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1504.
+[114]
+
+Class slides Warning: Slide 114 too long on input line 1514.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1514.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1514.
+[114]
+
+Class slides Warning: Slide 114 too long on input line 1516.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1516.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1516.
+[114]
+Package epstopdf Info: Source file: <fig21.eps>
+(epstopdf)                    date: 2020-04-21 11:44:43
+(epstopdf)                    size: 92619 bytes
+(epstopdf)             Output file: <fig21-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 11:45:19
+(epstopdf)                    size: 22437 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig21-eps-converted-to.pdf
+ fig21.eps>
+(epstopdf)             \includegraphics on input line 1522.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig21-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig21-eps-converted-to.pdf, id=567, 948.54375pt x 335.2525pt>
+File: fig21-eps-converted-to.pdf Graphic file (type pdf)
+<use fig21-eps-converted-to.pdf>
+Package pdftex.def Info: fig21-eps-converted-to.pdf  used on input line 1522.
+(pdftex.def)             Requested size: 483.01276pt x 170.71652pt.
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1528.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1528.
+[115 <./fig21-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <fig21.eps>
+(epstopdf)                    date: 2020-04-21 11:44:43
+(epstopdf)                    size: 92619 bytes
+(epstopdf)             Output file: <fig21-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 11:45:19
+(epstopdf)                    size: 22437 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig21-eps-converted-to.pdf
+ fig21.eps>
+(epstopdf)             \includegraphics on input line 1534.
+Package epstopdf Info: Output file is already uptodate.
+File: fig21-eps-converted-to.pdf Graphic file (type pdf)
+<use fig21-eps-converted-to.pdf>
+Package pdftex.def Info: fig21-eps-converted-to.pdf  used on input line 1534.
+(pdftex.def)             Requested size: 483.01276pt x 170.71652pt.
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1539.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1539.
+[116]
+Package epstopdf Info: Source file: <fig22.eps>
+(epstopdf)                    date: 2020-04-21 11:51:02
+(epstopdf)                    size: 83190 bytes
+(epstopdf)             Output file: <fig22-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 11:52:24
+(epstopdf)                    size: 18625 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig22-eps-converted-to.pdf
+ fig22.eps>
+(epstopdf)             \includegraphics on input line 1546.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig22-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig22-eps-converted-to.pdf, id=580, 1280.785pt x 304.13625pt>
+File: fig22-eps-converted-to.pdf Graphic file (type pdf)
+<use fig22-eps-converted-to.pdf>
+Package pdftex.def Info: fig22-eps-converted-to.pdf  used on input line 1546.
+(pdftex.def)             Requested size: 718.93497pt x 170.71652pt.
+
+Overfull \hbox (68.93497pt too wide) in paragraph at lines 1546--1547
+ [] 
+ []
+
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1551.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1551.
+[117 <./fig22-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <fig22.eps>
+(epstopdf)                    date: 2020-04-21 11:51:02
+(epstopdf)                    size: 83190 bytes
+(epstopdf)             Output file: <fig22-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 11:52:24
+(epstopdf)                    size: 18625 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig22-eps-converted-to.pdf
+ fig22.eps>
+(epstopdf)             \includegraphics on input line 1557.
+Package epstopdf Info: Output file is already uptodate.
+File: fig22-eps-converted-to.pdf Graphic file (type pdf)
+<use fig22-eps-converted-to.pdf>
+Package pdftex.def Info: fig22-eps-converted-to.pdf  used on input line 1557.
+(pdftex.def)             Requested size: 718.93497pt x 170.71652pt.
+
+Overfull \hbox (68.93497pt too wide) in paragraph at lines 1557--1558
+ [] 
+ []
+
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1562.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1562.
+[118]
+Package epstopdf Info: Source file: <fig22.eps>
+(epstopdf)                    date: 2020-04-21 11:51:02
+(epstopdf)                    size: 83190 bytes
+(epstopdf)             Output file: <fig22-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 11:52:24
+(epstopdf)                    size: 18625 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig22-eps-converted-to.pdf
+ fig22.eps>
+(epstopdf)             \includegraphics on input line 1568.
+Package epstopdf Info: Output file is already uptodate.
+File: fig22-eps-converted-to.pdf Graphic file (type pdf)
+<use fig22-eps-converted-to.pdf>
+Package pdftex.def Info: fig22-eps-converted-to.pdf  used on input line 1568.
+(pdftex.def)             Requested size: 718.93497pt x 170.71652pt.
+
+Overfull \hbox (68.93497pt too wide) in paragraph at lines 1568--1569
+ [] 
+ []
+
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1573.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1573.
+[119]
+Package epstopdf Info: Source file: <fig22.eps>
+(epstopdf)                    date: 2020-04-21 11:51:02
+(epstopdf)                    size: 83190 bytes
+(epstopdf)             Output file: <fig22-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 11:52:24
+(epstopdf)                    size: 18625 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig22-eps-converted-to.pdf
+ fig22.eps>
+(epstopdf)             \includegraphics on input line 1580.
+Package epstopdf Info: Output file is already uptodate.
+File: fig22-eps-converted-to.pdf Graphic file (type pdf)
+<use fig22-eps-converted-to.pdf>
+Package pdftex.def Info: fig22-eps-converted-to.pdf  used on input line 1580.
+(pdftex.def)             Requested size: 718.93497pt x 170.71652pt.
+
+Overfull \hbox (68.93497pt too wide) in paragraph at lines 1580--1581
+ [] 
+ []
+
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1585.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1585.
+[120]
+Package epstopdf Info: Source file: <fig23.eps>
+(epstopdf)                    date: 2020-04-21 12:10:43
+(epstopdf)                    size: 86803 bytes
+(epstopdf)             Output file: <fig23-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 12:12:21
+(epstopdf)                    size: 20439 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig23-eps-converted-to.pdf
+ fig23.eps>
+(epstopdf)             \includegraphics on input line 1591.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig23-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig23-eps-converted-to.pdf, id=601, 1058.95625pt x 301.125pt>
+File: fig23-eps-converted-to.pdf Graphic file (type pdf)
+<use fig23-eps-converted-to.pdf>
+Package pdftex.def Info: fig23-eps-converted-to.pdf  used on input line 1591.
+(pdftex.def)             Requested size: 600.37967pt x 170.71652pt.
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1596.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1596.
+[121 <./fig23-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <fig23.eps>
+(epstopdf)                    date: 2020-04-21 12:10:43
+(epstopdf)                    size: 86803 bytes
+(epstopdf)             Output file: <fig23-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 12:12:21
+(epstopdf)                    size: 20439 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig23-eps-converted-to.pdf
+ fig23.eps>
+(epstopdf)             \includegraphics on input line 1602.
+Package epstopdf Info: Output file is already uptodate.
+File: fig23-eps-converted-to.pdf Graphic file (type pdf)
+<use fig23-eps-converted-to.pdf>
+Package pdftex.def Info: fig23-eps-converted-to.pdf  used on input line 1602.
+(pdftex.def)             Requested size: 600.37967pt x 170.71652pt.
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1607.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1607.
+[122]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1611.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1611.
+[123]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1619.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1619.
+[124]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1624.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1624.
+[125]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1637.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1637.
+[126]
+Package epstopdf Info: Source file: <fig05.eps>
+(epstopdf)                    date: 2016-04-07 02:26:52
+(epstopdf)                    size: 10825 bytes
+(epstopdf)             Output file: <fig05-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-16 01:52:21
+(epstopdf)                    size: 6892 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig05-eps-converted-to.pdf
+ fig05.eps>
+(epstopdf)             \includegraphics on input line 1642.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig05-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig05-eps-converted-to.pdf, id=630, 605.26125pt x 367.3725pt>
+File: fig05-eps-converted-to.pdf Graphic file (type pdf)
+<use fig05-eps-converted-to.pdf>
+Package pdftex.def Info: fig05-eps-converted-to.pdf  used on input line 1642.
+(pdftex.def)             Requested size: 468.80478pt x 284.52756pt.
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1647.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1647.
+[127 <./fig05-eps-converted-to.pdf>]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1655.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1655.
+[128]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1661.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1661.
+[129]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1670.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1670.
+[130]
+Package epstopdf Info: Source file: <fig06.eps>
+(epstopdf)                    date: 2016-04-07 02:26:48
+(epstopdf)                    size: 29290 bytes
+(epstopdf)             Output file: <fig06-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-16 01:52:21
+(epstopdf)                    size: 21128 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig06-eps-converted-to.pdf
+ fig06.eps>
+(epstopdf)             \includegraphics on input line 1676.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig06-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig06-eps-converted-to.pdf, id=653, 645.41125pt x 190.7125pt>
+File: fig06-eps-converted-to.pdf Graphic file (type pdf)
+<use fig06-eps-converted-to.pdf>
+Package pdftex.def Info: fig06-eps-converted-to.pdf  used on input line 1676.
+(pdftex.def)             Requested size: 385.16193pt x 113.81102pt.
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1678.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1678.
+[131 <./fig06-eps-converted-to.pdf>]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1682.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1682.
+[132]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1690.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1690.
+[133]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1702.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1702.
+[134]
+
+Class slides Warning: Slide 134 too long on input line 1704.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1704.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1704.
+[134]
+Package epstopdf Info: Source file: <fig07.eps>
+(epstopdf)                    date: 2016-04-07 02:26:48
+(epstopdf)                    size: 63031 bytes
+(epstopdf)             Output file: <fig07-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-16 01:52:21
+(epstopdf)                    size: 52284 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig07-eps-converted-to.pdf
+ fig07.eps>
+(epstopdf)             \includegraphics on input line 1709.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig07-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig07-eps-converted-to.pdf, id=771, 654.445pt x 460.72125pt>
+File: fig07-eps-converted-to.pdf Graphic file (type pdf)
+<use fig07-eps-converted-to.pdf>
+Package pdftex.def Info: fig07-eps-converted-to.pdf  used on input line 1709.
+(pdftex.def)             Requested size: 484.99072pt x 341.43306pt.
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1711.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1711.
+[135 <./fig07-eps-converted-to.pdf>]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1716.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1716.
+[136]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1721.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1721.
+[137]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1728.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1728.
+[138]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1737.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1737.
+[139]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1746.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1746.
+[140]
+LaTeX Font Info:    External font `cmex10 at17.28pt' loaded for size
+(Font)              <23.89> on input line 1749.
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1754.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1754.
+[141]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1780.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1780.
+[142]
+Package epstopdf Info: Source file: <fig24.eps>
+(epstopdf)                    date: 2020-04-21 16:22:12
+(epstopdf)                    size: 71461 bytes
+(epstopdf)             Output file: <fig24-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-04-21 16:23:49
+(epstopdf)                    size: 23276 bytes
+(epstopdf)             Command: <repstopdf --outfile=fig24-eps-converted-to.pdf
+ fig24.eps>
+(epstopdf)             \includegraphics on input line 1786.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./fig24-eps-converted-to.pdf): PDF inclusion: fo
+und PDF version <1.7>, but at most version <1.5> allowed
+<fig24-eps-converted-to.pdf, id=1042, 1061.9675pt x 313.17pt>
+File: fig24-eps-converted-to.pdf Graphic file (type pdf)
+<use fig24-eps-converted-to.pdf>
+Package pdftex.def Info: fig24-eps-converted-to.pdf  used on input line 1786.
+(pdftex.def)             Requested size: 675.41136pt x 199.16928pt.
+
+Overfull \hbox (25.41136pt too wide) in paragraph at lines 1786--1787
+ [] 
+ []
+
+
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1788.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1788.
+[143 <./fig24-eps-converted-to.pdf>]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1795.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1795.
+[144]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1802.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1802.
+[145]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1811.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1811.
+[146]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1819.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1819.
+[147]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1838.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1838.
+[148]
+
+Class slides Warning: Slide 148 too long on input line 1843.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1843.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1843.
+[148]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1848.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1848.
+[149]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1853.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1853.
+[150]
+Overfull \hbox (22.91672pt too wide) has occurred while \output is active
+[][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1857.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1857.
+[151]
 0 minutes
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1858.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1858.
 (./aula10.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1858.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1858.
+
+Package rerunfilecheck Info: File `aula10.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.41pt have occurred.
 
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1858.
  ) 
 Here is how much of TeX's memory you used:
- 6813 strings out of 495062
- 94774 string characters out of 1182644
- 164611 words of memory out of 3000000
- 9813 multiletter control sequences out of 15000+50000
- 16173 words of font info for 48 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
- 41i,9n,24p,386b,472s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 8557 strings out of 492982
+ 122955 string characters out of 6134897
+ 210664 words of memory out of 5000000
+ 11750 multiletter control sequences out of 15000+600000
+ 16937 words of font info for 49 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 42i,10n,26p,601b,507s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/latxfont/lasy8.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/latxfont/lcmss8.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf/fonts/type1/public/cm-
+super/sflb8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfli8.pfb></usr/s
+hare/texmf/fonts/type1/public/cm-super/sflo8.pfb></usr/share/texmf/fonts/type1/
+public/cm-super/sflq8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfltt8.
+pfb>
+Output written on aula10.pdf (158 pages, 543908 bytes).
+PDF statistics:
+ 1166 PDF objects out of 1200 (max. 8388607)
+ 947 compressed objects within 10 object streams
+ 167 named destinations out of 1000 (max. 500000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Output written on aula10.dvi (73 pages, 95644 bytes).

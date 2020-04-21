@@ -505,9 +505,9 @@ A idéia é o de dividir a entrada em $p$ (número de processadores) subconjuntos, 
 
 \begin{slide}
 \stitle{Soma de prefixos de um vetor no Modelo BSP/CGM}
-\vspace{-1cm}\textbf{\blue Entrada:} (1) O número do processador $i$; (2) O número $p$ de processadores; (3) O $i$-ésimo sub-vetor $B=A((i-1)r+1: ir)$ de tamanho r, onde $r=n/p$.
+\vspace{-1cm}\textbf{\blue Entrada:} (1) O número do processador $i$; (2) O número $p$ de processadores; (3) O $i$-ésimo sub-vetor $B=A(ir: (i+1)r-1)$ de tamanho r, onde $r=n/p$.
 
-\vspace{-1cm}\textbf{\blue Saída:} Cada processador $P_i$ contém o valor das somas de prefixos $S[(i-1)*r + j]$, $1 \leq j \leq n/p$
+\vspace{-1cm}\textbf{\blue Saída:} Cada processador $P_i$ contém o valor das somas de prefixos $S[i*r + j]$, $0 \leq j \leq n/p-1$
 \end{slide}
 
 \begin{slide}
@@ -515,11 +515,12 @@ A idéia é o de dividir a entrada em $p$ (número de processadores) subconjuntos, 
 \textbf{\blue Algoritmo}
 
 \vspace{-1cm}  \begin{codebox}
-  \li  $s_i := B[1] + \cdots B[r]$ 
+  \li  $s_i := B[0] + \cdots B[r-1]$ 
   \li  $broadcast(s_i, p_j \neq i)$  
-  \li  $S[(i-1)*r] := s_1 + \cdots + s_{i-1}$
-  \li \For $k:=1$ \To $r$ \DoSeq
-  \zi  $S[(i-1)*r+k] := S[(i-1)*r+k-1] + B[k]$
+  \li  $S[i*r] := s_0 + \cdots + s_{i}$
+  \li  $S[i*r] := S[i*r] - s_i + B[0]$
+  \li \For $k:=1$ \To $r-1$ \DoSeq
+  \zi  $S[i*r+k] := S[i*r+k-1] + B[k]$
   \zi \End
 \end{codebox}
 \end{slide}
@@ -532,9 +533,9 @@ Complexidade:
  
  \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 2: Os processadores executam um \textit{broadcast} de $s_i$ para os demais processadores. Essa comunicação pode ser feita em uma única rodada de comunicação.
  
- \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 3: Cada processador calcula o valor da soma dos $A(1:(i-1)r)$ elementos do vetor.
+ \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 3: Cada processador calcula o valor da soma dos $A(0:(i+1)r-1)$ elementos do vetor.
  
-  \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 4: Utiliza o valor computado no passo 3 para calcular as somas dos prefixos dos $A((i-1)r+1: ir)$ elementos do vetor $A$.
+  \vspace{-1cm} \hspace{1cm} \itemtrig\ Passo 4 e 5: Utiliza o valor computado no passo 3 para calcular as somas dos prefixos dos $A(ir: (i+1)r-1)$ elementos do vetor $A$.
 
 \end{slide}
 
@@ -649,7 +650,10 @@ Os p-quartis podem ser facilmente computados de forma sequencial usando um algor
   \li  $Q_i := p-quartis(A_i)$ \Comment Cada processador $p_i$ calcula 
   \zi  \hspace{7.6cm}\Comment sequencialmente seus $p-quartis$
   \li  $envia(Q_i, p_0)$ \Comment Todos os processador $p_i$ enviam $Q_i$ para $p_0$
-  \li  \If $i = 0$ \Then \hspace{4.5cm}$S := Ordena(Q_0 \cup Q_1 \cup \cdots \cup Q_{p-1})$ \End
+  \li  \If $i = 0$ \Then 
+  \li  $Q := Ordena(Q_0 \cup Q_1 \cup \cdots \cup Q_{p-1})$ 
+  \li  $S := p-quartis(Q)$
+  \End
   \li  $broadcast(S, p_i)$
 \end{codebox}
 \end{slide}
@@ -688,6 +692,920 @@ Complexidade:
   Este tempo de computação local pode ser melhorado de tal forma que $\frac{n}{p} \geq p$
   \end{slide}
 
+
+\begin{slide}
+\stitle{Algoritmo CGM de ordenação por inserção}  
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de ordenação por inserção}  
+\textbf{Entrada:} (1) O número de processadores; (2) O número $i$ do processador, onde $0 \leq i \leq p-1$, e (3) Um conjunto de $n$ números distintos, $S= \{s_0, s_1, \cdots, s_{n-1}\}$. 
+
+\textbf{Saída:} $S'= \{s_0', s_1', \cdots, s_{n-1}'\}$, onde $s_{i-1} < s_i$
+\end{slide}
+
+\begin{slide}
+
+
+\textbf{\blue Algoritmo}
+\vspace{-2cm}  \begin{tabbing}
+~~~~ \= ~~~~\= ~~~~\= ~~~~\= ~~~~~~~\= \hspace*{12cm}                               \= \\
+  1 \>  $r = n/p$ \\
+  2 \> \If $i = 0$ \Then \\
+  3 \>\> leia $S_0 = \{s_0, s_1, \cdots, s_{r-1}\}$ \\
+  4 \>\> $S_0' \leftarrow Ordene(S_0)$ \\
+  5 \> \textbf{\blue senão}\\
+  6 \>\> $S_0' \leftarrow \emptyset$ \\
+  \End
+  7 \> \For $k = 1$ \To $p-1$ \textbf{\blue faça}\\
+  8 \>\> \If $i = 0$ \Then \\
+  9 \>\>\> leia $S_k = \{s_{kr}, s_{kr+1}, \cdots, s_{(k+1)r-1}\}$ \\
+ 10 \>\>\> $S_k' \leftarrow Ordene(S_{k-1}' \cup S_k)$ \\
+ 11 \>\>\> $R_k  \leftarrow  s_{r}', s_{r+1}', \cdots, s_{2r-1}'$ \\
+ 12 \>\>\> $S_k'  \leftarrow  s_{0}', s_{1}', \cdots, s_{r-1}'$ \\
+ 13 \>\>\> $envia(R_k, P_1)$\\\\
+ \End
+
+ 14 \>\>\If $i \neq 0$ \Then \\
+ 15 \>\>\>$recebe(R_k, P_{i-1})$\\
+ 16 \>\>\>$S_k' \leftarrow Ordene(S'_{k-1} \cup S_k)$\\
+ 17 \>\>\>$R_k  \leftarrow  s_{r}', s_{r+1}', \cdots, s_{2r-1}'$ \\
+ 18 \>\>\>$S_k'  \leftarrow  s_{0}', s_{1}', \cdots, s_{r-1}'$ \\
+  \End
+ 19 \>\>\If $i \neq p-1$ \Then \\
+ 20 \>\>\>$envia(R_k, P_{i+1})$\\
+  \End
+
+  
+\end{tabbing}
+
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de ordenação por inserção}  
+
+\itemtrig\ Entrada de $n/p$ números de cada vez, ao invés de um número por processador.
+
+\itemtrig\ Requer $O(p)$ rodadas de comunicação.
+
+\itemtrig\ Computação local em cada rodada: ordenar $2n/p$ números.
+
+\itemtrig\ Portanto $O(\frac{n}{p} \log \frac{n}{p}) = O(\frac{n \log n}{p})$ (em cada rodada).
+
+\itemtrig\ A computação local total (considerando $O(p)$ rodadas) é $O(n \log n)$ 
+\end{slide}
+
+\begin{slide}
+\stitle{Características da computação ``pipeline''} 
+
+\itemtrig\ A ordenação por inserção é um exemplo de computação sistólica ou ``pipeline''
+
+\itemtrig\ Computação prossegue em \textit{frente de ondas}.
+
+\itemtrig\ Vantagens:
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  Exige comunicação com poucos vizinhos
+
+\vspace{-1cm} \hspace{1cm} \itemtrig\  No início e no final poucos processadores trabalham.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo Bucket Sort no Modelo BSP/CGM}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação por partição ou Bucket Sort}
+
+\itemtrig\ Não é baseado no paradigma de \textit{comparar} e \textit{trocar de posição}.
+
+\itemtrig\ Usa uma operação importante: \textit{divisão}.
+
+
+\itemtrig\ Supõe que os números a serem ordenados estão uniformemente distribuídos dentro de um intervalo de $0$ a $a-1$.
+\end{slide}
+
+\begin{slide}
+\stitle{Ideia do Bucket Sort}
+
+
+Particionar os números (uniformemente distribuído em $[0, a-1]$) em $m$ intervalos (buckets).
+
+Os buckets são portanto de 
+
+\vspace{-1cm}\hspace{2cm}\itemcirc\ de $0$ a $\frac{a}{m}-1$,
+
+\vspace{-1cm}\hspace{2cm}\itemcirc\ de $\frac{a}{m}$ a $2\frac{a}{m}-1$,
+
+\vspace{-1cm}\hspace{2cm}\itemcirc\ de $2\frac{a}{m}$ a $3\frac{a}{m}-1$, etc.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo Bucket Sort no Modelo BSP/CGM}
+
+Com a distribuição uniforme no intervalo $[0, a-1]$, a quantidade de números dentro de cada bucket será aproximadamente igual.
+
+
+Cada partição é então ordenada. (Novamente nos sub-buckets podem ser usados, dentro do paradigma de divisão e conquista).
+\end{slide}
+
+\begin{slide}
+\stitle{Como particionar em Buckets}
+
+Sejam $m$ buckets. O número $x$ será colocado no bucket $\lfloor \frac{x}{a/m} \rfloor$ (divisão). 
+
+Se $m$ é uma potência de $2$, i.e. $m=2^k$, então a divisão resume em escolher os $k$ bits mais significativos do número binário $x$.
+
+Por exemplo: $m = 2^3 = 8$. O número $x=1100101$ é colocado no bucket $110$ (3 bits mais significativos de $x$).
+\end{slide}
+
+\begin{slide}
+\stitle{Bucket Sort sequencial}
+
+Dados $n$ números a serem ordenados, o particionamento em buckets leva tempo $O(n)$.
+
+Cada ordenação do bucket leva tempo $O(\frac{n}{m} \log \frac{n}{m})$.
+\end{slide}
+
+\begin{slide}
+\stitle{Bucket Sort sequencial}
+
+Para ordenar todos os $m$ buckets: $O(m\frac{n}{m} \log \frac{n}{m}) = O(n \log \frac{n}{m})$.
+
+\hspace{2cm}\itemtrig\ O tempo total será $O(n + \log \frac{n}{m})$.
+
+\vspace{-1cm}\hspace{2cm}\itemtrig\ Se fizermos $k=\frac{n}{m}=$ constante, então o Bucket Sort 
+
+\vspace{-1cm}\hspace{4cm}leva tempo $O(n)$.
+
+Lembrete: é necessário ter distribuição uniforme dos números e o uso de divisão.
+\end{slide}
+
+\begin{slide}
+\stitle{Bucket Sort paralelo}
+Considere $p$ processadores com memória local $O(n/p)$.
+
+Usamos $m=p$ buckets correspondentes aos $p$ processadores.
+
+Supondo a distribuição uniforme dos números no intervalo $0$ a $a-1$, temos aproximadamente $n/p$ números em cada bucket, portanto cada bucket cabe num processador.
+
+Bucket $i$ corresponde ao processador $i$, $0 \leq i \leq p-1$.
+\end{slide}
+
+\begin{slide}
+\stitle{Bucket Sort paralelo}
+
+\textbf{\darkgreen Entrada:}(1) vetor $A$ de $n$ elementos. (2) $p$ processadores $p_0. p_1, \cdots, p_{p-1}$. (3) Elementos de $A$ distribuídos entre os $p$ processadores ($n/p$ elementos por processador).
+
+
+\textbf{\darkgreen Saída:} Todos os elementos ordenados dentro de cada processador e por processador, i.e. se $i<j$, então todos os elementos de $p_i$ são menores que os de $p_j$.
+\end{slide}
+
+\begin{slide}
+\stitle{Bucket Sort paralelo}
+
+algoritmo $\proc{bucket-sort}$
+
+\vspace{-1cm}\hspace{2cm}(1) Compute $max$ e $min$ de $A$; $b=(max-min)/p$;
+ 
+\vspace{-1cm}\hspace{2cm}(2) Compute um conjunto divisor 
+
+\vspace{-1cm}\hspace{4cm}$D= \{min+b, min+2b, \cdots, min+(p-1)b\}$;
+
+\vspace{-1cm}\hspace{2cm}(3) Particionar os elementos de $p_i$ em 
+
+\vspace{-1cm}\hspace{4cm}buckets $B_i^j$ de acordo com $D$;
+
+\vspace{-1cm}\hspace{2cm}(4) $envia(B^j_i, p_j)$;
+
+\vspace{-1cm}\hspace{2cm}(5) $recebe(B^i_j, p_j)$;
+
+\vspace{-1cm}\hspace{2cm}(6) Ordene $\bigcup^{p-1}_{j=0} B^i_j = B^i_0 \cup B^i_1 \cdots B^i_{p-1}$;
+\end{slide}
+
+
+\begin{slide}
+\stitle{Algoritmo Bucket Sort no Modelo BSP/CGM}
+Cada processador tem inicialmente $n/p$ números. Cada processador determinar os buckets  ($0$ a $p-1$) de seus números.
+
+Cada processador $i$ envia os seus números do bucket $j$ ao processador $j$. Recebe por sua vez dos outros processadores os números do bucket $i$.
+\end{slide}
+
+
+\begin{slide}
+\stitle{Algoritmo Bucket Sort no Modelo BSP/CGM}
+
+Cada processador ordena seus números. (O processador $p_0$ terá os menores números, o processador $p_1$ terá os próximos menores, etc.)
+
+\vspace{-1cm}\hspace{2cm}\itemtrig Rodada de comunicação: $O(1)$
+
+\vspace{-1cm}\hspace{2cm}\itemtrig Computação local: $O(\frac{n}{p} \log \frac{n}{p})$
+
+
+Lembre-se da suposição de distribuição uniforme da entrada.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+
+Sequência bitônica: uma sequência de números $(s_0, s_1, \cdots, s_{n-1})$ que cresce (decresce) monotonicamente, atinge um único máximo (mínimo), e então decresce (cresce) monotonicamente:
+
+$s_0 < s_1 < \cdots s_{i-1} < s_i > s_{i+1} > s_{i+2} > \cdots > s_{n-2} > s_{n-1}$, $0 \leq i \leq n$
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+Também é uma sequência bitônica se existe um deslocamento cíclico $\sigma$ de $(0,1, \cdots,n-1)$ tal que a sequência $(s_{\sigma(0)}, s_{\sigma(1)}, \cdots, s_{\sigma(n-1)})$ satisfaça a condição anterior.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+
+Sequências bitônicas podem ser formadas pela concatenação de sequencias em ordem crescente (decrescente) e outra em ordem decrescente (crescente).
+
+\textbf{\darkgreen Exemplo:} $\{2,5,7,9,8,4,3,0\}$
+\end{slide}
+
+\begin{slide}
+\stitle{Propriedade de Split Bitônico}
+Dada uma sequência bitônica de números distintos $(s_0, s_1, \cdots, s_{n-1})$, então as sequências
+
+\hspace{1cm}$S_{\mathrm{min}} = (\mathrm{min}(s_0, s_{\frac{n}{2}}), \mathrm{min}(s_1, s_{\frac{n}{2}+1}), \cdots, \mathrm{min}(s_{\frac{n}{2}-1}, s_{n-1}))$ e 
+
+
+\vspace{-1cm}\hspace{1cm}$S_{\mathrm{max}} = (\mathrm{max}(s_0, s_{\frac{n}{2}}), \mathrm{max}(s_1, s_{\frac{n}{2}+1}), \cdots, \mathrm{max}(s_{\frac{n}{2}-1}, s_{n-1}))$ 
+
+são também bitônicas e, mais ainda, todos os elementos de $S_{\mathrm{min}}$ são menores que todos os elementos de $S_{\mathrm{max}}$.
+\end{slide}
+
+\begin{slide}
+\stitle{Propriedade de Split Bitônico}
+Exemplo: sequência bitônica
+
+\begin{center}
+\begin{tabular}{cccccccc}
+2 & 5 & 7 & 9 & 8 & 4 & 3 & 0 \\
+$\uparrow$ &   &   &   & $\uparrow$  &   &   &
+\end{tabular}
+\end{center}
+
+produz
+
+\hspace{2cm}\itemtrig\ $S_{min} = (2, 4, 3, 0)$
+
+\vspace{-1cm}\hspace{2cm}\itemtrig\ $S_{max} = (8, 5, 7, 9)$
+
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+Podemos ordenar uma sequência bitônica
+
+\vspace{-1cm}$$(s_0, s_1, \cdots, s_{n-1})$$
+
+\vspace{-1cm}usando sucessivos splits bitônicos. 
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+\textbf{Exemplo:}
+
+\begin{center}
+\begin{tabular}{|c|cccccccc|}\hline
+passos &  \multicolumn{8}{c|}{elementos} \\ \hline
+   0   & 2 & 5 & 7 & 9 & 8 & 4 & 3 & 0 \\
+       & $\uparrow$ &   &   &   & $\uparrow$   &   &   & \\ \hline
+\end{tabular}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+\textbf{Exemplo:}
+
+\begin{center}
+\begin{tabular}{|c|cccccccc|}\hline
+passos &  \multicolumn{8}{c|}{elementos} \\ \hline
+   0   & 2 & 5 & 7 & 9 & 8 & 4 & 3 & 0 \\
+       & $\uparrow$ &   &   &  & $\uparrow$ &   &   & \\ \hline
+   1   & 2 & 4 & 3 & 0 & 8 & 5 & 7 & 9 \\
+       & $\uparrow$ &   &   &  & $\uparrow$ &   &   & \\ \hline
+\end{tabular}
+\end{center}
+\end{slide}
+
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+\textbf{Exemplo:}
+
+\begin{center}
+\begin{tabular}{|c|cccccccc|}\hline
+passos &  \multicolumn{8}{c|}{elementos} \\ \hline
+   0   & 2 & 5 & 7 & 9 & 8 & 4 & 3 & 0 \\
+       & $\uparrow$ &   &   &  & $\uparrow$ &   &   & \\ \hline
+   1   & 2 & 4 & 3 & 0 & 8 & 5 & 7 & 9 \\
+       & $\uparrow$ &   & $\uparrow$ &  & $\uparrow$ &   & $\uparrow$  & \\ \hline
+\end{tabular}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+\textbf{Exemplo:}
+
+\begin{center}
+\begin{tabular}{|c|cccccccc|}\hline
+passos &  \multicolumn{8}{c|}{elementos} \\ \hline
+   0   & 2 & 5 & 7 & 9 & 8 & 4 & 3 & 0 \\
+       & $\uparrow$ &   &   &  & $\uparrow$ &   &   & \\ \hline
+   1   & 2 & 4 & 3 & 0 & 8 & 5 & 7 & 9 \\
+       & $\uparrow$ &   & $\uparrow$ &  & $\uparrow$ &   & $\uparrow$  & \\ \hline
+   2   & 2 & 0 & 3 & 4 & 7 & 5 & 8 & 9 \\
+       & $\uparrow$ &   & $\uparrow$ &  & $\uparrow$ &   & $\uparrow$  & \\ \hline
+       
+\end{tabular}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+\textbf{Exemplo:}
+
+\begin{center}
+\begin{tabular}{|c|cccccccc|}\hline
+passos &  \multicolumn{8}{c|}{elementos} \\ \hline
+   0   & 2 & 5 & 7 & 9 & 8 & 4 & 3 & 0 \\
+       & $\uparrow$ &   &   &  & $\uparrow$ &   &   & \\ \hline
+   1   & 2 & 4 & 3 & 0 & 8 & 5 & 7 & 9 \\
+       & $\uparrow$ &   & $\uparrow$ &  & $\uparrow$ &   & $\uparrow$  & \\ \hline
+   2   & 2 & 0 & 3 & 4 & 7 & 5 & 8 & 9 \\
+       & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$  & $\uparrow$  & $\uparrow$ \\ \hline
+       
+\end{tabular}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+\textbf{Exemplo:}
+
+\begin{center}
+\begin{tabular}{|c|cccccccc|}\hline
+passos &  \multicolumn{8}{c|}{elementos} \\ \hline
+   0   & 2 & 5 & 7 & 9 & 8 & 4 & 3 & 0 \\
+       & $\uparrow$ &   &   &  & $\uparrow$ &   &   & \\ \hline
+   1   & 2 & 4 & 3 & 0 & 8 & 5 & 7 & 9 \\
+       & $\uparrow$ &   & $\uparrow$ &  & $\uparrow$ &   & $\uparrow$  & \\ \hline
+   2   & 2 & 0 & 3 & 4 & 7 & 5 & 8 & 9 \\
+       & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$  & $\uparrow$  & $\uparrow$ \\ \hline
+   3   & 0 & 2 & 3 & 4 & 5 & 7 & 8 & 9 \\
+       & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$ & $\uparrow$  & $\uparrow$  & $\uparrow$ \\ \hline
+       
+\end{tabular}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica}
+
+A técnica descrita anteriormente funciona para ordenar uma sequência bitônica.
+
+\textbf{\darkgreen Pergunta:} para ordenar uma sequência de números quaisquer (não bitônica), como tranformá-la em uma sequência bitônica?
+
+\end{slide}
+
+\begin{slide}
+\stitle{Transformando uma sequência qualquer em Bitônica}
+Seja uma sequência de 8 números $(s_0, s_1, \cdots ,s_7)$.
+
+\vspace{-1cm}\hspace{2cm}\itemtrig\ Ordene pares de números e produza
+
+\vspace{-1cm}\hspace{4cm} $(s_0',s_1')$ crescente e $(s_2',s_3')$ decrescente;
+
+\vspace{-1cm}\hspace{4cm} $(s_4',s_5')$ crescente e $(s_6',s_7')$ decrescente;
+
+\hspace{2cm}\itemtrig\ Ordene a sequência bitônica $(s_0',s_1',s_2',s_3')$ em ordem 
+
+\vspace{-1cm}\hspace{3cm}crescente. Ordene a sequência bitônica $(s_4',s_5',s_6',s_7')$
+
+\vspace{-1cm}\hspace{3cm}em ordem de crescente.
+\end{slide}
+
+\begin{slide}
+\stitle{Transformando uma sequência qualquer em Bitônica}
+
+Temos então uma sequência bitônica de 8 elementos:
+
+\begin{center}
+\begin{tabular}{|c|cccccccc|}\hline
+passos &  \multicolumn{8}{c|}{elementos} \\ \hline
+   0   & 8 & 3 & 4 & 7 & 9 & 2 & 0 & 5   \\ \hline
+   1   & 3 & 8 & 7 & 4 & 2 & 9 & 5 & 0   \\ \hline
+   2   & 3 & 4 & 7 & 8 & 5 & 9 & 2 & 0   \\ \hline
+   3   & 3 & 4 & 7 & 8 & 9 & 5 & 2 & 0   \\ \hline
+\end{tabular}
+\end{center}
+
+A ordenação bitônica de uma sequência qualquer de $n$ números leva tempo $O(\log^2 n)$
+
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM}
+
+Vamos assumir $n$ elementos do conjunto $S$ a serem ordenados seja uma potência de dois. Assuminos que o número de processadores $p$ também é potência de dois.
+
+A cada rodada do algoritmo, cada processador conterá $\frac{n}{p}$ elementos.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM}
+\textbf{Idéia:} Divisões bitônicas sucessivas e ordenações locais, até que toda a sequência esteja ordenada.
+
+Cada operação de divisão bitônica é sempre executada entre pares de processadores.
+
+Após cada operação, $S_{min}$ fica armazenado em um dos processadores e $S_{max}$ em outro.
+
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM}
+
+\textbf{Entrada:} uma sequência de $n$ elementos, distribuídos entre os $p$ processadores, rotulados de $0$ a $p-1$ com $\frac{n}{p}$ elementos em cada processador. Durante o algoritmo os processadores são re-rotulados localmente da forma $p_{g,i}$, onde $g$ é o rótulo do grupo a quem pertence e $i$ é o rótulo do processador dentro do grupo.
+
+\textbf{Saída:} A sequência ordenada de elementos distribuída entre os $p$ processadores.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM}
+\textbf{algoritmo} $\proc{ordenação\_bitônica}$
+
+\begin{enumerate}
+\vspace{-1.3cm}\item[(1)] Cada processador ordena seus dados localmente. Os processadores de identificador par ordena em ordem crescente e os processadores de identificador ímpar ordenam os dados em ordem decrescente.
+
+\vspace{-1.5cm}\item[(2)] \textbf{para} $i$ \textbf{de} 1 \textbf{até} $\log p -1$ \textbf{faça}
+
+\vspace{-0.5cm}(2.1) $k = 2^{i-1}$
+
+\vspace{-0.5cm}(2.2) Agrupe os processadores em $g = \frac{p}{2k}$ grupos, contendo $t=2k$ processadores adjacente cada. Os grupos são rotulados de $0$ a $g-1$ e os processadores são identificados dentro do seu grupo através de índices de 0 a $t-1$.
+
+\vspace{-0.2cm}(2.3) Execute em paralelo, em cada um dos $g$ grupos, a operação de divisão bitônica entre $p_{g,j}$ e $p_{g,j+k}$, onde $0 \leq j < k$. Nos grupos de rótulo par, $S_{min}$ ficará armazenada no processador de menor índice global e $S_{max}$ ficará armazenada no processador de maior índice global. Nos grupos de rótulo ímpar, $S_{min}$ ficará armazenada no processador de maior índice global e $S_{max}$ ficará armazenada no processador de menor índice global.
+
+\vspace{-0.5cm}(2.4) Cada processador ordena seus dados localmente, onde os processadores que pertencem aos grupo de rótulo par, ordenam os dados em ordem crescente e os processadores que pertencem aos grupo de rótulo ímpar, ordenam os dados em ordem decrescente.
+
+
+\vspace{-1.5cm}\item[(3)] \textbf{para} $i$ \textbf{de} $1$ \textbf{até} $\log p$ \textbf{faça}
+
+\vspace{-0.3cm}(3.1) $k = \frac{p}{2^i}$
+
+\vspace{-0.3cm}(3.2) Agrupe os processadores em $g = \frac{p}{2k}$ grupos, contendo $t= 2k$ processadores adjacentes cada. Os grupos são rotulados de $0$ a  a $g-1$ e os processadores são identificados dentro do seu grupo através de índices de 0 a $t-1$.
+
+\vspace{-0.3cm}(3.3) Execute em paralelo, em cada um dos $g$ grupos, a operação de divisão bitônica entre $p_{g,j}$ e $p_{g,j+k}$, onde $0 \leq j < k$. Nos grupos de rótulo par, $S_{min}$ ficará armazenada no processador de menor índice global e $S_{max}$ ficará armazenada no processador de maior índice global. Nos grupos de rótulo ímpar, $S_{min}$ ficará armazenada no processador de maior índice global e $S_{max}$ ficará armazenada no processador de menor índice global.
+
+\vspace{-1cm}\item[(4)] Cada processador ordena localmente seus elementos em ordem crescente.
+\end{enumerate}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM (Exemplo)}
+Sequência: (7, 3, 9, 14, 16, 8, 1, 10, 12, 4, 5, 13, 15, 2, 6, 11)
+
+Número de processadores: 4
+ 
+\begin{center}
+\includegraphics[height=6cm]{fig17}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM (Exemplo)}
+Sequência: (7, 3, 9, 14, 16, 8, 1, 10, 12, 4, 5, 13, 15, 2, 6, 11)
+
+\begin{center}
+\includegraphics[height=6cm]{fig17}
+\end{center}
+
+(a) distribuir os elementos pelos processadores.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM (Exemplo)}
+Sequência: (7, 3, 9, 14, 16, 8, 1, 10, 12, 4, 5, 13, 15, 2, 6, 11)
+
+\begin{center}
+\includegraphics[height=6cm]{fig17}
+\end{center}
+
+(b) ordenação local. Processadores pares ordenam em ordem crescente e processadores ímpares ordenam e ordem decrescente.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM (Exemplo)}
+Sequência: (7, 3, 9, 14, 16, 8, 1, 10, 12, 4, 5, 13, 15, 2, 6, 11)
+
+\begin{center}
+\includegraphics[height=6cm]{fig18}
+\end{center}
+
+(c) Executa uma rodada de comunicação, duas operações de divisão bitônicas são executadas entre $p_{0}$ e $p_{0+1}$ e outra entre $p_2$ e $p_{2+1}$, pois $k=1$.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM (Exemplo)}
+Sequência: (7, 3, 9, 14, 16, 8, 1, 10, 12, 4, 5, 13, 15, 2, 6, 11)
+
+\begin{center}
+\includegraphics[height=6cm]{fig18}
+\end{center}
+
+(d) ordenação local. processadores que pertencem ao grupo de rótulo par, ordenam em ordem crescente e os processadores que pertencem ao grupo de rótulo ímpar, ordenam em ordem decrescente.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM (Exemplo)}
+Sequência: (7, 3, 9, 14, 16, 8, 1, 10, 12, 4, 5, 13, 15, 2, 6, 11)
+
+\begin{center}
+\includegraphics[height=6cm]{fig19}
+\end{center}
+
+(e) Como $k=2$ executar operação de divisão bitônica entre $p_0$ e $p_2$ e outra entre $p_1$ e $p_3$.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM (Exemplo)}
+Sequência: (7, 3, 9, 14, 16, 8, 1, 10, 12, 4, 5, 13, 15, 2, 6, 11)
+
+\begin{center}
+\includegraphics[height=6cm]{fig19}
+\end{center}
+
+(f) $k$ passa a ser igual a $1$, executar operação de divisão bitônica entre $p0$ e $p_1$ e outra entre $p_2$ e $p_3$.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM (Exemplo)}
+Sequência: (7, 3, 9, 14, 16, 8, 1, 10, 12, 4, 5, 13, 15, 2, 6, 11)
+
+\begin{center}
+\includegraphics[height=6cm]{fig20}
+\end{center}
+
+(g) Resultado das operações de divisão bitônica do passo anterior.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM (Exemplo)}
+Sequência: (7, 3, 9, 14, 16, 8, 1, 10, 12, 4, 5, 13, 15, 2, 6, 11)
+
+\begin{center}
+\includegraphics[height=6cm]{fig20}
+\end{center}
+
+(h) Ordenação local, todos os elementos estão ordenados e distribuídos nos processadores.
+\end{slide}
+
+\begin{slide}
+\stitle{Ordenação Bitônica no modelo CGM}
+Características:
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Trocas de mesagens ocorrem sempre entre pares de 
+
+\vspace{-1cm}\hspace{2cm}processadores.
+
+\hspace{1cm}\itemtrig\ Em cada rodada de comunicação são enviados $\frac{n}{p}$ elementos.
+\end{slide}
+
+\begin{slide}
+\stitle{Radix Sort para Ordenação de Inteiros}
+\end{slide}
+
+
+\begin{slide}
+\stitle{Radix Sort para Ordenação de Inteiros}
+Dados $a_0, a_1, \cdots, a_n$ inteiros no intervalo $[0,m-1]$.
+Se $m$ é grande, podemos usar o algoritmo radix sort para ordenar os $n$ elementos inteiros.
+\end{slide}
+
+
+\begin{slide}
+\stitle{Radix Sort para Ordenação de Inteiros}
+Considere $k$ dígitos decimais. Uma forma simples é fazer radix sort com base em cada dígito (começando com o mais significativo) para separar os números em buckets de 0 a 9.
+\end{slide}
+
+\begin{slide}
+\stitle{Radix Sort para Ordenação de Inteiros}
+\textbf{\darkgreen Exemplo:} $45, 24, 39, 58, 23, 32, 25, 47, 18, 54, 51, 42, 43$
+
+\vspace{-0.5cm}
+Ordenar pelo primeiro digito:
+
+\vspace{-1cm}
+\begin{tabular}{ccccc}
+ 18 & 24 & 39 & 45 & 58 \\ 
+    & 23 & 32 & 47 & 54 \\ 
+    & 25 &    & 42 & 51 \\ 
+    &    &    & 43 &    \\ 
+\end{tabular}
+
+
+\vspace{-0.5cm}
+Ordenar pelo segundo digito:
+
+\vspace{-1cm}
+\begin{tabular}{ccccc}
+ 18 & 23 & 32 & 42 & 51 \\ 
+    & 24 & 39 & 43 & 54 \\ 
+    & 25 &    & 45 & 58 \\ 
+    &    &    & 47 &    \\ 
+\end{tabular}
+
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne}
+Os próximos slides apresentam dois algoritmos de Chan e Dehne.
+
+\itemtrig\ algoritmo 1: ordenação por amostragem determinística (deterministic sample sorting)
+
+\itemtrig\ algoritmo 2: distribuição em grupos e aplicação do algoritmo 1.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+Dados $n$ inteiros no intervalo $[1 .. n^c]$, para constante $c$.
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Mistura split sort com radix sort na fase sequencial.
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Não há nenhuma suposição quanto a distribuição dos 
+
+\vspace{-1cm}\hspace{2cm}números. 
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ $p$ processadores com restrição $n/p \geq p^2$. (Essa restrição 
+
+\vspace{-1cm}\hspace{2cm}pode ser reduzida para $n/p \geq p$.)
+\end{slide}
+
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+\textbf{Idéia:}
+
+Cada processador ordena seus $n/p$ números usando radix sort.
+
+Cada processador seleciona uma \textit{amostra local} de $p$ números: considera os $n/p$ números já ordenados e escolhe um número a cada intervalo de $n/p^2$
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+\textbf{Idéia: (cont.)}
+
+Cada processador envia sua \textit{amostra local} de $p$ números ao processador $p_1$. Note que $p_1$ vai receber $p^2$ números. Portanto memória local deve satisfazer $n/p \geq p^2$.
+
+$p_1$ ordena todos os $p^2$ números recebidos usando radix sort. 
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+\textbf{Idéia: (cont.)}
+
+$p_1$ considera todos os $p^2$ números ordenados e seleciona uma amostra global de $p$ números pegando um número a cada intervalo de $p$.
+
+$p_1$ envia a \textit{amostra global} a todos os processadores.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+\textbf{Idéia: (cont.)}
+
+
+Cada processador $p_i$ particiona os seus $n/p$ números em $p$ Buckets $B_{i,1},B_{i,2}, \cdots, B_{i,p}$. $B_{i,j}$ contém valores entre $(j-1)$-ésima e a $j$-ésima amostra global.
+
+Cada processador $p_i$ envia Buckets $B_{i,j}$ para o processador $p_j$, para todo $j$.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+
+\textbf{\darkgreen Entrada:} $n$ inteiros no intervalo $1 \cdots n^c$, para a constante fixa $c$, armazenados em $p$ processadores, $\frac{n}{p}$ inteiros por processador. $\frac{n}{p} \geq p^2$.
+
+
+\textbf{\darkgreen Saída:} Os inteiros ordenados.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+
+\textbf{algoritmo} $\proc{Ordenação\_CD}$
+
+\vspace{-0.5cm}(1) Cada processador ordena localmente seus $\frac{n}{p}$ inteiros, usando o \textit{radix sort}.
+
+\vspace{-0.5cm}(2) Cada processador seleciona de seus inteiros localmente ordenados, uma amostra (\textit{sample}) de $p$ inteiros com ranks $i(\frac{n}{p^2})$, $0 \leq i \leq p-1$. Denominaremos estes inteiros selecionados como amostras locais. Todas as amostras locais são enviadas ao processador $p_1$. (Note que $p_1$ receberá um total de $p^2$ inteiros). Para isso, necessitamos que $O(\frac{n}{p}) \geq p^2$).
+\end{slide}
+
+\begin{slide}
+\vspace{-0.5cm}(3) $p_1$ ordena as $p^2$ amostras locais recebidas no passo 2 (usando radix sort) e seleciona uma amostra de $p$ inteiros com ranks $ip$, $0 \leq i \leq p-1$. Chamaremos estes inteiros selecionados de amostras globais. As $p$ amostras globais são enviadas $broadcast$ a todos os processadores.
+
+\vspace{-0.5cm}(4) Baseado nas amostras globais recebidas, cada processador $p_i$, particiona seus $\frac{n}{p}$ inteiros em Buckets $B_{i,1}, B_{i,2}, \cdots, B_{i, p}$ onde $B_{i,j}$ são inteiros locais com valores entre $(j-1)$-ésimo e $j$-ésimo elemento das amostras globais.
+
+\vspace{-0.5cm}(5) Em uma (combinada) $h$-relação, cada processador $p_i$, $1 \leq i \leq p$, envia $B_{i,j}$ para o processador $p_{j}$, $1 \leq i \leq p$. Seja $R_j$ o conjunto dos inteiros recebidos pelo processador $p_j$, $1 \leq i \leq p$, e seja $r_i = |R_i|$.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+\vspace{-0.5cm}(6) Cada processador $p_i$, $1 \leq i \leq p$, ordena localmente $R_i$ usando \textit{radix sort}.
+
+\vspace{-0.5cm}(7) Uma operação de balanceamento (balancing shift) que distribui igualmente todos os inteiros entre os processadores sem alterar sua ordem é realizada como segue: Cada processador $p_i$, $1 \leq i \leq p$, envia $r_i$ para $p_1$. O processador $p_1$ calcula para cada $p_j$ um vetor $A_j$ de $p$ números indicando quantos de seus inteiros devem ser removidos para os respectivos processadores. Em uma $h$-relação, todo $A_j$ é enviado a $p_j$, $1 \leq j \leq p$. O balanceamento é então executado em uma $h$-relação subsequente de acordo com os valores de $A_j$.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+
+\begin{center}
+\includegraphics[height=12cm]{fig15}
+\end{center}
+
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+
+\begin{center}
+\includegraphics[height=10cm]{fig16}
+\end{center}
+
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (1)}
+
+Usa 6 rodadas de comunicação
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ sendo 2 rodadas com $h=n/p$
+
+\vspace{-1cm}\hspace{2cm}\ Passo 5 e 7 
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ e 4 rodadas com $h=p^2$ na $h$-relação
+
+\vspace{-1cm}\hspace{2cm}\ Passo 2 e 3  
+
+\vspace{-1cm}\hspace{2cm}\ Passo 7 requer duas rodadas
+
+
+Computação local: $O(n/p)$.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2)}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2)}
+
+\textbf{Idéia:} Particionar $p$ processadores em $\sqrt{p}$ grupos de mesmo tamanho e realizar permutações entre elementos a serem ordenados de tal forma que teremos todos os elementos do grupo $G_i$ menores que os elementos do grupo $G_j$, se $i < j$. 
+
+Para realizar a ordenação, aplicamos o algoritmo 1 (ordenação por amostragem) em cada $\sqrt{p}$ grupos. Este algoritmo utiliza a idéia de dividir os processadores em grupos para garantir que $\frac{n}{p} \geq p$
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2)}
+
+\textbf{Entrada:} $n$ inteiros de $1 \cdots n^c$, para uma constante $c$, armazenada em $p$ processadores, $n/p$ inteiros por processadores. $\frac{n}{p} \geq p$.
+
+\textbf{Saída:} Os elementos ordenados, divididos em grupos de processadores.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2)}
+
+\textbf{algoritmo} $\proc{Ordenação\_CD2}$
+
+\vspace{-0.5cm}(1) Agrupe os $p$ processadores em $\sqrt{p}$ grupos $G_1, G_2 \cdots G_{\sqrt{p}}$. 
+
+\vspace{-0.5cm}(2) Em cada um dos grupos obtidos, aplique o algoritmo $\proc{ordenacao\_CD}$.
+
+
+\vspace{-0.5cm}(3) Cada processador obtém seu menor elemento, denominado \textit{mínimo local} e envia para $p_1$.
+
+\vspace{-0.5cm}(4) $p_1$ ordena os elementos recebidos no passo 3 e seleciona $\sqrt{p}$ inteiros com rank $i\sqrt{p}$, denominados \textit{divisores globais}. Em seguida, envia os $\sqrt{p}$ divisores globais para todos os processadores.
+
+\vspace{-0.5cm}(5) Cada processador $p_i$ divide seu conjunto de $\frac{n}{p}$ inteiros em $\sqrt{p}$ cestos $B_{i,j}$, contendo os elementos entre $(j-1)$-ésimo e o $j$-ésimo elementos dos divisores globais, onde $1 \leq j \leq \sqrt{p}$.
+
+\vspace{-0.5cm}(6) $p_i$ envia $B_{i, j}$ para um processador no grupo $G_j$, onde $1 \leq i \leq p$ e $1 \leq j \leq \sqrt{p}$. Denominaremos $R'_j$, o conjunto de inteiros enviados para o grupo $G_j$.
+
+\vspace{-0.5cm}(7) Em cada um dos grupo $G_i$, calcula-se o tamanho do conjunto de inteiros enviados ao grupo $G_j$, $1 \leq j \leq \sqrt{p}$, denominado de $t_{i,j}$.
+
+\vspace{-0.5cm}(8) Todos $t_{i,j}$ e os tamanhos de $B_{i,j}$ são enviados para um processador em cada grupo, denominado de processador principal.
+
+
+\vspace{-0.5cm}(9) Em cada grupo, o processador principal computa uma escala de roteamento para realizar balanceamento na distribuição dos dados entre os processadores do grupo e envia aos demais processadores do grupo.
+
+\vspace{1cm}(10) Usando a $\proc{ordenação\_CD}$, cada grupo $G_j$, $1 \leq j \leq \sqrt{p}$, ordena $R'_j$.
+
+\vspace{-0.5cm}(11) Uma operação de balanceamento (balancing shift) distribui todos os inteiros igualmente entre os processadores sem mudar sem mudar sua ordem. Este passo é análogo ao passo 7 do algoritmo $\proc{ordenação\_CD}$, porém utilizando duas fases como nos passos 7, 8 e 9 deste algoritmo.
+
+\textbf{-- fim do algoritmo}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2) - Exemplo}
+
+\begin{center}
+\includegraphics[height=6cm]{fig21}
+\end{center}
+
+
+(a) $G_1$, composto por $p_1$ e $p_2$; e $G_2$ composto por $p_3$ e $p_4$. Depois, o algoritmo $\proc{ordenação\_CD}$ é aplicado em cada grupo separadamente.
+
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2) - Exemplo}
+
+\begin{center}
+\includegraphics[height=6cm]{fig21}
+\end{center}
+
+
+(b) Cada processador seleciona o \textit{mínimo local} e envia para o processador $p_1$. 
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2) - Exemplo}
+
+
+\begin{center}
+\includegraphics[height=6cm]{fig22}
+\end{center}
+
+
+(c) o processador $p_1$ ordena os elementos recebidos e escolhe uma amostra de $\sqrt{p}$ inteiros, e envia para todos os processadores. 
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2) - Exemplo}
+
+\begin{center}
+\includegraphics[height=6cm]{fig22}
+\end{center}
+
+
+(d) cada processador divide seus $\frac{n}{p}$ dados em cestos $B_{i,j}$, envia para um processador no grupo $G_j$. 
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2) - Exemplo}
+
+\begin{center}
+\includegraphics[height=6cm]{fig22}
+\end{center}
+
+
+(d) $p_1$ permaneceu com o cesto $B_{1,1}$ e enviou o cesto $B_{1,2}$ para o processador $p_4$, que pertence ao grupo $G_2$.
+\end{slide}
+
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2) - Exemplo}
+
+\begin{center}
+\includegraphics[height=6cm]{fig22}
+\end{center}
+
+
+(d) Analogamente, $p_3$ enviou o cesto $B_{3,1}$ para o processador $p_2$, que pertence ao grupo $G_1$.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2) - Exemplo}
+
+\begin{center}
+\includegraphics[height=6cm]{fig23}
+\end{center}
+
+
+(e) Cada um dos grupos $G_1$ e $G_2$ executa novamente o algoritmo de $\proc{ordenação\_CD}$.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo CGM de Chan e Dehne (2) - Exemplo}
+
+\begin{center}
+\includegraphics[height=6cm]{fig23}
+\end{center}
+
+
+(f) Por fim, é realizado um balanceamento de modo que todos os processadores tenham $\frac{n}{p}$ elementos.
+\end{slide}
+
 \begin{slide}
 \stitle{List Ranking no Modelo BSP/CGM}
 \end{slide}
@@ -702,21 +1620,30 @@ A \textbf{\darkgreen distância} entre $i$ e $j$,  $d_L(i,j)$, é o número de nós 
 
 \begin{slide}
 \stitle{List Ranking}
-O problema do \textbf{\darkgreen list ranking} consiste em computar para cada $i \in L$, a distância entre $i$ e o último elemento $j$, denotado por $dist_L(i) = d_L(i,j)$.
+O problema do \textbf{\darkgreen list ranking} consiste em computar para cada $i \in L$, a distância entre $i$ e o último elemento $j$, denotado por $rank_L(i) = d_L(i,j)$.
 \end{slide}
 
 \begin{slide}
 \stitle{List Ranking}
-O número de nós da lista cujos sucessores não estão armazenados no mesmo processador pode variar de $0$ a $n/p$.
+Não é possível aplicar a idéia do teorema de Brent no problema do list ranking.
 
-Mesmo se todos os sucessores estiverem em um dado processador, após a aplicação da duplicação recursiva (\textit{pointer jumping}), não há garantia que isto ocorra nos passos seguintes.
+
+\begin{itemize}
+\item[\itemtrig] O número de nós da lista cujos sucessores não estão armazenados no mesmo processador pode variar de $0$ a $n/p$.
+
+\item[\itemtrig] Mesmo se todos os sucessores estiverem em um dado processador, após a aplicação da duplicação recursiva (\textit{pointer jumping}), não há garantia que isto ocorra nos passos seguintes.
+
+\end{itemize}
 \end{slide}
 
 \begin{slide}
 \stitle{List Ranking}
 \begin{center}
-\includegraphics[height=12cm]{fig05}
+\includegraphics[height=10cm]{fig05}
 \end{center}
+
+\itemtrig\ $n=24$ elementos armazenados em $p=4$ processadores. Cada processador armazena $n/p = 6$ elementos.
+
 \end{slide}
 
 \begin{slide}
@@ -751,26 +1678,28 @@ Uma lista L e um 3-ruling set.
 \end{slide}
 
 \begin{slide}
-\stitle{Algoritmo List Ranking determinístico}
+\stitle{Algoritmo List Ranking}
 \end{slide}
+
 
 \begin{slide}
 \stitle{Algoritmo List Ranking determinístico}
 {\blue Entrada}: Uma lista ligada L de comprimento $n$ onde cada processador armazena $n/p$ elemento $i \in L$ e seus respectivos ponteiros $s_L[i]$.
 
-{\blue Saída}: Para cada elemento $i$ seu \textit{rank} $dist(i)$ em L. 
+{\blue Saída}: Para cada elemento $i$ da lista obter seu $rank_L(i)$ em $L$. 
 \end{slide}
 
 \begin{slide}
 \stitle{Algoritmo List Ranking determinístico}
 \begin{enumerate}
 \item Calcular $O(p^2)$-\textit{ruling set} R com $|R| = O(n/p)$.
-\item Fazer um \textit{broadcast} de R para todos os processadores. O subconjunto R é uma lista ligada onde cada elemento $i$ é atribuído um ponteiro para o próximo elemento $j$ em R com respeito à ordem induzida por L.
-\item Calcular sequencialmente em cada processador o \textit{List Ran\-king} de R, isto é, calcular para cada $j \in R$ seu $dist_L(j)$ em L
+\item Fazer um \textit{broadcast} de $R$ para todos os processadores. O subconjunto $R$ é uma lista ligada onde cada elemento $i$ é atribuído um ponteiro para o próximo elemento $j \in R$ com respeito à ordem induzida por $L$.
+
+\item Calcular sequencialmente em cada processador o \textit{List Ran\-king} de $R$, isto é, calcular para cada $j \in R$ seu $rank_L(j)$ em $L$.
 
 \item Obter para cada elemento $i \in L - R$ sua distância $d_L(i,s_R[i])$ ao próximo elemento $s_R[i]$ em $R$ através da duplicação recursiva.
 
-\item Calcular em cada processador os \textit{ranks} dos seus elementos $i \in L - R$ com: $$dist_L[i] = d_L(i, s_R[i]) + dist_L(s_R[i])$$ 
+\item Calcular em cada processador os \textit{ranks} dos seus elementos $i \in L - R$ com: $$rank_L[i] = d_L(i, s_R[i]) + rank_L(s_R[i])$$ 
 \end{enumerate}
 \end{slide}
 
@@ -800,21 +1729,6 @@ A fase de concatenação consiste da construção de uma lista ligada, através da du
 
 \begin{slide}
 \stitle{Compressão determinística de listas}
-Um intervalo-s de comprimento $k$ é uma sequencia $I = (i_1, i_2, \cdots, i_k)$ de elementos da lista tal que $s[i_j] = i_{j+1}$, $1 \leq j \leq k-1$.
-
-Os dois vizinhos $n_1$ e $n_2$ do intervalo-s $I$ são tais que $s[n_1] = i_1$ e $s[i_k] = n_2$.
-\end{slide}
-
-\begin{slide}
-\stitle{Compressão determinística de listas}
-
-Um intervalo-s maximal $I$ de elementos da lista cujos elementos estão todos no mesmo processador é dito intervalo-s local.
-
-Um intervalo-s maximal $I$ de elementos da lista tal que quaisquer dois elementos consecutivos não estão no mesmo processador é dito intervalo-s não-local.
-\end{slide}
-
-\begin{slide}
-\stitle{Compressão determinística de listas}
 O rótulo $l(i)$,  $\forall i \in L$, na fase de compressão é o número do processador $p$ que armazena o nó $i$.
 
 Neste esquema, cada elemento de L tem no máximo $p$ rótulos distintos.
@@ -826,38 +1740,105 @@ Seja $M =\{i, i+1, \cdots, i+k\} \subseteq L$, tal que $l(i) \neq l(s[i])$, $\fo
 \stitle{Compressão determinística de listas}
 Selecionando apenas máximos locais não há garantia de distância menor que $O(p)$.
 
-Pode haver $L' = \{j, j+1, \cdots, j+k\} \subseteq L$, onde $l(s[i]) = l(j), \forall j \in L'$ e $k > p$
+Pode haver $L' = \{j, j+1, \cdots, j+k\} \subseteq L$, onde $l(s[j]) = l(j), \forall j \in L'$ e $k > p$
 
-Selecionamos todos os segundos elementos.
+Para contornar esse problema, sempre que tivermos um subconjunto com esta característica, selecionamos todos os segundos elementos.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo $p$-\textit{ruling set}}
+
+\textbf{Entrada:} (1) Uma lista ligada $L$ representada pelo vetor $s$ onde $s[i]$ é o sucessor de $i$ na lista $L$. (2) $p$ processadores $p_0, p_1, \cdots, p_{p-1}$.
+
+\textbf{Saída:} Um subconjunto $R \subset L$ de nós selecionados.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo $p$-\textit{ruling set}}
+
+\textbf{algoritmo} $p-\proc{rulling set}$
+\vspace{-1cm} \begin{enumerate}
+\item[(1)] \textbf{para} $i=p_j*(n/p) + 1$ \textbf{até} $(p_{j} + 1) * (n/p)$  \vspace{-0.5cm}\textbf{faça}
+
+(1.1) $sel[i] \leftarrow $ não selecionado
+
+\vspace{-1cm}\item[(2)] \textbf{para} $i=p_j*(n/p) + 1$ \textbf{até} $(p_{j} + 1) * (n/p)$  \vspace{-0.5cm}\textbf{faça}
+
+(2.1) \textbf{se} $l(i) < l(s[i]) > l(s[s[i])$ \textbf{então} $sel[s[i]] \leftarrow $ selecionado
+(2.2) \textbf{se} $l(i) = l(s[i])$ \textbf{então}
+
+\vspace{-0.7cm}\hspace{4cm}\textbf{se} $l(s[i]) = l(s[s[i]])$ \textbf{então}
+
+\vspace{-0.7cm}\hspace{6cm}$sel[s[i]] \leftarrow $ selecionado
+
+\vspace{-0.7cm}\hspace{4cm}\textbf{senão se} $l(s[i]) > l(s[s[i]])$ \textbf{então}
+
+\vspace{-0.7cm}\hspace{6cm}$sel[i] \leftarrow $ selecionado
+
+\textbf{-- Fim do algoritmo}
+\end{enumerate}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo $p$-\textit{ruling set}}
+
+\begin{center}
+\includegraphics[height=7cm]{fig24}
+\end{center}
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo $p$-\textit{ruling set}}
+O algoritmo computa $O(p)$-ruling set $R$, mas $|R|$ pode ser igual a $O(n)$, pois se os $n/p$ elementos da lista $L$ em cada processador $p_j$ tiverem rótulo igual a $j$, serão selecionados $n/2$ elementos.
+
+Para selecionar $O(n/p)$ elementos necessitamos executar o algoritmo $\log p$ vezes.
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo $p$-\textit{ruling set}}
+Para obter uma $p^2$-ruling set $R$ de elementos selecionados com $O(n/p)$ elementos, necessitamos desmarcar elementos que foram selecionados.
+
+Para isso, construímos uma nova lista ligada com elementos selecionados e aplicamos o procedimento de marcação (máximos locais e segundos elementos de sublista no mesmo processador)
+\end{slide}
+
+\begin{slide}
+\stitle{Algoritmo $p$-\textit{ruling set}}
+Se dois elementos selecionados estão a uma distância $\Theta(p)$ a um dado momento, então não é necesário aplicar novamente a compressão para reduzir o número de elementos selecionados.
+
+Abordagem básica: intercalar duplicação recursiva (concatenação) com compressão.
+
+Não aplicar duplicação recursiva aos elementos que estão apontando para elementos selecionados.
+\end{slide}
+
+
+\begin{slide}
+\stitle{Algoritmo $p^2$-\textit{ruling set}}
+\textbf{\blue Entrada:} $L$ representada pelo vetor $s$ onde $s[i]$ é o sucessor de $i$ na lista $L$. (2) processadores $p_0, p_1, \cdots, p_{p-1}$ e $LC$ uma cópia de $L$.
+
+\textbf{\blue Saída:} $R \subset L$ de nós selecionados e $|R| = O(n/p)$.
 \end{slide}
 
 \begin{slide}
 \stitle{Algoritmo $p^2$-\textit{ruling set}}
-\textbf{\blue Entrada:} $L$ representada pelo vetor s.
-
-\textbf{\blue Saída:} $R \subset L$ de nós selecionados.
-\end{slide}
-
-\begin{slide}
-\stitle{Algoritmo $p^2$-\textit{ruling set}}
 \begin{enumerate}
-\item[(1)] Cada processador localmente marca todos seus elementos como \textbf{não-selecionado}
-\item[(2)] Cada processador executa para cada um dos elementos armazenados:
+\item[(1)] $R \leftarrow p-ruling\_set(LC)$ 
+\item[(2)] \textbf{para} $k=1$ \textbf{até} $\log p$ \textbf{faça}
 \begin{enumerate}
-\item[(2.1)] se $l(i) < l(s[i]) > l(s[s[i]])$ então $s[i]$ é \textbf{selecionado}.
+\item[(2.1)] \textbf{para todo} $i \in L$ \textbf{faça em paralelo}
+
+\textbf{se} $s[i]$ = não selecionado então $s[i] = s[s[i]]$
+
+\item[(2.2)] \textbf{para todo} $i \in L$ \textbf{faça em paralelo}
+
+\textbf{se} ($i, s[i]$ e $s[s[i]]$ são selecionado) \textbf{e não} ($l(i) < l(s[i]) > l(s[s[i]])$) \textbf{e} ($l(i) l(s[i])$) \textbf{e} ($l(s[i]) \neq l(s[s[i]])$) \textbf{então} 
+
+\hspace{4cm}$s[i]$ $\leftarrow$ \textbf{não-selecionado}. 
+
+\item[(2.3)] Sequencialmente, cada processador processa as sublistas de elementos subsequentes que estão armazenadas no mesmo processador. Para cada sublista, marque todo segundo elemento como não selecionado. Se uma das sublistas possui apenas dois elementos, marque ambos como não selecionado.
+
+
 \end{enumerate}
-\item[(3)] Cada processador localmente determina seus intervalos-s locais. Para cada intervalo-s de comprimento maior que dois, todo segundo elemento é marcado como \textbf{selecionado}. Se algum intervalo-s tem comprimento menor que dois e nenhum de seus vizinhos tem um rótulo menor, então ambos elementos são marcados como \textbf{não-selecionados}.
-\item[(4)] para $k=1$ até $\log p$ faça
-\begin{enumerate}
-\item[(4.1)] Cada processador localmente executa para cada elemento $i$ da lista:
-
-se $s[i]$ é \textbf{não-selecionado} então $s[i] = s[s[i]]$.
-\item[(4.2)] Cada processador localmente executa para cada elemento $i$ da lista
-
-se ($i$, $s[i]$ e $s[s[i]]$ estão \textbf{selecionados}) E ($l(i) < l(s[i]) > l(s[s[i]])$) E ($l(i) \neq l(s[i])$) E ($l(s[i]) \neq l(s[s[i]])$) então marcar $s[i]$ como \textbf{não-selecionado}.
-\item[(4.3)] Cada processador examina seus intervalos-s locais. Para cada intervalo-s de comprimento maior que dois, todo segundo elemento é marcado como \textbf{não-selecionado}. Se um intervalo-s tem comprimento dois e nenhum de seus vizinhos tem um rótulo menor, então ambos elementos são marcados como \textbf{não-selecionado}.
-\end{enumerate}
- \item[(5)] O processador que armazena o último elemento de L é marcado como \textbf{selecionado}.
+ \item[(3)] Selecione o último elemento.
 \end{enumerate}
 \end{slide}
 
