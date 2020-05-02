@@ -1,0 +1,1233 @@
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+\usepackage{adjustbox}
+%----------------------------
+\usepackage{tabularx}
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{plotmarks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+
+%\maketitle
+
+%\slidesubhead{}
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Referências}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item Pacheco, P., An Introduction to Parallel Programming, Morgan Kaufmann Publishers, 2011.
+  
+  \item Diverio, T., Toscani, L., Veloso P., Análise e Complexidade de Algoritmos Paralelos, anais da Escola Regional de Alto Desempenho, 2002. São Leopoldo - RS.
+  
+  \end{enumerate}
+\end{slide}
+
+\begin{slide}
+  \stitle{Ping pong}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Ping pong}
+\begin{verbatim}
+vizinho = (id + 1) % 2;
+cont = 0;
+while (cont < LIMITE) {
+   if (id == cont % 2) {
+      cont++;
+      MPI_Send(&cont, 1, MPI_INT, vizinho, 
+                         tag, MPI_COMM_WORLD);
+      printf("%d enviou valor %d para %d\n", id, cont, vizinho);
+
+   } else {
+      MPI_Recv(&contador, 1, MPI_INT, vizinho, 
+                            tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+      printf("%d recebeu valor %d de %d\n", id, cont, vizinho);
+   }
+}
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Ping pong}
+\begin{verbatim}
+Para compilar:
+
+$ mpicc -o ping_pong ping_pong.c 
+
+
+Para executar:
+
+$ mpirun -np 2 ./ping_pong
+\end{verbatim}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Ping pong}
+\begin{verbatim}
+0 enviou valor 1 para 1
+0 recebeu valor 2 de 1
+0 enviou valor 3 para 1
+0 recebeu valor 4 de 1
+0 enviou valor 5 para 1
+0 recebeu valor 6 de 1
+0 enviou valor 7 para 1
+0 recebeu valor 8 de 1
+1 recebeu valor 1 de 0
+1 enviou valor 2 para 0
+1 recebeu valor 3 de 0
+1 enviou valor 4 para 0
+1 recebeu valor 5 de 0
+1 enviou valor 6 para 0
+....
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Anel}
+\end{slide}
+
+\begin{slide}
+  \stitle{Anel}
+\begin{verbatim}
+int token, tag = 0;
+if (id != MESTRE) {
+   MPI_Recv(&token, 1, MPI_INT, id - 1, tag, MPI_COMM_WORLD, 
+                                             MPI_STATUS_IGNORE);
+   printf("%d recebeu token %d de %d\n", id, token, id - 1);
+} else {
+   token = 123;
+}
+MPI_Send(&token, 1, MPI_INT, (id + 1) % p, tag, MPI_COMM_WORLD);
+if (id == 0){
+   MPI_Recv(&token, 1, MPI_INT, p - 1, tag, MPI_COMM_WORLD, 
+                                            MPI_STATUS_IGNORE);
+   printf("%d recebeu token %d de %d\n", id, token, p - 1);
+}
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Anel}
+\begin{verbatim}
+$mpicc -o anel anel.c 
+$mpirun -np 4 ./anel
+
+1 recebeu token 123 de 0
+2 recebeu token 123 de 1
+3 recebeu token 123 de 2
+0 recebeu token 123 de 3
+
+\end{verbatim}
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Situação de Deadlock}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Situação de Deadlock}
+\begin{verbatim}
+   if (id == MESTRE) { a = 0;  b = 1; } 
+                else { a = 1;  b = 0; }
+   
+   if (id == MESTRE) {
+      MPI_Send(&a, 1, MPI_INT, 1, tag, MPI_COMM_WORLD);
+      MPI_Recv(&b, 1, MPI_INT, 1, tag, MPI_COMM_WORLD, 
+                                       MPI_STATUS_IGNORE);
+   } else {
+      MPI_Recv(&a, 1, MPI_INT, 0, tag, MPI_COMM_WORLD, 
+                                       MPI_STATUS_IGNORE);
+      MPI_Send(&b, 1, MPI_INT, 0, tag, MPI_COMM_WORLD);
+   }
+   printf("id = %d, a = %d, b = %d\n", id, a, b);
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Situação de Deadlock}
+  Quando há troca de mensagens entre dois processos, pode ocorrer a situação de deadlock, pois as operações de send e receive são bloqueantes.
+\end{slide}
+
+\begin{slide}
+  \stitle{Solução mais adequada}
+\begin{verbatim}
+   if (id == MESTRE) { a = 0;  b = 1; } 
+                else { a = 1;  b = 0; }
+
+   if (id == MESTRE) {
+      MPI_Sendrecv(&a, 1, MPI_INT, 1, tag,
+                   &b, 1, MPI_INT, 1, tag, MPI_COMM_WORLD, 
+                                           MPI_STATUS_IGNORE);
+   } else {
+      MPI_Sendrecv(&b, 1, MPI_INT, 0, tag,
+                   &a, 1, MPI_INT, 0, tag, MPI_COMM_WORLD, 
+                                           MPI_STATUS_IGNORE);
+  }
+  printf("id = %d, a = %d, b = %d\n", id, a, b);
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação bolha}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação bolha}
+\begin{verbatim}
+void ordenacao_bolha(int a[],int n) {
+   int tamanho, i, temp;
+   for (tamanho = n; tamanho >= 2; tamanho--) {
+      for (i = 0; i < tamanho ? 1; i++) {
+         if (a[i] > a[i+1]) {
+            troca (a, i, i+1);            
+         }
+      }
+   }   
+}
+\end{verbatim}
+Complexidade: $O(n^2)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação bolha}
+    Difícil de paralelizar, pois há um ordem de comparação inerentemente sequencial.    
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+Variação do algoritmo bolha que possui oportunidades consideráveis de paralelismos.
+
+\textbf{ideia:}  desacoplar as comparações e trocas.
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+  
+  O algoritmo consiste de uma sequência comparações e trocas alternando entre as fases par e ímpar.
+  
+ Durante a \textbf{fase par}, executar comparações e trocas entre os pares $(a[0],a[1]), (a[2],a[3]), (a[4],a[5]), \cdots$
+
+ Durante a \textbf{fase ímpar}, executar comparações e trocas entre os pares $(a[1],a[2]), (a[3],a[4]), (a[5],a[6]), \cdots$
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+
+Exemplo:  $[5,9,4,3,2,7,8,6]$  
+
+\begin{adjustbox}{max width=0.85\textwidth}  
+  \begin{tabular}{|c|l|} \hline
+  fases & vetor \\ \hline
+  par   & compare e troque os pares $(5,9),(4,3),(2,7),(8,6)$ \\
+        & obtendo $[5,9,3,4,2,7,6,8]$ \\ \hline
+  \end{tabular}
+\end{adjustbox}
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+
+Exemplo:  $[5,9,4,3,2,7,8,6]$  
+
+\begin{adjustbox}{max width=0.85\textwidth}  
+  \begin{tabular}{|c|l|} \hline
+  fases & vetor \\ \hline
+  par   & compare e troque os pares $(5,9),(4,3),(2,7),(8,6)$ \\
+        & obtendo $[5,9,3,4,2,7,6,8]$ \\ \hline
+  ímpar & compare e troque os pares $(9,3),(4,2),(7,6)$ \\
+        & obtendo $[5,3,9,2,4,6,7,8]$ \\ \hline
+  \end{tabular}
+\end{adjustbox}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+
+Exemplo:  $[5,9,4,3,2,7,8,6]$  
+
+\begin{adjustbox}{max width=0.85\textwidth}  
+  \begin{tabular}{|c|l|} \hline
+  fases & vetor \\ \hline
+  par   & compare e troque os pares $(5,9),(4,3),(2,7),(8,6)$ \\
+        & obtendo $[5,9,3,4,2,7,6,8]$ \\ \hline
+  ímpar & compare e troque os pares $(9,3),(4,2),(7,6)$ \\
+        & obtendo $[5,3,9,2,4,6,7,8]$ \\ \hline
+  par & compare e troque os pares $(5,3),(9,2),(4,6),(7,8)$ \\
+        & obtendo $[3,5,2,9,4,6,7,8]$ \\ \hline
+  \end{tabular}
+\end{adjustbox}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+Exemplo:  $[5,9,4,3,2,7,8,6]$  
+
+\begin{adjustbox}{max width=0.85\textwidth}  
+  \begin{tabular}{|c|l|} \hline
+  fases & vetor \\ \hline
+  par   & compare e troque os pares $(5,9),(4,3),(2,7),(8,6)$ \\
+        & obtendo $[5,9,3,4,2,7,6,8]$ \\ \hline
+  ímpar & compare e troque os pares $(9,3),(4,2),(7,6)$ \\
+        & obtendo $[5,3,9,2,4,6,7,8]$ \\ \hline
+  par & compare e troque os pares $(5,3),(9,2),(4,6),(7,8)$ \\
+        & obtendo $[3,5,2,9,4,6,7,8]$ \\ \hline
+  ímpar & compare e troque os pares $(5,2),(9,4),(6,7)$ \\
+        & obtendo $[3,2,5,4,9,6,7,8]$ \\ \hline
+  \end{tabular}
+\end{adjustbox}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+
+Exemplo:  $[5,9,4,3,2,7,8,6]$  
+
+\begin{adjustbox}{max width=0.85\textwidth}  
+  \begin{tabular}{|c|l|} \hline
+  fases & vetor \\ \hline
+  par   & compare e troque os pares $(5,9),(4,3),(2,7),(8,6)$ \\
+        & obtendo $[5,9,3,4,2,7,6,8]$ \\ \hline
+  ímpar & compare e troque os pares $(9,3),(4,2),(7,6)$ \\
+        & obtendo $[5,3,9,2,4,6,7,8]$ \\ \hline
+  par & compare e troque os pares $(5,3),(9,2),(4,6),(7,8)$ \\
+        & obtendo $[3,5,2,9,4,6,7,8]$ \\ \hline
+  ímpar & compare e troque os pares $(5,2),(9,4),(6,7)$ \\
+        & obtendo $[3,2,5,4,9,6,7,8]$ \\ \hline
+  par   & compare e troque os pares $(3,2),(5,4),(9,6),(7,8)$ \\
+        & obtendo $[2,3,4,5,6,9,7,8]$ \\ \hline
+  \end{tabular}
+\end{adjustbox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+
+Exemplo:  $[5,9,4,3,2,7,8,6]$  
+
+\begin{adjustbox}{max width=0.85\textwidth}  
+  \begin{tabular}{|c|l|} \hline
+  fases & vetor \\ \hline
+  par   & compare e troque os pares $(5,9),(4,3),(2,7),(8,6)$ \\
+        & obtendo $[5,9,3,4,2,7,6,8]$ \\ \hline
+  ímpar & compare e troque os pares $(9,3),(4,2),(7,6)$ \\
+        & obtendo $[5,3,9,2,4,6,7,8]$ \\ \hline
+  par & compare e troque os pares $(5,3),(9,2),(4,6),(7,8)$ \\
+        & obtendo $[3,5,2,9,4,6,7,8]$ \\ \hline
+  ímpar & compare e troque os pares $(5,2),(9,4),(6,7)$ \\
+        & obtendo $[3,2,5,4,9,6,7,8]$ \\ \hline
+  par   & compare e troque os pares $(3,2),(5,4),(9,6),(7,8)$ \\
+        & obtendo $[2,3,4,5,6,9,7,8]$ \\ \hline
+  ímpar & compare e troque os pares $(3,4),(5,6),(9,7)$ \\
+        & obtendo $[2,3,4,5,6,9,7,8]$ \\ \hline
+  \end{tabular}
+\end{adjustbox}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+  
+Exemplo:  $[5,9,4,3,2,7,8,6]$  
+
+\begin{adjustbox}{max width=0.85\textwidth}  
+  \begin{tabular}{|c|l|} \hline
+  fases & vetor \\ \hline
+  par   & compare e troque os pares $(5,9),(4,3),(2,7),(8,6)$ \\
+        & obtendo $[5,9,3,4,2,7,6,8]$ \\ \hline
+  ímpar & compare e troque os pares $(9,3),(4,2),(7,6)$ \\
+        & obtendo $[5,3,9,2,4,6,7,8]$ \\ \hline
+  par & compare e troque os pares $(5,3),(9,2),(4,6),(7,8)$ \\
+        & obtendo $[3,5,2,9,4,6,7,8]$ \\ \hline
+  ímpar & compare e troque os pares $(5,2),(9,4),(6,7)$ \\
+        & obtendo $[3,2,5,4,9,6,7,8]$ \\ \hline
+  par   & compare e troque os pares $(3,2),(5,4),(9,6),(7,8)$ \\
+        & obtendo $[2,3,4,5,6,9,7,8]$ \\ \hline
+  ímpar & compare e troque os pares $(3,4),(5,6),(9,7)$ \\
+        & obtendo $[2,3,4,5,6,7,9,8]$ \\ \hline
+  par   & compare e troque os pares $(2,3),(4,5),(6,7),(9,8) $ \\
+        & obtendo $[2,3,4,5,6,7,8,9]$ \\ \hline
+  \end{tabular}
+\end{adjustbox}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+\begin{verbatim}
+void ordenacao_par_impar(int a[], int n) {
+   for (int fase = 0; fase < n; fase++)
+      if (fase % 2 == 0) { /* fase par */
+         for (int i = 1; i < n; i += 2)
+            if (a[i - 1] > a[i]) {
+               troca(a, i - 1, i);
+            }
+      } else { /* fase ímpar */
+         for (int i = 1; i < n - 1; i += 2)
+            if (a[i] > a[i + 1]) {
+               troca(a, i, i + 1);
+            }
+      }      
+}
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+  
+Ordenacao par-ímpar paralelo:
+
+\begin{enumerate}
+\item Cada processo contém um sub-vetor com $r=n/p$ elementos.
+\item Cada processo ordena o seu sub-vetor local.
+\item Repita $p$ fases
+
+\itemcirc\ Fase par, processos com $id$ ímpares trocam dados com processos de $id$ pares: $(p_0, p_1), (p_2, p_3), (p_4, p_5), \cdots$
+ 
+
+\itemcirc\ Fase ímpar, processos com $id$ pares trocam dados com processos de $id$ ímpares: $(p_1, p_2), (p_3, p_4), (p_5, p_6), \cdots$
+
+\end{enumerate}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+ \begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{tempo} & \multicolumn{4}{c|}{processo} \\ \cline{2-5} 
+                  &  0   &  1   &  2   &  3   \\ \hline
+    início        & $15,11,9,16$    & $3,14,8,7$ & $4,6,12,10$& $5,2,13,1$\\ \hline
+ordenação  & $9,11,15,16$    & $3,7,8,14$ & $4,6,10,12$& $1,2,5,13$\\ \hline
+fase 0           & $3,7,8,9$ & $11,14,15,16$ & $1,2,4,5$ & $6,10,12,13$\\ \hline
+fase 1           & $3,7,8,9$ & $1,2,4,5$ & $11,14,15,16$ & $6,10,12,13$\\ \hline                 
+fase 2           & $1,2,3,4$ & $5,7,8,9$ & $6,10,11,12$ & $13,14,15,16$\\ \hline
+fase 3           & $1,2,3,4$ & $5,6,7,8$ & $9,10,11,12$ & $13,14,15,16$\\ \hline
+\end{tabular}  
+\end{adjustbox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+ Custo total:
+
+\vspace{-1cm}\itemcirc\ Ordenação local : $O(n \lg n)$
+
+\vspace{-1cm}\itemcirc\ Pelo menos $p$ fases
+
+\vspace{-1cm}\hspace{1cm} \itemtrig\ processos vizinhos troca $n/p$ elementos.
+
+\vspace{-1cm}\hspace{1cm} \itemtrig\ executam o merge e split em dois sub-vetores 
+
+\vspace{-1cm}\hspace{2cm} de tamanho $n/p$ 
+  
+  
+ $T_{par}$ = (ordenação local) 
+ 
+\vspace{-1cm}\hspace{2cm} + (p rodadas de comunicação) 
+
+\vspace{-1cm}\hspace{2cm} + (p merges/splits). 
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+ Custo total:
+
+\vspace{-1cm}\itemcirc\ Ordenação local : $O(n \lg n)$
+
+\vspace{-1cm}\itemcirc\ Pelo menos $p$ fases
+
+\vspace{-1cm}\hspace{1cm} \itemtrig\ processos vizinhos troca $n/p$ elementos.
+
+\vspace{-1cm}\hspace{1cm} \itemtrig\ executam o merge e split em dois sub-vetores 
+
+\vspace{-1cm}\hspace{2cm} de tamanho $n/p$ 
+  
+  
+ $T_{par} = (O((n/p) \lg (n/p))) $
+ 
+\vspace{-1cm}\hspace{2cm} $ + (p * O(n/p))$ 
+
+\vspace{-1cm}\hspace{2cm} $ + (p * O(n/p))$. 
+ 
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+ Custo total:
+
+\vspace{-1cm}\itemcirc\ Ordenação local : $O(n \lg n)$
+
+\vspace{-1cm}\itemcirc\ Pelo menos $p$ fases
+
+\vspace{-1cm}\hspace{1cm} \itemtrig\ processos vizinhos troca $n/p$ elementos.
+
+\vspace{-1cm}\hspace{1cm} \itemtrig\ executam o merge e split em dois sub-vetores 
+
+\vspace{-1cm}\hspace{2cm} de tamanho $n/p$ 
+  
+  
+ $T_{par} = (O((n/p) \lg (n/p))) $
+ 
+\vspace{-1cm}\hspace{2cm} $ + O(n)$ 
+
+\vspace{-1cm}\hspace{2cm} $ + O(n)$. 
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+ Custo total:
+
+\vspace{-1cm}\itemcirc\ Ordenação local : $O(n \lg n)$
+
+\vspace{-1cm}\itemcirc\ Pelo menos $p$ fases
+
+\vspace{-1cm}\hspace{1cm} \itemtrig\ processos vizinhos troca $n/p$ elementos.
+
+\vspace{-1cm}\hspace{1cm} \itemtrig\ executam o merge e split em dois sub-vetores 
+
+\vspace{-1cm}\hspace{2cm} de tamanho $n/p$ 
+  
+  
+ $T_{par} = (O((n/p) \lg (n/p))) + O(2n)$
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar} 
+  
+$\proc{ordenacao\_par\_impar}(a\_local, n\_local)$  
+  
+\vspace{-1cm}(1) $\proc{ordene(}a\_local, n\_local)$ 
+
+\vspace{-1cm}(2) \textbf{para} $fase = 0$ \textbf{até} $p$ \textbf{faça}
+ 
+\vspace{-1cm}(3) \hspace{2cm} $vizinho = \proc{compute\_o\_vizinho}(fase, id)$
+
+\vspace{-1cm}(4) \hspace{2cm} \textbf{se} $vizinho$ é valido \textbf{então}  
+
+\vspace{-1cm}(5) \hspace{4cm} $\proc{envia}(a\_local,n\_local, vizinho)$ 
+
+\vspace{-1cm}(6) \hspace{4cm} $\proc{recebe}(b\_local,n\_local, vizinho)$ 
+
+\vspace{-1cm}(7) \hspace{4cm} \textbf{se} ($id < vizinho$) \textbf{então} 
+
+\vspace{-1cm}(8) \hspace{6cm} {\blue intercala e mantém os menores}
+
+\vspace{-1cm}(9) \hspace{4cm} \textbf{senão}
+
+\vspace{-1cm}(10) \hspace{6cm}{\blue intercala e mantém os maiores}
+\end{slide}
+
+\begin{slide}
+  \stitle{computar o vizinho}
+
+\begin{verbatim}
+   if (fase % 2 == 0) /* fase par */
+      if (id % 2 != 0) /* id impar */
+              vizinho = id - 1;
+      else             /* id par */
+              vizinho = id + 1;
+   else               /* fase impar */
+      if (id % 2 != 0) /* id impar */
+              vizinho = id + 1;
+      else            /* id par */
+              vizinho = id - 1;
+
+   if (vizinho == -1 || vizinho == p)
+           vizinho = MPI_PROC_NULL;
+\end{verbatim}  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Enviar e receber do vizinho}
+\begin{verbatim}
+MPI_Sendrecv(a, n, MPI_INT, vizinho, tag, 
+             b, n, MPI_INT, vizinho, tag, 
+             MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+\end{verbatim}  
+
+Enviando o vetor $a$ de tamanho $n$ para o vizinho e recebendo o vetor $b$ de tamanho $n$ do vizinho.
+
+Útil para evitar deadlock.
+   
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar} 
+  
+$\proc{ordenacao\_par\_impar}(a\_local, n\_local)$  
+  
+\vspace{-1cm}(1) $\proc{ordene(}a\_local, n\_local)$ 
+
+\vspace{-1cm}(2) \textbf{para} $fase = 0$ \textbf{até} $p$ \textbf{faça}
+ 
+\vspace{-1cm}(3) \hspace{2cm} $vizinho = \proc{compute\_o\_vizinho}(fase, id)$
+
+\vspace{-1cm}(4) \hspace{2cm} \textbf{se} $vizinho$ é valido \textbf{então}  
+
+\vspace{-1cm}(5) \hspace{4cm} $\proc{envia}(a\_local,n\_local, vizinho)$ 
+
+\vspace{-1cm}(6) \hspace{4cm} $\proc{recebe}(b\_local,n\_local, vizinho)$ 
+
+\vspace{-1cm}(7) \hspace{4cm} \textbf{se} ($id < vizinho$) \textbf{então} 
+
+\vspace{-1cm}(8) \hspace{6cm} {\blue intercala e mantém os menores}*
+
+\vspace{-1cm}(9) \hspace{4cm} \textbf{senão}
+
+\vspace{-1cm}(10) \hspace{6cm}{\blue intercala e mantém os maiores}*
+
+* como implementar isto?
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar} 
+\begin{verbatim}
+void intercala_e_mantem_menores_valores(int a[], 
+                                        int b[], 
+                                        int c[], int n){
+   int i, j, k;
+   
+   i = j = k = 0;
+   while (k < n) {
+      if (a[i] <= b[j]) 
+           c[k++] = a[i++];
+      else c[k++] = b[j++];
+   }
+
+   for (i = 0; i < n; i++)
+      a[i] = c[i];
+}
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar} 
+\begin{verbatim}
+void intercala_e_mantem_maiores_valores(int a[], 
+                                        int b[], 
+                                        int c[], int n){
+   int i, j, k;
+   
+   i = j = k = n - 1;
+   while (k >= 0) {
+      if (a[i] >= b[j]) 
+           c[k--] = a[i--];
+      else c[k--] = b[j--];
+   }
+
+   for (i = 0; i < n; i++)
+      a[i] = c[i];
+}
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+\begin{verbatim}
+void ordenacao_par_impar(int a[], int n, int id, int p) {
+   int vizinho, b[N], c[N], tag = 0;
+   qsort(a, n, sizeof(int), compare);
+   for (int fase = 0; fase < p+1; fase++){
+      vizinho = computar_vizinho(id, p, fase);
+      if (vizinho >= 0) { // não está ocioso
+         MPI_Sendrecv(a, n, MPI_INT, vizinho, tag, 
+                      b, n, MPI_INT, vizinho, tag, 
+                      MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+         if (id < vizinho)
+              intercala_e_mantem_menores_valores(a, b, c, n);
+         else 
+              intercala_e_mantem_maiores_valores(a, b, c, n);
+      } 
+   }  
+}  
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Ordenação por transposição par-ímpar}
+\begin{verbatim}
+int main(int argc, char *argv[]){
+   int id, p, n = N, v[N], v_local[N], n_local;
+
+   MPI_Init(&argc, &argv);
+   MPI_Comm_rank(MPI_COMM_WORLD, &id);
+   MPI_Comm_size(MPI_COMM_WORLD, &p);
+
+   n_local = n / p;
+
+   if (id == MESTRE){
+       gerar_vetor(v, n);
+   }
+
+   MPI_Scatter(v,       n_local, MPI_INT, 
+               v_local, n_local, MPI_INT, 
+               MESTRE, MPI_COMM_WORLD);
+
+   MPI_Barrier(MPI_COMM_WORLD);
+   ordenacao_par_impar(v_local, n_local, id, p);
+   MPI_Gather(v_local, n_local, MPI_INT, 
+              v,       n_local, MPI_INT, 
+              MESTRE, MPI_COMM_WORLD);
+
+   if (id == MESTRE) {
+      mostrar_vetor(v, n);
+   }
+   MPI_Finalize();
+}
+
+
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Medindo o tempo de execução}
+  
+  Use \texttt{MPI\_Wtime()} que devolve o tempo decorrido desde algum ponto no passado.
+  
+  \begin{verbatim}
+  double inicio, fim;
+  
+  inicio = MPI_Wtime();
+  // codigo a ser medido
+  ...
+  fim = MPI_Wtime();
+  
+  printf("tempo decorrido = %e segundos \n", fim - inicio);
+  
+  \end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort}      
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort}      
+  
+  \textbf{Ideia:} Comparar cada elemento da lista a ser ordenada com todos os outros, fazendo a contagem de todos os elementos que são menores que o elemento que está sendo calculado.
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort sequencial}      
+\textbf{algoritmo} Rank sort  
+
+\vspace{-1cm} Entrada: O tamanho $n$ do vetor $v$ e seus elementos
+
+\vspace{-1cm} Saída: O vetor em ordem crescente.
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort sequencial} 
+\textbf{algoritmo} Rank sort 
+\vspace{-1cm}  \begin{codebox}
+  \li  \For $i = 0$ \To $n$ \DoSeq 
+  \li  $contador = 0$ 
+  \li  \For $j = 1$ \To $n$ \DoSeq 
+  \li  \If $v[i] < v[j]$ \Then 
+  \li  $contador = contador + 1$ \End   \End  
+  \li  $vetor\_ordenado[contador] = v[i]$  \End  \End
+\end{codebox}
+
+
+  \textbf{Complexidade algoritmo sequencial:} $O(n^2)$
+  \end{slide}
+
+\begin{slide}
+  \stitle{Rank sort sequencial} 
+  
+  O algoritmo envolve três tarefas principais:
+  
+\vspace{-1cm} \itemtrig\ \textbf{contagem}: para cada elemento o número de elementos menores que ele é computado. (por simplicidade, todos os elementos são distintos)
+  
+\vspace{-1cm} \itemtrig\ \textbf{rank}: a posição final do elemento no vetor ordenado é determinado pela soma da comparações verdadeiras obtidas na fase de contagem.
+
+\vspace{-1cm} \itemtrig\ \textbf{reorganização dos dados}: cada elemento é colocado na sua posição final determinado pelo seu rank.
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort sequencial}    
+Exemplo: $n = 4$, $v=\{4,2,3,1\} $  
+  
+\begin{tabular}{|l|l|l|l|} \hline
+i = 1 & \multicolumn{3}{c|}{} \\ \hline
+      & j = 1  & \hspace{2cm}$v[1] = 4 \geq v[1] = 4$ &\hspace{2cm} $contador = 1$  \\ \hline
+      & j = 2  & \hspace{2cm}$v[1] = 4 \geq v[2] = 2$ &\hspace{2cm} $contador = 2$  \\ \hline
+      & j = 3  & \hspace{2cm}$v[1] = 4 \geq v[1] = 3$ &\hspace{2cm} $contador = 3$  \\ \hline
+      & j = 4  & \hspace{2cm}$v[1] = 4 \geq v[1] = 1$ &\hspace{2cm} $contador = 4$  \\ \hline
+\multicolumn{4}{|l|}{$vetor\_ordenado[contador] = v[1]$}\\ \hline
+\end{tabular}  
+
+$vetor\_ordenado = [0,0,0,4]$
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort sequencial}    
+Exemplo: $n = 4$, $v=\{4,2,3,1\} $  
+  
+\begin{tabular}{|l|l|l|l|} \hline
+i = 2 & \multicolumn{3}{c|}{} \\ \hline
+      & j = 1  & \hspace{2cm}$v[2] = 2 \geq v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 2  & \hspace{2cm}$v[2] = 2 \geq v[2] = 2$ &\hspace{2cm} $contador = 1$  \\ \hline
+      & j = 3  & \hspace{2cm}$v[2] = 2 \geq v[1] = 3$ &\hspace{2cm} $contador = 1$  \\ \hline
+      & j = 4  & \hspace{2cm}$v[2] = 2 \geq v[1] = 1$ &\hspace{2cm} $contador = 2$  \\ \hline
+\multicolumn{4}{|l|}{$vetor\_ordenado[contador] = v[2]$}\\ \hline
+\end{tabular}  
+
+$vetor\_ordenado = [0,2,0,4]$
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort sequencial}    
+Exemplo: $n = 4$, $v=\{4,2,3,1\} $  
+  
+\begin{tabular}{|l|l|l|l|} \hline
+i = 3 & \multicolumn{3}{c|}{} \\ \hline
+      & j = 1  & \hspace{2cm}$v[3] = 3 \geq v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 2  & \hspace{2cm}$v[3] = 3 \geq v[2] = 2$ &\hspace{2cm} $contador = 1$  \\ \hline
+      & j = 3  & \hspace{2cm}$v[3] = 3 \geq v[1] = 3$ &\hspace{2cm} $contador = 2$  \\ \hline
+      & j = 4  & \hspace{2cm}$v[3] = 3 \geq v[1] = 1$ &\hspace{2cm} $contador = 3$  \\ \hline
+\multicolumn{4}{|l|}{$vetor\_ordenado[contador] = v[3]$}\\ \hline
+\end{tabular}  
+
+$vetor\_ordenado = [0,2,3,4]$
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort sequencial}    
+Exemplo: $n = 4$, $v=\{4,2,3,1\} $  
+  
+\begin{tabular}{|l|l|l|l|} \hline
+i = 4 & \multicolumn{3}{c|}{} \\ \hline
+      & j = 1  & \hspace{2cm}$v[4] = 1 \geq v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 2  & \hspace{2cm}$v[4] = 1 \geq v[2] = 2$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 3  & \hspace{2cm}$v[4] = 1 \geq v[1] = 3$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 4  & \hspace{2cm}$v[4] = 1 \geq v[1] = 1$ &\hspace{2cm} $contador = 1$  \\ \hline
+\multicolumn{4}{|l|}{$vetor\_ordenado[contador] = v[4]$}\\ \hline
+\end{tabular}  
+
+$vetor\_ordenado = [1,2,3,4]$
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo baseado em troca de mensagens}  
+  A abordagem do algoritmo rank sort, para uma arquitetura de memória distribuída, utilizando-se de troca de mensagens, é a mestre escravo.
+  
+  \textbf{ideia:} o processador mestre faz um \textit{broadcast} do vetor a ser ordenado, cada processador escravo faz a computação do seu vetor local, e devolve o resultado para o mestre.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo baseado em troca de mensagens}
+  
+\textbf{algoritmo} Rank sort por troca de mensagens 
+
+\vspace{-1cm} Entrada: O tamanho $n$ do vetor $v$ e seus elementos, número $p$ de processos, identificador do processo $0 \leq id \leq p$ 
+
+\vspace{-1cm} Saída: O vetor em ordem crescente.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo baseado em troca de mensagens}
+
+\textbf{algoritmo} Rank sort por troca de mensagens 
+\vspace{-1cm}  \begin{codebox}
+  \li  $contador = 0$ 
+  \li  \If $id = MESTRE$ \Then
+  \li   $\proc{broadcast}(v, MESTRE)$  \End
+  \li  \For $j = 1$ \To $n-1$ \DoSeq 
+  \li  \If $v\_local[i] < v\_local[j]$ \Then 
+  \li  $contador = contador + 1$ \End   \End
+  \li  \If $id = MESTRE$ \Then
+  \li  \For $i = 1$   \To $p-1$ \DoSeq
+  \li          $\proc{recebe}(contador, ANY\_SOURCE)$
+  \li          $vetor\_ordenado[contador] = v[i]$  \End  
+  \li  \Else
+  \li          $\proc{envia}(contador, MESTRE)$\End
+  \End
+\end{codebox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort por troca de mensagens (1)}
+
+\begin{verbatim}
+   /* Iniciando o programa */
+   MPI_Init(&argc, &argv);
+   MPI_Comm_rank(MPI_COMM_WORLD, &id);
+   MPI_Comm_size(MPI_COMM_WORLD, &p);
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort por troca de mensagens (2)}
+
+\begin{verbatim}
+  
+  if (id  == MESTRE){
+          gerar_vetor_sem_repeticao(v, n);
+   }
+
+   MPI_Bcast(&v, n, MPI_INT, 0, MPI_COMM_WORLD);
+   n_local = n/(p-1);       // o mestre não faz o processamento
+
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort por troca de mensagens (3)}
+
+\begin{verbatim}
+  
+  if (id  == MESTRE){
+          gerar_vetor_sem_repeticao(v, n);
+   }
+
+   MPI_Bcast(&v, n, MPI_INT, 0, MPI_COMM_WORLD);
+   n_local = n/(p-1);       // o mestre não faz o processamento
+
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort por troca de mensagens (4)}
+
+\begin{verbatim}
+   if (id != MESTRE){
+      int inicio = (id - 1)* n_local;
+      int fim  = inicio + n_local;
+      for (int k = inicio; k < fim; k++) {
+         valor = v[k];
+         contador = 0;
+         for (int i = 0; i < n; i++){
+             if (v[i] < valor) contador++;
+         }
+         posicao = 0;
+         envia(contador, valor, MESTRE);
+      }
+   }   
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort por troca de mensagens (5)}
+
+\begin{verbatim}
+void envia(int contador, int valor, int destino) {
+   int tag = 0;
+   
+   MPI_Pack(&contador, 1, MPI_INT, buffer, 100, 
+                             &posicao, MPI_COMM_WORLD);
+   MPI_Pack(&valor, 1, MPI_INT, buffer, 100, 
+                             &posicao, MPI_COMM_WORLD);
+   MPI_Ssend(buffer, 100, MPI_PACKED, destino, 
+                             tag, MPI_COMM_WORLD);
+}
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort por troca de mensagens (6)}
+
+\begin{verbatim}
+   if (id == MESTRE){
+      for (int k = 0; k < n; k++) {
+         MPI_Recv(buffer, 100, MPI_PACKED, MPI_ANY_SOURCE, tag, 
+                                MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+         posicao = 0;
+         MPI_Unpack(buffer, 100, &posicao, 
+                          &contador, 1, MPI_INT, MPI_COMM_WORLD);
+         MPI_Unpack(buffer, 100, &posicao, 
+                          &valor, 1, MPI_INT, MPI_COMM_WORLD);
+         vetor_ordenado[contador] = valor;
+      }
+      mostrar_vetor(vetor_ordenado, n);
+   }   
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Rank sort por troca de mensagens (7)}
+\begin{verbatim}
+    
+    /* Finalizando o programa */
+    MPI_Finalize();
+\end{verbatim}
+  
+\end{slide}
+
+
+
+
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}
