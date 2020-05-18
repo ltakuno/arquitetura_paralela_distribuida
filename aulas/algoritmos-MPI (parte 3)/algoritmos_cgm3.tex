@@ -1,0 +1,1445 @@
+
+\ifx\pdfoutput\undefined \documentclass[clock,landscape]{slides} \else
+\documentclass[clock,landscape]{slides} \fi
+%\documentclass[clock,pdftex,landscape]{slides} \fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Escrevendo em português:
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc} % isso é quase redundante
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{clrscode}
+\usepackage{algorithm}
+\usepackage{multicol}
+
+\usepackage{psfrag}
+\usepackage{adjustbox}
+%----------------------------
+\usepackage{tabularx}
+
+\usepackage{shi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsthm} \usepackage{amsfonts}
+\usepackage[colorlinks,backref]{hyperref}
+%\usepackage{background}
+
+%\usepackage{picinpar}
+
+\hypersetup{pdftitle={Arquiteturas paralelas e distribuídas},
+  pdfsubject={Algoritmos paralelos}, 
+  pdfauthor={Leonardo Takuno, Centro Universitário SENAC, 
+  <leonardo.takuno@gmail.com>},
+  pdfkeywords={acrobat, ppower4},
+%  pdfpagemode={FullScreen},
+  colorlinks={false},
+  linkcolor={red}
+}
+
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{plotmarks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{pause}
+\newcommand\plone{\pause\pauselevel{=1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{mythm}% name
+  {40pt}%      Space above
+  {-15pt}%      Space below
+  {\sf\itshape\blue}%      Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\sf\bfseries\green}% Thm head \vspacefont
+  {.}%        Punctuation after thm head
+  { }%     Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%         Thm head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mythm}
+\newtheorem{theorem}             {Theorem}       
+\newtheorem{claim}     [theorem] {Claim}         
+\newtheorem{lemma}     [theorem] {Lemma}         
+\newtheorem{corollary} [theorem] {Corollary}     
+\newtheorem{fact}      [theorem] {Fact}          
+\newtheorem{conjecture}[theorem] {Conjecture}    
+\newtheorem{problem}   [theorem] {Problem}       
+
+\newtheorem{propriedade}  [theorem] {Propriedade}       
+\newtheorem{corolario}  [theorem] {Corolário}       
+\newtheorem{teorema}  [theorem] {Teorema}       
+
+%%% Symbole
+
+\newcommand{\NN}{\mathbb{N}} \newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}} \newcommand{\1}{{{\mathchoice {\rm
+        1\mskip-4mu l} {\rm 1\mskip-4mu l} {\rm 1\mskip-4.5mu l} {\rm
+        1\mskip-5mu l}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\phi\varphi
+\let\epsilon\varepsilon
+\let\rho\varrho
+\let\tilde\widetilde
+\let\approx\thickapprox
+\let\sim\thicksim
+
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\let\:\colon
+\def\llfloor{\left\lfloor}
+\def\rrfloor{\right\rfloor}
+\def\llceil{\left\lceil}
+\def\rrceil{\right\rceil}
+
+%%% Textmakros
+\def\ex{\mathop{\text{\rm ex}}\nolimits} 
+\def\cB{{\mathcal B}} 
+\def\cG{{\mathcal G}}
+\def\cS{{\mathcal S}} 
+\def\cW{{\mathcal W}} 
+\def\cQ{{\mathcal Q}} 
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}} 
+\def\GG{{\mathbb G}} 
+\def\e{{\rm e}}
+\def\epsilon{{\varepsilon}} 
+\def\DISC{\mathop{\textrm{\rm DISC}}\nolimits} 
+\def\EIG{\mathop{\textrm{\rm EIG}}\nolimits}
+\def\CIRCUIT{\mathop{\textrm{\rm CIRCUIT}}\nolimits}
+\def\CYCLE{\mathop{\textrm{\rm CYCLE}}\nolimits}
+\def\SUB{\mathop{\textrm{\rm SUB}}\nolimits}
+\def\NSUB{\mathop{\textrm{\rm NSUB}}\nolimits}
+\def\PAIR{\mathop{\textrm{\rm PAIR}}\nolimits}
+\def\TFNSUB{\mathop{\textrm{\rm TFNSUB}}\nolimits}
+\def\BDD{\mathop{\textrm{\rm BDD}}\nolimits}
+\def\eps{\varepsilon}
+
+\def\rmd{\text{\rm d}}
+\def\wtc{\widetilde{c}\,}
+\def\whc{\widehat{c}}
+\def\bfb{{\bf b}}
+\def\bff{{\bf f}}
+\def\bft{{\bf t}}
+\def\bfx{{\bf x}}
+\def\bfz{{\bf z}}
+\def\cB{{\mathcal B}}
+\def\cD{{\mathcal D}}
+\def\cG{{\mathcal G}}
+\def\cM{{\mathcal M}}
+\def\cN{{\mathcal N}}
+\def\cR{{\mathcal R}}
+\def\cS{{\mathcal S}}
+\def\cW{{\mathcal W}}
+\def\PP{{\mathbb P}}
+\def\EE{{\mathbb E}}
+\def\FF{{\mathbb F}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\ZZ{{\mathbb Z}}
+\def\e{{\rm e}}
+\def\card{\mathop{\text{\rm card}}\nolimits}
+\def\rank{\mathop{\text{\rm rank}}\nolimits}
+\def\trace{\mathop{\text{\rm trace}}\nolimits}
+\def\Ave{\mathop{\text{\rm Ave}}\nolimits}
+\def\Bi{\mathop{\text{\rm Bi}}\nolimits}
+\def\im{\mathop{\text{\rm im}}\nolimits}
+\def\ind{\mathop{\text{\rm ind}}\nolimits}
+\def\dist{\mathop{\text{\rm dist}}\nolimits}
+\def\nDist{\mathop{\text{\rm \#Dist}}\nolimits}
+\let\Dist\nDist
+\def\De{D_{\rm e}}
+\def\sumL{\sum\nolimits_1}
+\def\sumS{\sum\nolimits_2}
+\def\GF{\mathop{\text{\rm GF}}\nolimits}
+\let\FF\GF
+\def\Bip{\mathop{\text{\rm Bip}}\nolimits}
+\def\adj{\mathop{\text{\rm adj}}\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\nx}{{\hfill\vspace*{-2cm}\tiny +}}
+
+%\newcommand{\red}[1]{\textcolor{red}{#1}}
+%\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
+%\newcommand{\green}[1]{\textcolor{green}{#1}}
+%\newcommand{\darkgreen}[1]{\textcolor{darkgreen}{#1}}
+\def\red{\color[rgb]{0.7,0,0}}
+\def\green{\color[rgb]{0,.8,0}}
+\def\darkgreen{\color[rgb]{0.1,0.4,0.0}}
+\let\dgreen\darkgreen
+\def\blue{\color[rgb]{0,0,.8}}
+\def\yellow{\color[rgb]{1,1,0}}
+\def\black{\color[rgb]{0,0,0}}
+
+\def\pink{\color[rgb]{1,0,1}}
+\def\brown{\color[rgb]{.5,.1,.3}}
+\def\lilaz{\color[rgb]{.5,0,.5}}
+\def\hmmm{\color[rgb]{.3,.1,.5}}
+\def\magenta{\color[rgb]{.6,.05,.05}}
+
+\newcommand{\uc}[1]{\centerline{\underline{#1}}}
+\newcommand{\pic}[1]{\fbox{picture:{#1}}}
+%\renewcommand{\bf}{\mbox{}}
+\newcommand{\cP}{{\cal P}} \newcommand{\cT}{{\cal T}}
+\newcommand{\add}{\mbox{\rm add}} \newcommand{\pr}{\mbox{\rm Pr}}
+
+\def\stitle#1{\slidetitle{\red #1}\vspace{-0pt}}
+
+\def\itemtrig{$\vartriangleright$}
+\def\itemcirc{$\circ$}
+\def\itemT{\item[\itemtrig]}
+\def\itemC{\item[$\circ$]}
+
+\everymath={\blue}
+\everydisplay={\blue}
+
+\renewcommand{\For}{\textbf{\blue para} }
+\renewcommand{\To}{\textbf{\blue até} }
+\renewcommand{\By}{\textbf{by} }
+\renewcommand{\Downto}{\textbf{downto} }
+\renewcommand{\While}{\textbf{\blue enquanto} }
+\renewcommand{\Repeat}{\textbf{\blue repita}\>\>\addtocounter{indent}{1}}
+\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{until}\hspace*{-0.7em}\'}
+\renewcommand{\If}{\textbf{\blue se} }
+\renewcommand{\Then}{\textbf{\blue então}\>\addtocounter{indent}{1}}
+\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão}\>\addtocounter{indent}{1}}
+\renewcommand{\End}{\addtocounter{indent}{-1}}
+\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{\blue senão se} }
+\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{else} \addtocounter{indent}{1}}
+\renewcommand{\Do}{\>\>\textbf{\blue faça}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+\renewcommand{\Return}{\textbf{\blue devolva} }
+\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+\renewcommand{\RComment}{\`\Comment}
+\renewcommand{\Goto}{\textbf{goto} }
+\renewcommand{\Error}{\textbf{error} } % optionally followed by string argument
+\newcommand{\DoPar}{\textbf{\blue faça em paralelo}\addtocounter{indent}{1}}
+\newcommand{\DoSeq}{\textbf{\blue faça}\addtocounter{indent}{1}}
+\newcommand{\Senao}{\kill\addtocounter{indent}{-1}\textbf{\blue senão}\addtocounter{indent}{1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\def\enddiscard{}
+%\long\def\discard#1\enddiscard{}
+%
+%%%\vpagecolor{bgblue}
+%\hypersetup{pdfpagetransition=Dissolve}
+%\hypersetup{pdfpagetransition=R}
+%
+
+
+\definecolor{bgblue}{rgb}{0.04,0.39,0.53}
+
+\definecolor{darkyellow}{rgb}{0.94,0.820,0.058}
+\definecolor{orange}{rgb}{0.95,0.47,0.14}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\definecolor{blue2}{rgb}{0.1,0.39,0.53}
+\definecolor{yellow1}{rgb}{1,1,0} \definecolor{pink}{rgb}{1,0,1}
+
+\definecolor{lightred}{rgb}{1,0.5,0.5}
+\definecolor{lightred2}{rgb}{1,0.7,0.7}
+\definecolor{lightred3}{rgb}{1,0.3,0.3}
+\definecolor{black}{rgb}{0,0,0} \definecolor{gray1}{rgb}{0.9,0.9,0.9}
+\definecolor{red1}{rgb}{1,1,0.9}
+
+\title{Arquitetura paralela e distribuída} 
+\author{{\blue L.~Takuno} (SENAC)}
+\date{{\dgreen 1o. Semestre 2015}}
+
+
+\begin{document}\def\proofname{{\bf\green Prova.}}
+
+%\maketitle
+
+%\slidesubhead{}
+
+%\slidesubhead{Outline!!!}
+
+\begin{slide}
+  \stitle{Referências}
+  \begin{enumerate}\makeatletter\itemsep\z@\makeatother
+  \item Pacheco, P., An Introduction to Parallel Programming, Morgan Kaufmann Publishers, 2011.
+  
+  \end{enumerate}
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes}
+Multiplicação de matrizes é fundamental em algebra linear que é uma operação importante para algoritmos numéricos.
+
+Se A, B e C são matrizes $n \times n$, então $C = A \cdot B$ é também uma matriz $n \times n$, e o valor de cada elemento em $C$ é definido como:
+
+$$\displaystyle C_{ij} = \sum^{n}_{k=0}A_{ik}B_{kj}$$
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes}
+
+algoritmo serial
+
+\begin{verbatim}
+for (i = 0; i < n; i++)
+   for (j = 0; j < n; j++) {
+      C[i][j] = 0.0;
+      for (k = 0; k < n; k++)
+         C[i][j] = C[i][j] + A[i][k]*B[k][j];
+   }
+\end{verbatim}
+Onde:
+
+\vspace{-1cm}A, B e C são matrizes de dimensão $n \times n$
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v1)}
+
+Como distribuir as matrizes:
+
+\itemtrig\ decomposição 1-D: uma linha da matriz A e uma coluna da matriz B é enviada para um processo calcular o produto escalar.
+\begin{center}
+\includegraphics[width=.4\textwidth]{fig04}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v1)}
+  
+\begin{verbatim}
+int *A, *B, *C;
+int *linha, *coluna;
+
+linha = (int *) malloc (N * sizeof(int));
+coluna = (int *) malloc (N * sizeof(int));
+
+if (id == MESTRE) {
+   A = (int *) malloc( N * N * sizeof(int));
+   B = (int *) malloc( N * N * sizeof(int));
+   C = (int *) malloc( N * N * sizeof(int));
+   inicializa_exemplo(A, B);
+   // ... continua
+}
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v1)}
+  
+\begin{verbatim}
+if (id == MESTRE) {
+   // ... continua
+   int processo = 0;
+   for (int i = 0; i < N; i++){
+      for (int j = 0; j < N; j++) {
+         copia_linha  (i, A, linha, N);
+         copia_coluna (j, B, coluna, N);
+         if (processo % 4 == 0) // MESTRE
+             C[i*N + j] = produto_escalar(linha, coluna, N);
+         else 
+             envia(i, j, linha, coluna, N, processo % 4);
+         processo++;
+      }
+
+      processo = 0;
+      for (int j = 0; j < N; j++) {
+         if (processo % 4 != 0) {
+            int l, c, r;
+            recebe_resultado(&l, &c, &r);
+            C[l * N + c] = r;
+         }
+         processo++;
+      }
+   }
+}
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v1)}
+  
+\begin{verbatim}
+if (id != MESTRE) {
+      int i, j, n;
+      for (int k = 0; k < N*N; k += 4){
+         recebe(&i, &j, &linha, &coluna, &n);
+         int r = produto_escalar(linha, coluna, n);
+         envia_resultado(i, j, r);
+      }
+}
+
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v1)}
+  
+\begin{verbatim}
+void envia(int i, int j, int *lin, int *col, int n, int destino) {
+   int tag = 33;
+   int posicao = 0;
+   MPI_Request request;
+   MPI_Pack(&i, 1, MPI_INT, buffer, 100, &posicao, MPI_COMM_WORLD);
+   MPI_Pack(&j, 1, MPI_INT, buffer, 100, &posicao, MPI_COMM_WORLD);
+   MPI_Pack(&n, 1, MPI_INT, buffer, 100, &posicao, MPI_COMM_WORLD);
+   MPI_Isend(buffer, 100, MPI_PACKED, destino, tag, 
+                                         MPI_COMM_WORLD, &request);
+   MPI_Isend(lin, n, MPI_INT, destino, tag, 
+                                         MPI_COMM_WORLD, &request);
+   MPI_Isend(col, n, MPI_INT, destino, tag, 
+                                         MPI_COMM_WORLD, &request);
+}
+\end{verbatim}  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v1)}
+  
+\begin{verbatim}
+
+void recebe(int *i, int *j, int **lin, int **col, int *n){
+   int tag = 33;
+   int posicao = 0;
+
+   MPI_Recv(buffer, 100, MPI_PACKED, MPI_ANY_SOURCE, tag,
+                                 MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+   MPI_Unpack(buffer, 100, &posicao, i, 1, MPI_INT, MPI_COMM_WORLD);
+   MPI_Unpack(buffer, 100, &posicao, j, 1, MPI_INT, MPI_COMM_WORLD);
+   MPI_Unpack(buffer, 100, &posicao, n, 1, MPI_INT, MPI_COMM_WORLD);
+   MPI_Recv(*lin,  *n, MPI_INT, MESTRE, tag, MPI_COMM_WORLD, 
+                                                 MPI_STATUS_IGNORE);
+   MPI_Recv(*col, *n, MPI_INT, MESTRE, tag, MPI_COMM_WORLD, 
+                                                 MPI_STATUS_IGNORE);
+}
+\end{verbatim}  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v1)}
+
+Como distribuir as matrizes:
+
+\itemtrig\ decomposição 1-D: uma linha da matriz A e uma coluna da matriz B é enviada para um processo calcular o produto escalar.
+
+$$\displaystyle C_{ij} = \sum^{n}_{k=0}A_{ik}B_{kj}$$
+
+Problemas:
+
+\vspace{-1cm}\itemtrig\ Muitas trocas de mensagens
+
+Complexidade: $O(N^3/P)$ (computação)
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v2)}
+
+Vamos tentar diminuir a quantidade de dados transferidos:
+
+\itemtrig\ decomposição 1-D: uma linha da matriz A e uma coluna da matriz B é enviada para um processo calcular o produto escalar.
+\begin{center}
+\includegraphics[width=.4\textwidth]{fig04}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v2)}
+Inicialmente, o mestre inicializa A e B, em seguida distribui a matriz para todos os processos.
+  
+\begin{verbatim}
+   A = (int *) malloc( N * N * sizeof(int));
+   B = (int *) malloc( N * N * sizeof(int));
+
+   if (id == MESTRE) {
+      C = (int *) malloc( N * N * sizeof(int));
+      inicializa_exemplo(A, B);
+   }
+
+   MPI_Bcast(A, N * N, MPI_INT, MESTRE, MPI_COMM_WORLD);
+   MPI_Bcast(B, N * N, MPI_INT, MESTRE, MPI_COMM_WORLD);
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v2)}
+  
+\begin{verbatim}
+if (id == MESTRE) {
+   int processo = 0;
+
+   for (int i = 0; i < N; i++){
+      for (int j = 0; j < N; j++) {
+         if (processo % 4 == 0) 
+             C[i*N + j] = multiplica_linha_coluna(A, B, i, j, N);
+         else 
+             envia(i, j, processo % 4);
+         
+         processo++;
+      }
+      
+      
+      processo = 0;
+      for (int j = 0; j < N; j++) {
+         if (processo % 4 != 0) {
+            int l, c, r;
+            recebe_resultado(&l, &c, &r);
+            C[l * N + c] = r;
+         }
+         processo++;
+      }
+   }
+} // if mestre
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v2)}
+  
+\begin{verbatim}
+int multiplica_linha_coluna(int *A, int *B, int linha, 
+                                            int coluna, int n){
+   int r = 0;
+
+   for (int i = 0; i < n; i++) {
+      r += A[linha * n + i] * B[i * n + coluna];
+   }
+
+   return r;
+}
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v2)}
+  
+\begin{verbatim}
+void envia(int i, int j, int destino) {
+   int tag = 33;
+   int posicao = 0;
+   MPI_Request request;
+   MPI_Pack(&i, 1, MPI_INT, buffer, 100, &posicao, MPI_COMM_WORLD);
+   MPI_Pack(&j, 1, MPI_INT, buffer, 100, &posicao, MPI_COMM_WORLD);
+   MPI_Isend(buffer, 100, MPI_PACKED, destino, tag, MPI_COMM_WORLD,
+                                                         &request);
+}
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v2)}
+  
+\begin{verbatim}
+void recebe(int *i, int *j){
+   int tag = 33;
+   int posicao = 0;
+
+   MPI_Recv(buffer, 100, MPI_PACKED, MPI_ANY_SOURCE, tag, 
+                                 MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+   MPI_Unpack(buffer, 100, &posicao, i, 1, MPI_INT, MPI_COMM_WORLD);
+   MPI_Unpack(buffer, 100, &posicao, j, 1, MPI_INT, MPI_COMM_WORLD);
+}
+
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v2)}
+  
+\begin{verbatim}
+void envia_resultado(int i, int j, int r){
+   int tag = 44;
+   int posicao = 0;
+   MPI_Request request;
+
+   MPI_Pack(&i, 1, MPI_INT, buffer, 100, &posicao, MPI_COMM_WORLD);
+   MPI_Pack(&j, 1, MPI_INT, buffer, 100, &posicao, MPI_COMM_WORLD);
+   MPI_Pack(&r, 1, MPI_INT, buffer, 100, &posicao, MPI_COMM_WORLD);
+   MPI_Isend(buffer, 100, MPI_PACKED, MESTRE, tag, MPI_COMM_WORLD, 
+                                                         &request);
+}
+\end{verbatim}  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v2)}
+  
+\begin{verbatim}
+void recebe_resultado(int *i, int *j, int *r){
+   int tag = 44;
+   int posicao = 0;
+
+   MPI_Recv(buffer, 100, MPI_PACKED, MPI_ANY_SOURCE, tag, 
+                                 MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+   MPI_Unpack(buffer, 100, &posicao, i, 1, MPI_INT, MPI_COMM_WORLD);
+   MPI_Unpack(buffer, 100, &posicao, j, 1, MPI_INT, MPI_COMM_WORLD);
+   MPI_Unpack(buffer, 100, &posicao, r, 1, MPI_INT, MPI_COMM_WORLD);
+}
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes}
+
+\itemtrig\ partição por faixas: uma matriz é divida em grupos de linhas ou colunas completas, cada grupo será atribuida a um processo.
+
+\begin{center}
+\includegraphics[width=.4\textwidth]{fig03}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes}
+Cada processo recebe um subconjunto de:
+  
+\vspace{-1cm}\hspace{1cm}\itemtrig\ matriz linha ou matriz coluna
+
+\vspace{-1cm}Para computar uma linha da matriz C cada processo deve ter
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ uma linha da matriz A, e 
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ acesso a todas as colunas de B.
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v3)}
+\begin{verbatim}
+int *A, *B, *C, *local;
+r = N / p;
+A = (int *) malloc( N * N * sizeof(int));
+B = (int *) malloc( N * N * sizeof(int));
+C = (int *) malloc( N * N * sizeof(int));
+local = (int *) malloc (r * N * sizeof(int));
+
+if (id == MESTRE) {
+     inicializa_exemplo(A, B);
+}
+
+MPI_Bcast(A, N * N, MPI_INT, MESTRE, MPI_COMM_WORLD);
+MPI_Bcast(B, N * N, MPI_INT, MESTRE, MPI_COMM_WORLD);
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v3)}
+\begin{verbatim}
+int inicio, fim, r;
+inicio = id * r;
+fim    = id * r + r;
+int u = 0;
+for (int i = inicio; i < fim; i++){
+   for (int j = 0; j < N; j++) {
+         local[u] = 0;
+         for (int k = 0; k < N; k++) {
+            local[u] += A[i*N + k] * B[k*N + j];
+         }
+         u++;
+   }
+}
+MPI_Gather(local, r*N, MPI_INT, C, r*N, MPI_INT, MESTRE, 
+                                           MPI_COMM_WORLD);
+\end{verbatim}  
+\end{slide}
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v3)}
+\begin{verbatim}
+if (id == MESTRE){
+      printf("Matriz C:\n");
+      mostra_matriz(C, N);
+}
+free(A);
+free(B);
+free(C);
+free(local);
+\end{verbatim}  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Multiplicação de matrizes (v3)}
+Nesta versão de partição por faixas 
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Há menos troca de mensagens:
+  
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Cada processo sabe computar a sua faixa da matriz.
+
+Complexidade: $O(N^3/p)$
+
+\end{slide}
+
+
+
+\begin{slide}
+  \stitle{Topologias Virtuais}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Topologias Virtuais}
+
+Descrevem um mapeamento de processos MPI.
+
+Duas principais suportadas em MPI:
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Cartesiana (grid) e 
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ grafo (graph).
+\end{slide}
+
+\begin{slide}
+  \stitle{Topologias Virtuais}
+Tais topologia são geralmente virtuais:
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Sem relação com a topologia física.
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Mas pode existir exceções.
+
+
+São programadas com comunicadores e grupos:
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Programadas pelo desenvolvedor.
+\end{slide}
+
+\begin{slide}
+  \stitle{Topologias cartesianas}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Topologias cartesianas}
+  
+Cada processo está conectado aos seus vizinhos em um grid virtual
+
+O limites do grid pode ter conexão cíclica
+
+Os processos podem ser identificados pelas coordenadas cartesianas.
+\end{slide}
+
+\begin{slide}
+  \stitle{Topologias cartesianas}
+\begin{center}
+\includegraphics[width=.8\textwidth]{fig01}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Criando uma topologia cartesiana}
+  
+\begin{verbatim}
+int MPI_Cart_create(MPI_Comm comm_old, 
+                    int ndims, 
+                    const int dims[], 
+                    const int periods[], 
+                    int reorder, 
+                    MPI_Comm *comm_cart)
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Criando uma topologia cartesiana}
+  
+\begin{verbatim}
+int MPI_Cart_create(MPI_Comm comm_old, 
+                    int ndims, 
+                    const int dims[], 
+                    const int periods[], 
+                    int reorder, 
+                    MPI_Comm *comm_cart)
+\end{verbatim}
+
+\verb|comm_old|: comunicador existente
+
+\vspace{-1cm}\verb|ndims|: número de dimensões
+
+\vspace{-1cm}\verb|dims|: vetor de inteiros de tamanho ndims que especifica o número de processos em cada dimensão.
+
+\vspace{-1cm}\verb|periods|: vetor que indica se os limites são cíclicos. 
+
+\vspace{-1cm}\verb|comm_cart|: novo comunicador cartesiano. 
+\end{slide}
+
+\begin{slide}
+  \stitle{Topologias cartesianas}
+\begin{center}
+\includegraphics[width=.4\textwidth]{fig01}
+\end{center}
+
+\begin{verbatim}
+MPI_Comm comm;
+int dim[2]    = {4, 3}, // 4 colunas x 3 linhas
+    period[2] = {1, 0}, // ciclo: última coluna para a primeira 
+    reorder = 1;        
+MPI_Cart_create(MPI_COMM_WORLD, 2, dim, period, reorder, &comm);
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Funções de mapeamento da topologia cartesiana}
+Mapeando a coordenada do processo para o rank.  
+\begin{verbatim}
+int MPI_Cart_rank(MPI_Comm comm, int *coods, int *rank)
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Funções de mapeamento da topologia cartesiana}
+Mapeando o rank para a coordenada do processo.  
+\begin{verbatim}
+int MPI_Cart_coords(MPI_Comm comm, int rank, 
+                           int maxdims, int *coords)
+\end{verbatim}
+\end{slide}
+
+
+\begin{slide}
+\begin{verbatim}
+MPI_Comm comm;
+int dim[2]    = {4, 3}, // 4 colunas x 3 linhas
+    period[2] = {1, 0}, // ciclo: última coluna para a primeira 
+    reorder = 1, coord[2], id;      
+
+MPI_Cart_create(MPI_COMM_WORLD, 2, dim, period, reorder, &comm);
+
+if(rank==5) {
+   MPI_Cart_coords(comm, rank, 2, coord);
+   printf("P:%d my coordinates are %d %d\n",rank,coord[0],coord[1]);
+}
+if(rank==0) {
+   coord[0]=3; coord[1]=1;
+   MPI_Cart_rank(comm, coord, &id);
+   printf("processor at (%d, %d), rank %d\n",coord[0],coord[1], id);
+}
+\end{verbatim}  
+\end{slide}
+
+
+\begin{slide}
+\begin{verbatim}
+$mpirun -np 16 ./exemplo
+
+P:5 my coordinates are 1, 2
+processor at (3, 1), rank 10
+\end{verbatim}  
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Funções de mapeamento da topologia cartesiana}
+
+Computando os rankings de processos vizinhos
+
+\begin{verbatim}
+int MPI_Cart_shift (MPI_Comm comm, int direction, int disp, 
+                                 int *rank_source, int *rank_dest)
+
+\end{verbatim} 
+
+Esta função não envia dados, apenas retorna o rank dos vizinhos para que possa ser utilizado na comunicação subsequente.
+\end{slide}
+
+\begin{slide}
+  \stitle{Funções de mapeamento da topologia cartesiana}
+
+Computando os rankings de processos vizinhos
+
+\begin{verbatim}
+int MPI_Cart_shift (MPI_Comm comm, int direction, int disp, 
+                                 int *rank_source, int *rank_dest)
+
+\end{verbatim} 
+
+\verb|comm|: comunicador
+
+\vspace{-1cm}\verb|direction|: coordenada dimensão da comunicação
+
+\vspace{-1cm}\verb|disp|: deslocamento (>0: shift para cima, <0 shift para baixo) 
+
+\vspace{-1cm}\verb|rank_source|: rank do processo origem.
+
+\vspace{-1cm}\verb|rank_dest|: rank do processo destino.
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Sendrecv com topologia cartesiana 1D}
+\begin{center}
+\includegraphics[width=.4\textwidth]{fig02}
+\end{center}
+\begin{verbatim}
+int dim[1],period[1];
+dim[0] = nprocs;   
+period[0] = 1;
+MPI_Comm ring_comm;
+
+MPI_Cart_create(MPI_COMM_WORLD, 1, dim, period, 0, &ring_comm);
+int source, dest;
+MPI_Cart_shift(ring_comm, 0, 1, &source, &dest);
+MPI_Sendrecv(right_bounday, n, MPI_INT, dest, rtag,
+             left_boundary, n, MPI_INT, source, ltag,
+             ring_comm, &status);
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{topologia cartesiana 2D}
+\begin{verbatim}
+MPI_Comm comm;
+int dim[2],period[2],reorder;
+int up,down,right,left;
+dim[0]=4; dim[1]=3;
+period[0]=1; period[1]=0;
+reorder=1;
+
+MPI_Cart_create(MPI_COMM_WORLD,2,dim,period,reorder,&comm);
+
+if(rank==9){
+  MPI_Cart_shift(comm,0,1,&left,&right);
+  MPI_Cart_shift(comm,1,1,&up,&down);
+  printf("P%d neighbors are r: %d d:%d 1:%d u:%d\n",
+                             rank, right, down, left, up);
+} 
+\end{verbatim}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Funções de mapeamento da topologia cartesiana}
+
+Criando um novo comunicador para uma grid de dimensão menor
+
+\begin{verbatim}
+int MPI_Cart_sub (MPI_Comm comm_old, int* coord, MPI_Comm comm_new)
+
+\end{verbatim} 
+
+
+\verb|comm_old|: comunicador atual
+
+\vspace{-1cm}\verb|coord|: vetor que indica quais dimensões se manterão no subgrid
+
+\vspace{-1cm}\verb|comm_new|: new comunicador
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de Fox}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de Fox}
+Sejam A e B matrizes de tamanho $n \times n$, queremos computar $C = A \cdot B$ em paralelo.
+
+\vspace{-1cm} Seja $q = \sqrt{p}$ um inteiro tal que divide $n$, onde $p$ é o número de processos.
+
+\vspace{-1cm} Crie uma topologia Cartesiana com processadores $(i,j)$, de modo que $i, j = 0 \cdots q-1$.
+
+\vspace{-1cm} Denote $m= n/q$. Distribua $A$ e $B$ por blocos em $p$ processadores tal que $A_{ij}$ e $B_{ij}$ são $m \times m$ blocos armazenados em processos $(i,j)$.
+\end{slide}
+
+\begin{slide}
+  \stitle{Distribuição \textit{checkerboard}}
+Exemplo:
+
+$A = \left( \begin{array}{llll}
+a_{00} & a_{01} & a_{02} & a_{03}\\
+a_{10} & a_{11} & a_{12} & a_{13}\\
+a_{20} & a_{21} & a_{22} & a_{23}\\
+a_{30} & a_{31} & a_{32} & a_{33}\\
+\end{array} \right) 
+= \left( \begin{array}{ll}
+A_{00} & A_{01} \\
+A_{10} & A_{11} \\
+\end{array} \right)
+$
+    
+onde $A_{00} = \left( \begin{array}{ll}
+a_{00} & a_{01} \\
+a_{10} & a_{11} \\
+\end{array} \right)
+$, $A_{01} = \left( \begin{array}{ll}
+a_{02} & a_{03} \\
+a_{12} & a_{13} \\
+\end{array} \right)
+$, $A_{10} = \left( \begin{array}{ll}
+a_{20} & a_{21} \\
+a_{30} & a_{31} \\
+\end{array} \right)
+$ e $A_{11} = \left( \begin{array}{ll}
+a_{22} & a_{23} \\
+a_{32} & a_{33} \\
+\end{array} \right)
+$
+\end{slide}
+
+\begin{slide}
+  \stitle{Distribuição \textit{checkerboard}}
+ Todas as multiplicações das submatrizes podem ser computadas com diferentes processos. Uma submatriz $C_{i,j}$ do resultado de $C$ pode ser calculada da seguinte maneira:
+ 
+ $\displaystyle C_{i,j} = \sum^{q-1}_{k=0} A_{i,k}B_{k,j}= A_{i,0}B_{0,j} + A_{i,1}B_{1,j} + \cdots A_{i,q-1}B_{q-1,j}$  
+ 
+Para o cálculo total da multiplicação de matrizes, uma quantidade de dados devem ser transmitidas. 
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de Fox}
+Ideia:
+
+Cada processo mantém uma matriz de acordo com a distribuição \textit{checkerboard}.
+Execute uma iteração $k = 0 \cdots q-1$, o processo $p_{i,j}$ calcula:
+
+$C_{i,j} = C_{i,j} + A_{i, \overline{k}} \cdot B_{\overline{k}, j}$, $\overline{k} = (i + k)\mod q$
+
+O algoritmo executa $n$ estágios para matrizes de ordem $n$ para cada termo $A_{i,k}B_{k,j}$ do produto escalar.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de Fox}
+ O algoritmo para $p$ processos contém as seguintes tarefas:
+ 
+\vspace{-1cm}1. Determine o número de submatrizes por linha e por coluna, respectivamente: $q = \sqrt{p}$.
+
+\vspace{-1cm}2. Atribua cada processo sua coordenada $(i, j)$.
+
+\vspace{-1cm}3. Determine a coordenada do processo para envio \\ $p_{dest}:((i-1) \mod q, j).$
+  
+\vspace{-1cm}4. Determine a coordenada do processo, o qual os dados são recebidos $((i+1) \mod q, j).$
+ \end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de Fox}
+
+5. para $k = 0$ até $q - 1$ faça
+  
+  
+\vspace{-1cm}\hspace{2cm} (i) Calcule $\overline{k} = (i +  k) \mod q$  
+
+\vspace{-1cm}\hspace{2cm} (ii) Broadcast $A_{i, \overline{k}}$ para os processos na  linha $i$.
+
+\vspace{-1cm}\hspace{2cm} (iii) Calcule $C_{i,j} = C_{i,j} + A_{i, \overline{k}} \cdot B_{\overline{k}, j}$ localmente.
+
+\vspace{-1cm}\hspace{2cm} (iv) Envia $B_{\overline{k} + 1 \mod q,j}$ para o processo $p_{dest}$ e 
+
+\vspace{-1cm}\hspace{2cm} (v) Recebe $B_{\overline{k}+1 \mod q, j}$ da origem 
+ \end{slide}
+
+\begin{slide}
+  \stitle{Análise do algoritmo de Fox}
+Sejam $A$ e $B$ matrizes de tamanho $n \times n$, a multiplicação de matrizes $C = A \cdot B$, $C_{ij} = \sum^{q-1}_{k = 0}A_{ik} \cdot B_{kj}$   
+  
+\vspace{-1cm}Seja $p = q^2$ o número de processos organizados em um grid $q \times q$.
+
+\vspace{-1cm}Armazene blocos $n/q \times n/q$ de $A, B$ e $C$ no processo $(i,j)$.
+
+\vspace{-1cm}A execução do algoritmo de Fox requer $q$ iterações, em que cada processo multiplica seu bloco corrente da matriz $A$ e $B$, e adiciona o resultado com o bloco corrente da matriz C.
+
+Tempo de computação: $\displaystyle q \left(\frac{n}{q} \times \frac{n}{q} \times \frac{n}{q} \right) = \frac{n^3}{q^2} = \frac{n^3}{p}$
+
+\vspace{-1cm}  
+  
+ \end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $2 \times 2$}
+  
+$A = \left( \begin{array}{ll}
+a_{00} & a_{01} \\
+a_{10} & a_{11} \\
+\end{array} \right)
+$, $B = \left( \begin{array}{ll}
+b_{00} & b_{01} \\
+b_{10} & b_{11} \\
+\end{array} \right)
+$
+
+$C = \left( \begin{array}{ll}
+a_{00}b_{00} + a_{01}b_{10} & a_{00}b_{01} + a_{01}b_{11}\\
+a_{10}b_{00} + a_{11}b_{10} & a_{10}b_{01} + a_{11}b_{11}\\
+\end{array} \right)
+$
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $2 \times 2$}
+
+Assuma que temos $n^2$ processos, um para cada elemento da matriz A, B e C.
+
+\begin{tabular}{|c|c|} \hline
+$p_{00}$ & $p_{01}$   \\ \hline
+$p_{10}$ & $p_{11}$   \\ \hline
+\end{tabular}
+
+Suponha que os processos $p_{00}, p_{01}, p_{10}, p_{11}$ estão organizado num grid cartesiano.
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $2 \times 2$}
+
+Estágio $k=0$:
+
+Broadcast $A_{i, i}$ para os processos na linha $i$.
+
+\begin{tabular}{|c|c|} \hline
+$a_{00}$ & $a_{00}$   \\ \hline
+$a_{11}$ & $a_{11}$   \\ \hline
+\end{tabular}
+
+Decomponha B no grid, de modo que $B_{i, j}$ seja colocado no processo $p_{ij}$
+
+\begin{tabular}{|c|c|} \hline
+$a_{00}$ & $a_{00}$   \\ 
+$b_{00}$ & $b_{01}$   \\ \hline
+$a_{11}$ & $a_{11}$   \\ 
+$b_{10}$ & $b_{11}$   \\ \hline
+\end{tabular}
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $2 \times 2$}
+  
+Compute $c_{ij} = A \cdot B$  para cada processo.
+
+\begin{tabular}{|c|c|} \hline
+$a_{00}$ & $a_{00}$   \\ 
+$b_{00}$ & $b_{01}$   \\ 
+$c_{00} = a_{00}b_{00}$ & $c_{01} = a_{00}b_{01}$  \\ \hline
+$a_{11}$ & $a_{11}$   \\ 
+$b_{10}$ & $b_{11}$   \\
+$c_{10} = a_{11}b_{10}$ & $c_{11} = a_{11}b_{11}$  \\ \hline
+\end{tabular}
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $2 \times 2$}  
+Agora, está tudo certo para o próximo estágio. 
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Execute broadcast da próxima coluna (mod n) de $A$ através 
+
+\vspace{-1cm}\hspace{2cm}dos processos e 
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ execute um deslocamento para cima dos valores de B.
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $2 \times 2$}
+
+Estágio $k=1$
+  
+A próxima coluna de $A$ é $a_{0,1}$ na primeira linha e $a_{1,0}$ para a segunda linha (executou um deslocamento circular, mod n).
+  
+\begin{tabular}{|c|c|} \hline
+$a_{01}$ & $a_{01}$   \\ 
+$b_{00}$ & $b_{01}$   \\ 
+$c_{00} = a_{00}b_{00}$ & $c_{01} = a_{00}b_{01}$  \\ \hline
+$a_{10}$ & $a_{10}$   \\ 
+$b_{10}$ & $b_{11}$   \\ 
+$c_{10} = a_{11}b_{10}$ & $c_{11} = a_{11}b_{11}$  \\ \hline
+\end{tabular}
+  
+ Execute o broadcast desses elementos nas respectivas linhas.  
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $2 \times 2$}
+Execute um deslocamento para cima dos valores de B.  
+
+\begin{tabular}{|c|c|} \hline
+$a_{01}$ & $a_{01}$   \\ 
+$b_{10}$ & $b_{11}$   \\ 
+$c_{00} = a_{00}b_{00}$ & $c_{01} = a_{00}b_{01}$  \\ \hline
+$a_{10}$ & $a_{10}$   \\ 
+$b_{00}$ & $b_{01}$   \\ 
+$c_{10} = a_{11}b_{10}$ & $c_{11} = a_{11}b_{11}$  \\ \hline
+\end{tabular}   
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $2 \times 2$}
+  
+Compute $c_{ij} = A \cdot B$  para cada processo.
+
+\begin{tabular}{|c|c|} \hline
+$a_{01}$ & $a_{01}$   \\ 
+$b_{10}$ & $b_{11}$   \\ 
+$c_{00} = c_{00} + a_{01}b_{10}$ & $c_{01} = c_{01} + a_{01}b_{11}$  \\ \hline
+$a_{10}$ & $a_{10}$   \\ 
+$b_{00}$ & $b_{01}$   \\ 
+$c_{10} = c_{10} + a_{10}b_{00}$ & $c_{11} = c_{11} + a_{10}b_{01}$  \\ \hline
+\end{tabular}
+
+O algoritmo está completo após $q$ estágios e os processos $p_{i,j}$ contém o resultado final para $c_{i,j}$
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $3 \times 3$}
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $3 \times 3$}
+Considere multiplicação de matrizes $3 \times 3$:
+
+$\left( \begin{array}{ccc}
+1 & 2 & 1 \\
+0 & 1 & 2 \\
+1 & 1 & 1 \\
+\end{array} \right) \cdot 
+\left( \begin{array}{ccc}
+1 & 0 & 2 \\
+2 & 0 & 3 \\
+1 & 2 & 1 \\
+\end{array} \right)  =
+\left( \begin{array}{ccc}
+6 & 2 & 9 \\
+4 & 4 & 5 \\
+4 & 2 & 6 \\
+\end{array} \right)  
+$
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $3 \times 3$}
+Estágio $k=0$:
+  
+\begin{multicols}{2}
+\begin{tabular}{|ll|} \hline
+Processo  & Broadcast \\ 
+$(i, i \mod 3)$ & na linha $i$ \\ \hline
+$(0,0)$         & $a_{00} = 1$ \\
+$(1,1)$         & $a_{11} = 1$ \\
+$(2,2)$         & $a_{22} = 1$ \\ \hline
+\end{tabular}  
+
+Processo $(i,j)$ computa:
+
+\begin{tabular}{|c|c|c|} \hline
+$c_{00} = 1 \times 1 = 1$ & $c_{01} = 1 \times 0 = 0$ & $c_{02} = 1 \times 2 = 2$ \\ \hline
+$c_{10} = 1 \times 2 = 2$ & $c_{11} = 1 \times 0 = 0$ & $c_{12} = 1 \times 3 = 3$ \\ \hline
+$c_{20} = 1 \times 1 = 1$ & $c_{21} = 1 \times 2 = 2$ & $c_{22} = 1 \times 1 = 1$ \\ \hline
+\end{tabular}
+
+\columnbreak
+
+\begin{tabular}{ccc}
+$a_{00}, b_{00}$ & $a_{00}, b_{01}$ & $a_{00}, b_{02}$ \\
+$a_{11}, b_{10}$ & $a_{11}, b_{11}$ & $a_{11}, b_{12}$ \\
+$a_{22}, b_{20}$ & $a_{22}, b_{21}$ & $a_{22}, b_{22}$ \\
+\end{tabular}
+
+\end{multicols}
+
+Execute o deslocamento cíclico das colunas de $B$
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $3 \times 3$}
+Estágio $k=1$:
+  
+\begin{multicols}{2}
+\begin{tabular}{|ll|} \hline
+Processo  & Broadcast \\ 
+$(i, i + 1 \mod 3)$ & na linha $i$ \\ \hline
+$(0,1)$         & $a_{01} = 2$ \\
+$(1,2)$         & $a_{12} = 2$ \\
+$(2,0)$         & $a_{20} = 1$ \\ \hline
+\end{tabular}  
+
+Processo $(i,j)$ computa:
+
+\begin{tabular}{|c|c|c|} \hline
+$c_{00} = 1 + 2 \times 2 = 5$ & $c_{01} = 0 + 2 \times 0 = 0$ & $c_{02} = 2 + 2 \times 3 = 8$ \\ \hline
+$c_{10} = 2 + 2 \times 1 = 4$ & $c_{11} = 0 + 2 \times 2 = 4$ & $c_{12} = 3 + 2 \times 1 = 5$ \\ \hline
+$c_{20} = 1 + 1 \times 1 = 2$ & $c_{21} = 2 + 1 \times 0 = 2$ & $c_{22} = 1 + 1 \times 2 = 3$ \\ \hline
+\end{tabular}
+
+\columnbreak
+
+\begin{tabular}{ccc}
+$a_{01}, b_{10}$ & $a_{01}, b_{11}$ & $a_{01}, b_{12}$ \\
+$a_{12}, b_{20}$ & $a_{12}, b_{21}$ & $a_{12}, b_{22}$ \\
+$a_{20}, b_{00}$ & $a_{20}, b_{01}$ & $a_{20}, b_{02}$ \\
+\end{tabular}
+
+\end{multicols}
+
+Execute o deslocamento cíclico das colunas de $B$
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo matriz $3 \times 3$}
+Estágio $k=2$:
+  
+\begin{multicols}{2}
+\begin{tabular}{|ll|} \hline
+Processo  & Broadcast \\ 
+$(i, i + 2 \mod 3)$ & na linha $i$ \\ \hline
+$(0,2)$         & $a_{02} = 2$ \\
+$(1,0)$         & $a_{10} = 2$ \\
+$(2,1)$         & $a_{21} = 1$ \\ \hline
+\end{tabular}  
+
+Processo $(i,j)$ computa:
+
+\begin{tabular}{|c|c|c|} \hline
+$c_{00} = 5 + 1 \times 1 = 6$ & $c_{01} = 0 + 1 \times 2 = 2$ & $c_{02} = 8 + 1 \times 1 = 9$ \\ \hline
+$c_{10} = 4 + 0 \times 1 = 4$ & $c_{11} = 4 + 0 \times 0 = 4$ & $c_{12} = 5 + 0 \times 2 = 5$ \\ \hline
+$c_{20} = 2 + 1 \times 2 = 4$ & $c_{21} = 2 + 1 \times 0 = 2$ & $c_{22} = 3 + 1 \times 3 = 6$ \\ \hline
+\end{tabular}
+
+\columnbreak
+
+\begin{tabular}{ccc}
+$a_{02}, b_{20}$ & $a_{02}, b_{21}$ & $a_{02}, b_{22}$ \\
+$a_{10}, b_{00}$ & $a_{10}, b_{01}$ & $a_{10}, b_{02}$ \\
+$a_{21}, b_{10}$ & $a_{21}, b_{11}$ & $a_{21}, b_{12}$ \\
+\end{tabular}
+
+\end{multicols}
+ \end{slide}
+
+\begin{slide}
+  \stitle{Implementação}
+  Código adaptado de P. Pacheco, Parallel Programming with MPI,
+
+\url{http://www.cs.usfca.edu/~peter/ppmpi/}
+ \end{slide}
+
+\begin{slide}
+  \stitle{Implementação}
+  
+\begin{verbatim}
+typedef struct {
+    int       p;         /* Total number of processes    */
+    MPI_Comm  comm;      /* Communicator for entire grid */
+    MPI_Comm  row_comm;  /* Communicator for my row      */
+    MPI_Comm  col_comm;  /* Communicator for my col      */
+    int       q;         /* Order of grid                */
+    int       my_row;    /* My row number                */
+    int       my_col;    /* My column number             */
+    int       my_rank;   /* My rank in the grid comm     */
+} GRID_INFO_T;
+
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Implementação}
+  
+\begin{verbatim}
+void Setupgrid (GRID_INFO_T* grid)
+{
+    int old_rank;
+    int dimensions[2];
+    int wrap_around[2];
+    int coordinates[2];
+    int free_coords[2];
+
+    /* Set up Global Grid Information */
+    MPI_Comm_size(MPI_COMM_WORLD, &(grid->p));
+    MPI_Comm_rank(MPI_COMM_WORLD, &old_rank);
+
+
+    /* We assume p is a perfect square */
+    grid->q = (int) sqrt((double) grid->p);
+    dimensions[0] = dimensions[1] = grid->q;
+    
+    /* We want a circular shift in second dimension. */
+    /* Don't care about first                        */
+    wrap_around[0] = wrap_around[1] = 1;
+    MPI_Cart_create(MPI_COMM_WORLD, 2, dimensions, 
+        wrap_around, 1, &(grid->comm));
+    MPI_Comm_rank(grid->comm, &(grid->my_rank));
+    MPI_Cart_coords(grid->comm, grid->my_rank, 2, 
+        coordinates);
+    grid->my_row = coordinates[0];
+    grid->my_col = coordinates[1];
+
+    /* Set up row communicators */
+    free_coords[0] = 0; 
+    free_coords[1] = 1;
+    MPI_Cart_sub(grid->comm, free_coords, 
+        &(grid->row_comm));
+
+    /* Set up column communicators */
+    free_coords[0] = 1; 
+    free_coords[1] = 0;
+    MPI_Cart_sub(grid->comm, free_coords, 
+        &(grid->col_comm));
+} /* Setup_grid */
+\end{verbatim}
+\end{slide}
+
+\begin{slide}
+  \stitle{Implementação}
+  
+\begin{verbatim}
+void Fox(
+        int              n         /* in  */, 
+        GRID_INFO_T*     grid      /* in  */, 
+        LOCAL_MATRIX_T*  local_A   /* in  */,
+        LOCAL_MATRIX_T*  local_B   /* in  */,
+        LOCAL_MATRIX_T*  local_C   /* out */) {
+
+    LOCAL_MATRIX_T*  temp_A; /* Storage for the sub-    */
+                             /* matrix of A used during */ 
+                             /* the current stage       */
+    int              stage;
+    int              bcast_root;
+    int              n_bar;  /* n/sqrt(p)               */
+    int              source;
+    int              dest;
+    MPI_Status       status;
+    n_bar = n/grid->q;
+    Set_to_zero(local_C);
+
+    /* Calculate addresses for circular shift of B */  
+    source = (grid->my_row + 1) % grid->q;
+    dest = (grid->my_row + grid->q - 1) % grid->q;
+
+    /* Set aside storage for the broadcast block of A */
+    temp_A = Local_matrix_allocate(n_bar);
+
+    for (stage = 0; stage < grid->q; stage++) {
+        bcast_root = (grid->my_row + stage) % grid->q;
+        if (bcast_root == grid->my_col) {
+            MPI_Bcast(local_A, 1, local_matrix_mpi_t,
+                bcast_root, grid->row_comm);
+            Local_matrix_multiply(local_A, local_B, 
+                local_C);
+        } else {
+            MPI_Bcast(temp_A, 1, local_matrix_mpi_t,
+                bcast_root, grid->row_comm);
+            Local_matrix_multiply(temp_A, local_B, 
+                local_C);
+        }
+        MPI_Sendrecv_replace(local_B, 1, local_matrix_mpi_t,
+            dest, 0, source, 0, grid->col_comm, &status);
+    } /* for */
+    
+} /* Fox */
+   
+\end{verbatim}
+\end{slide}
+
+
+\begin{slide}
+  \stitle{Fim}
+\end{slide}
+\end{document}
