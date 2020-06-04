@@ -46,6 +46,7 @@
 
 \usepackage{tikz}
 \usetikzlibrary{tikzmark}
+\usepackage{pgf}
 
 %----------------------------
 \usepackage{tabularx}
@@ -473,6 +474,10 @@ Note que a relação $\rightarrow$ é transitiva.
 
 \begin{slide}
   \stitle{Exclusão mútua}
+\end{slide}
+
+\begin{slide}
+  \stitle{Exclusão mútua}
 Problema: recursos não podem ser usados simultaneamente por vários processos
 
 Solução: garantir exclusividade de acesso (exclusão mútua)
@@ -624,6 +629,10 @@ Quando o anel é inicializado o processo 0 recebe o token
 
 \begin{slide}
   \stitle{Algoritmo de eleição}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo de eleição}
   Necessidade de um coordenador em ambiente distribuído
   
   A solução geral consiste em eleger o processo com maior ID
@@ -631,7 +640,436 @@ Quando o anel é inicializado o processo 0 recebe o token
   Todos os processos precisam concordar com a eleição    
 \end{slide}
 
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+\end{slide}
 
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+Desenvolvido por Garcia-Molina (1982)
+
+Quando um processo percebe que o coordenador não está respondendo requisições, ele inicia uma nova eleição.
+
+Convocações de eleição
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ P envia mensagem de eleição para todos os 
+
+\vspace{-1cm}\hspace{2cm}processos com IDs maiores.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+Eleições
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Se ninguém responde, P vence a eleição e torna-se 
+
+\vspace{-1cm}\hspace{2cm}coordenador.
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Se algum processo com id maior responde, ele desiste.
+  
+Quando um processo recebe mensagem de eleição 
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ Se o ID recebido é menor que o dele, envia OK para o remetente para indicar que está vivo e assume a coordenação.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+Todos os processos desistem, menos o que tiver maior ID.
+
+Se o processo que estava indisponível voltar é iniciada uma nova eleição.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n1) at (8, 11) {1}; 
+\node[circle, draw](n5) at (11,10) {5}; 
+\node[circle, draw](n2) at (5,10) {2}; 
+
+\node[circle, draw](n4) at (4,8) {4}; 
+\node[circle, draw](n6) at (12,8) {6};
+\node[circle, draw](n0) at (5,6) {0}; 
+\node[circle, draw](n3) at (11,6) {3}; 
+\node[circle, draw](n7) at (8,5) {7}; 
+
+\draw[thick][->](n4) -- node[above]{\tiny{eleição}} (n5);
+\draw[thick][->](n4) -- node[above]{\tiny{eleição}} (n6);
+\draw[thick][->](n4) -- node[above]{\tiny{eleição}} (n7);
+\draw[thin] (7,4) -- (9,6);
+\end{tikzpicture}
+\end{center}
+
+Processo 7 caiu.
+
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n1) at (8, 11) {1}; 
+\node[circle, draw](n5) at (11,10) {5}; 
+\node[circle, draw](n2) at (5,10) {2}; 
+
+\node[circle, draw](n4) at (4,8) {4}; 
+\node[circle, draw](n6) at (12,8) {6};
+\node[circle, draw](n0) at (5,6) {0}; 
+\node[circle, draw](n3) at (11,6) {3}; 
+\node[circle, draw](n7) at (8,5) {7}; 
+
+\draw[thick][->](n4) -- node[above]{\tiny{eleição}} (n5);
+\draw[thick][->](n4) -- node[above]{\tiny{eleição}} (n6);
+\draw[thick][->](n4) -- node[above]{\tiny{eleição}} (n7);
+\draw[thin] (7,4) -- (9,6);
+\end{tikzpicture}
+\end{center}
+
+Processo 4 percebeu e convocou nova eleição
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n1) at (8, 11) {1}; 
+\node[circle, draw](n5) at (11,10) {5}; 
+\node[circle, draw](n2) at (5,10) {2}; 
+
+\node[circle, draw](n4) at (4,8) {4}; 
+\node[circle, draw](n6) at (12,8) {6};
+\node[circle, draw](n0) at (5,6) {0}; 
+\node[circle, draw](n3) at (11,6) {3}; 
+\node[circle, draw](n7) at (8,5) {7}; 
+
+\draw[thick][<-](n4) -- node[above]{\tiny{OK}} (n5);
+\draw[thick][<-](n4) -- node[above]{\tiny{OK}} (n6);
+
+\draw[thin] (7,4) -- (9,6);
+\end{tikzpicture}
+\end{center}
+
+Processos 5 e 6 respondem OK para o processo 4 que desiste.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n1) at (8, 11) {1}; 
+\node[circle, draw](n5) at (11,10) {5}; 
+\node[circle, draw](n2) at (5,10) {2}; 
+
+\node[circle, draw](n4) at (4,8) {4}; 
+\node[circle, draw](n6) at (12,8) {6};
+\node[circle, draw](n0) at (5,6) {0}; 
+\node[circle, draw](n3) at (11,6) {3}; 
+\node[circle, draw](n7) at (8,5) {7}; 
+
+\draw[thick][<-](n6) -- node[right]{\tiny{eleição}} (n5);
+\draw[thick][<-](n7) -- node[left]{\tiny{eleição}} (n5);
+\draw[thick][<-](n7) -- node[above]{\tiny{eleição}} (n6);
+
+\draw[thin] (7,4) -- (9,6);
+\end{tikzpicture}
+\end{center}
+
+Processos 5 e 6 continuam a eleição.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n1) at (8, 11) {1}; 
+\node[circle, draw](n5) at (11,10) {5}; 
+\node[circle, draw](n2) at (5,10) {2}; 
+
+\node[circle, draw](n4) at (4,8) {4}; 
+\node[circle, draw](n6) at (12,8) {6};
+\node[circle, draw](n0) at (5,6) {0}; 
+\node[circle, draw](n3) at (11,6) {3}; 
+\node[circle, draw](n7) at (8,5) {7}; 
+
+\draw[thick][->](n6) -- node[right]{\tiny{OK}} (n5);
+
+\draw[thin] (7,4) -- (9,6);
+\end{tikzpicture}
+\end{center}
+
+Processos 6 envia OK para o processo 5 que desiste.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo do valentão}
+
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n1) at (8, 11) {1}; 
+\node[circle, draw](n5) at (11,10) {5}; 
+\node[circle, draw](n2) at (5,10) {2}; 
+
+\node[circle, draw](n4) at (4,8) {4}; 
+\node[circle, draw](n6) at (12,8) {6};
+\node[circle, draw](n0) at (5,6) {0}; 
+\node[circle, draw](n3) at (11,6) {3}; 
+\node[circle, draw](n7) at (8,5) {7}; 
+
+\draw[thick][->](n6) -- node[right] {} (n0);
+\draw[thick][->](n6) -- node[right] {} (n1);
+\draw[thick][->](n6) -- node[above]{\tiny{Coordenador}} (n4);
+\draw[thick][->](n6) -- node[right] {} (n2);
+\draw[thick][->](n6) -- node[right] {} (n3);
+\draw[thick][->](n6) -- node[right] {} (n5);
+
+\draw[thin] (7,4) -- (9,6);
+\end{tikzpicture}
+\end{center}
+
+Processos 6 avisa aos demais processos que ele é o novo líder.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo em anel}
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo em anel}
+  
+  Não utiliza token
+  
+  Processos fisicamente ou logicamente ordenados - cada processo reconhece seu sucessor
+  
+  Quando um processo percebe que o coordenador caiu ele inicia uma eleição.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo em anel}
+O processo envia mensagem de eleição para o sucessor, com seu ID.
+
+Se o sucessor está indisponível, envia para o próximo, e assim sucessivamente.
+
+A cada passo, o processo que recebe a mensagem adiciona seu ID e repassa para o sucessor.   
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo em anel}
+  
+  A mensagem deve retornar para quem iniciou a eleição.
+  
+  Quem enviou reconhece a mensagem por conter o seu ID.
+  
+  Decide quem deve ser o coordenador pelo maior ID.
+  
+  Avisa com uma nova rodada quem é o novo coordenador.
+\end{slide}
+
+\begin{slide}
+  \stitle{Algoritmo em anel - Exemplo}
+  
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n1) at (8, 11) {1}; 
+\node[circle, draw](n2) at (11,10) {2}; 
+\node[circle, draw](n0) at (5,10) {0}; 
+
+\node[circle, draw](n7) at (3,8) {7}; 
+\node[circle, draw](n3) at (12,8) {3};
+\node[circle, draw](n6) at (5,6) {6}; 
+\node[circle, draw](n4) at (11,6) {4}; 
+\node[circle, draw](n5) at (8,5) {5}; 
+
+\draw[thick][->](n6) -- node[right] {\tiny{[5,6]}} (n0);
+\draw[thick][->](n0) -- node[above] {\tiny{[5,6,0]}} (n1);
+\draw[thick][->](n2) -- node[right]{\tiny{[2]}} (n3);
+\draw[thick][->](n3) -- node[right] {\tiny{[2,3]}} (n4);
+\draw[thick][->](n5) -- node[below] {\tiny{[5]}} (n6);
+
+\draw[thin] (2,7) -- (4,9);
+\end{tikzpicture}
+
+Processo (coordenador) 7 caiu, 2 e 5 percebem e iniciam eleição "simultaneamente", no final o 6 é o novo coordenador.
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Tolerância a falhas}
+\end{slide}
+
+\begin{slide}
+  \stitle{Tolerância a falhas}
+  
+\textbf{Tolerância a falhas:} propriedade que permite que sistemas continuem operando adequadamente após falha.
+
+\textbf{Resiliência:} conceito físico, mas adotado no contexto computacional, pode ser entendido como a capacidade de adaptação ou recuperação de um sistema.
+\end{slide}
+
+\begin{slide}
+  \stitle{Tolerância a falhas}
+\textbf{Falha:} Quando o componente de um sistema deixa de se comportar conforme a especificação correta.
+
+\textbf{Erro:} Causa de falha.
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema dos Generais Bizantinos}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema dos Generais Bizantinos}
+\begin{center}
+\includegraphics[width=.5\textwidth]{fig09}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema dos Generais Bizantinos}
+  Generais binzantinos sitiam uma cidade 
+  
+\vspace{-1cm}\hspace{1cm}\itemtrig\ alguns generais são traidores
+  
+\vspace{-1cm}\hspace{1cm}\itemtrig\ mas devem chegar no concenso de atacar ou recuar.
+  
+\vspace{-1cm}\hspace{1cm}\itemtrig\ generais traidores não podem/devem atrapalhar o concenso.
+
+Concordância bizantina: consenso na presença de falhas arbitrárias.
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema dos Generais Bizantinos}
+Meta:
+
+Conseguir o consenso entre todos os nós sem defeitos (nós não traidores)
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ generais não traidores devem tomar a mesma decisão (atacar ou recuar)
+
+\vspace{-1cm}\hspace{1cm}\itemtrig\ generais traidores podem enviar mensagem diferentes para generais diferentes.
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo com 3 Generais Bizantinos}
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n0) at (8, 11) {0}; 
+\node[above] at (8,11.5){\tiny{general}};
+\node[circle, draw](n1) at (11,7) {1}; 
+\node[right] at (11.6,7){\tiny{traidor}};
+\node[circle, draw](n2) at (5,7) {2}; 
+\draw[thick][->](n0) -- node[right] {\tiny{atacar}} (n1);
+\draw[thick][->](n0) -- node[left] {\tiny{atacar}} (n2);
+\draw[thick][->](n1) -- node[below] {\tiny{recuar}} (n2);
+\end{tikzpicture}
+\end{center}
+\end{slide}
+
+\begin{slide}
+  \stitle{Exemplo com 3 Generais Bizantinos}
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n0) at (8, 11) {0}; 
+\node[above] at (8,11.5){\tiny{general traídor}};
+\node[circle, draw](n1) at (11,7) {1}; 
+\node[circle, draw](n2) at (5,7) {2}; 
+\draw[thick][->](n0) -- node[right] {\tiny{recuar}} (n1);
+\draw[thick][->](n0) -- node[left] {\tiny{atacar}} (n2);
+\draw[thick][->](n1) -- node[below] {\tiny{recuar}} (n2);
+\end{tikzpicture}
+\end{center}
+Problema insolúvel, o nó 2 não consegue distinguir uma situação da outra.
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema dos Generais Bizantinos}
+
+Lamport, Shostak e Pease (1982)
+
+\hspace{1cm}\itemtrig\ Dados $n$ processos (generais), pode ser tolerado até $m$ generais traidores sendo que $n \geq 3m+1$.
+
+\hspace{2cm}Exemplo: $4$ processos podem tolerar até $1$ processo traidor.
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema com 4 Generais Bizantinos}
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n0) at (5, 11) {0}; 
+\node[circle, draw](n1) at (11,11) {1}; 
+\node[circle, draw](n2) at (11,7) {2}; 
+\node[right] at (11.6,7){\tiny{traidor}};
+
+\node[circle, draw](n3) at (5,7) {3}; 
+\draw[thick][->](n0) -- node[above] {\tiny{atacar}} (n1);
+\draw[thick][->](n0) -- node[right] {\tiny{atacar}} (n2);
+\draw[thick][->](n0) -- node[left] {\tiny{atacar}} (n3);
+\end{tikzpicture}
+\end{center}
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema com 4 Generais Bizantinos}
+\begin{center}
+\begin{tikzpicture}
+\node[circle, draw](n0) at (5, 11) {0}; 
+\node[circle, draw](n1) at (11,11) {1}; 
+\node[circle, draw](n2) at (11,7) {2}; 
+\node[right] at (11.6,7){\tiny{traidor}};
+\node[circle, draw](n3) at (5,7) {3}; 
+
+\draw[->] (n1) .. controls (7,9.9) .. node[above] {\tiny{atacar}} (n3);
+\draw[thick][->](n3) -- node[above] {\tiny{atacar}} (n1);
+
+\draw[thick][->](n2) -- node[above] {\tiny{atacar}} (n3);
+\draw[thick, blue][->](n2) -- node[left] {\tiny{recuar}} (n1);
+
+\draw[->] (n3) .. controls (8,6) .. node[below] {\tiny{atacar}} (n2);
+\draw[->] (n1) .. controls (12,9) .. node[right] {\tiny{atacar}} (n2);
+\end{tikzpicture}
+\end{center}
+  
+  0,1 e 3 decidem atacar (consenso)
+  
+  Note que estamos considerando um sistema síncrono (timeout)
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema dos Generais Bizantinos}
+O que acontece em um cenário com 9 generais, onde 1 general traidor envia 4 mensagens de atacar para 4 generais e 4 mensagens de recuar para os outros 4 generais?
+  
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema dos Generais Bizantinos}
+E se fossem 6 mensagens de atacar e 2 de recuar?
+
+Considere também o caso com 5 mensagens de recuar e 3 de atacar.  
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema dos Generais Bizantinos}
+  Diversos algoritmos foram propostos para tratar o problema da concordância bizantina.
+  
+\begin{teorema}
+Se $2/3+1$ dos generais não são traidores, então existe uma solução (algoritmo) que resulta em uma ação comum que independe das mensagens enviadas pelos traidores.
+\end{teorema}
+\end{slide}
+
+\begin{slide}
+  \stitle{Problema dos Generais Bizantinos} 
+\begin{teorema}
+Se $1/3$ ou mais dos generais são traidores, então não existe uma solução para o problema.
+\end{teorema}
+\end{slide}
+
+\begin{slide}
+  \stitle{Exercício}
+  Implemente um programa com MPI que trate/resolva o problema dos generais bizantinos.   
+\end{slide}
 
 \begin{slide}
   \stitle{Fim}
