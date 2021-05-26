@@ -296,7 +296,7 @@ while (cont < LIMITE) {
       printf("%d enviou valor %d para %d\n", id, cont, vizinho);
 
    } else {
-      MPI_Recv(&contador, 1, MPI_INT, vizinho, 
+      MPI_Recv(&cont, 1, MPI_INT, vizinho, 
                             tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
       printf("%d recebeu valor %d de %d\n", id, cont, vizinho);
    }
@@ -1039,7 +1039,7 @@ int main(int argc, char *argv[]){
   \li  \For $i = 0$ \To $n$ \DoSeq 
   \li  $contador = 0$ 
   \li  \For $j = 1$ \To $n$ \DoSeq 
-  \li  \If $v[i] < v[j]$ \Then 
+  \li  \If $v[i] > v[j]$ \Then 
   \li  $contador = contador + 1$ \End   \End  
   \li  $vetor\_ordenado[contador] = v[i]$  \End  \End
 \end{codebox}
@@ -1066,10 +1066,10 @@ Exemplo: $n = 4$, $v=\{4,2,3,1\} $
   
 \begin{tabular}{|l|l|l|l|} \hline
 i = 1 & \multicolumn{3}{c|}{} \\ \hline
-      & j = 1  & \hspace{2cm}$v[1] = 4 \geq v[1] = 4$ &\hspace{2cm} $contador = 1$  \\ \hline
-      & j = 2  & \hspace{2cm}$v[1] = 4 \geq v[2] = 2$ &\hspace{2cm} $contador = 2$  \\ \hline
-      & j = 3  & \hspace{2cm}$v[1] = 4 \geq v[3] = 3$ &\hspace{2cm} $contador = 3$  \\ \hline
-      & j = 4  & \hspace{2cm}$v[1] = 4 \geq v[4] = 1$ &\hspace{2cm} $contador = 4$  \\ \hline
+      & j = 1  & \hspace{2cm}$v[1] = 4 > v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 2  & \hspace{2cm}$v[1] = 4 > v[2] = 2$ &\hspace{2cm} $contador = 1$  \\ \hline
+      & j = 3  & \hspace{2cm}$v[1] = 4 > v[3] = 3$ &\hspace{2cm} $contador = 2$  \\ \hline
+      & j = 4  & \hspace{2cm}$v[1] = 4 > v[4] = 1$ &\hspace{2cm} $contador = 3$  \\ \hline
 \multicolumn{4}{|l|}{$vetor\_ordenado[contador] = v[1]$}\\ \hline
 \end{tabular}  
 
@@ -1083,10 +1083,10 @@ Exemplo: $n = 4$, $v=\{4,2,3,1\} $
   
 \begin{tabular}{|l|l|l|l|} \hline
 i = 2 & \multicolumn{3}{c|}{} \\ \hline
-      & j = 1  & \hspace{2cm}$v[2] = 2 \geq v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
-      & j = 2  & \hspace{2cm}$v[2] = 2 \geq v[2] = 2$ &\hspace{2cm} $contador = 1$  \\ \hline
-      & j = 3  & \hspace{2cm}$v[2] = 2 \geq v[3] = 3$ &\hspace{2cm} $contador = 1$  \\ \hline
-      & j = 4  & \hspace{2cm}$v[2] = 2 \geq v[4] = 1$ &\hspace{2cm} $contador = 2$  \\ \hline
+      & j = 1  & \hspace{2cm}$v[2] = 2 > v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 2  & \hspace{2cm}$v[2] = 2 > v[2] = 2$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 3  & \hspace{2cm}$v[2] = 2 > v[3] = 3$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 4  & \hspace{2cm}$v[2] = 2 > v[4] = 1$ &\hspace{2cm} $contador = 1$  \\ \hline
 \multicolumn{4}{|l|}{$vetor\_ordenado[contador] = v[2]$}\\ \hline
 \end{tabular}  
 
@@ -1100,10 +1100,10 @@ Exemplo: $n = 4$, $v=\{4,2,3,1\} $
   
 \begin{tabular}{|l|l|l|l|} \hline
 i = 3 & \multicolumn{3}{c|}{} \\ \hline
-      & j = 1  & \hspace{2cm}$v[3] = 3 \geq v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
-      & j = 2  & \hspace{2cm}$v[3] = 3 \geq v[2] = 2$ &\hspace{2cm} $contador = 1$  \\ \hline
-      & j = 3  & \hspace{2cm}$v[3] = 3 \geq v[3] = 3$ &\hspace{2cm} $contador = 2$  \\ \hline
-      & j = 4  & \hspace{2cm}$v[3] = 3 \geq v[4] = 1$ &\hspace{2cm} $contador = 3$  \\ \hline
+      & j = 1  & \hspace{2cm}$v[3] = 3 > v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 2  & \hspace{2cm}$v[3] = 3 > v[2] = 2$ &\hspace{2cm} $contador = 1$  \\ \hline
+      & j = 3  & \hspace{2cm}$v[3] = 3 > v[3] = 3$ &\hspace{2cm} $contador = 1$  \\ \hline
+      & j = 4  & \hspace{2cm}$v[3] = 3 > v[4] = 1$ &\hspace{2cm} $contador = 2$  \\ \hline
 \multicolumn{4}{|l|}{$vetor\_ordenado[contador] = v[3]$}\\ \hline
 \end{tabular}  
 
@@ -1117,10 +1117,10 @@ Exemplo: $n = 4$, $v=\{4,2,3,1\} $
   
 \begin{tabular}{|l|l|l|l|} \hline
 i = 4 & \multicolumn{3}{c|}{} \\ \hline
-      & j = 1  & \hspace{2cm}$v[4] = 1 \geq v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
-      & j = 2  & \hspace{2cm}$v[4] = 1 \geq v[2] = 2$ &\hspace{2cm} $contador = 0$  \\ \hline
-      & j = 3  & \hspace{2cm}$v[4] = 1 \geq v[3] = 3$ &\hspace{2cm} $contador = 0$  \\ \hline
-      & j = 4  & \hspace{2cm}$v[4] = 1 \geq v[4] = 1$ &\hspace{2cm} $contador = 1$  \\ \hline
+      & j = 1  & \hspace{2cm}$v[4] = 1 > v[1] = 4$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 2  & \hspace{2cm}$v[4] = 1 > v[2] = 2$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 3  & \hspace{2cm}$v[4] = 1 > v[3] = 3$ &\hspace{2cm} $contador = 0$  \\ \hline
+      & j = 4  & \hspace{2cm}$v[4] = 1 > v[4] = 1$ &\hspace{2cm} $contador = 0$  \\ \hline
 \multicolumn{4}{|l|}{$vetor\_ordenado[contador] = v[4]$}\\ \hline
 \end{tabular}  
 
@@ -1152,7 +1152,7 @@ $vetor\_ordenado = [1,2,3,4]$
   \li   \If $id = MESTRE$ \Then
   \li  \> \For $i = 1$   \To $n$ \DoSeq
   \li  \>        $\proc{recebe}(contador, valor, ANY\_SOURCE)$
-  \li  \>        $vetor\_ordenado[contador] = v[i]$  \End  
+  \li  \>        $vetor\_ordenado[contador] = valor$  \End  
   \li  \Else
   \li  \> $inicio = (id - 1) * n\_local$  
   \li  \> $fim = inicio + n\_local$
